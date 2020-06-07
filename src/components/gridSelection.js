@@ -1,12 +1,25 @@
 import React from 'react'
 
 class GridSelection extends React.Component {
+
+    setStartSelection = () => {
+        this.props.updateSelection("start")
+    }
+    setEndSelection = () => {
+        this.props.updateSelection("end")
+    }
+    setWallSelection = () => {
+        this.props.updateSelection("wall")
+    }
+
     render() {
-        <div>
-            <div><p>Start</p></div>
-            <div><p>End</p></div>
-            <div><p>Wall</p></div>
-        </div>
+        return (
+            <div>
+                <button onClick={this.setStartSelection}>Start</button>
+                <button onClick={this.setEndSelection}>End</button>
+                <button onClick={this.setWallSelection}>Wall</button>
+            </div>
+        )
     }
 }
 
