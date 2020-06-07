@@ -24,7 +24,26 @@ class GridNode extends React.Component {
     onClickHandler = () => {
         // set conditional to render different color based on predefined selection: wall, start, end
         console.log(`This box was clicked x=${this.state.x}, y=${this.state.y}`, this.state.wall)
-        this.setState({ wall: !this.state.wall})
+        if (this.props.selection === "wall") {
+            this.setState({ 
+                wall: true,
+                start: false,
+                end: false
+            })
+        } else if (this.props.selection === "start") {
+            this.setState({
+                wall: false,
+                start: true,
+                end: false
+            })
+        } else {
+            this.setState({
+                wall: false,
+                start: false,
+                end: true
+            })
+        }
+        
     }
 
     render() {
