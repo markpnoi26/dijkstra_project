@@ -4,7 +4,7 @@ class GridNode extends React.Component {
 
     render() {
         return (
-            <p>I am a node</p>
+            <p>node</p>
         )
     }
 }
