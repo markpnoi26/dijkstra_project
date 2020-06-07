@@ -1,12 +1,12 @@
 import React from 'react';
-import GridHolder from './containers/gridHolder'
+import AppContainer from './containers/appContainer'
 
 function App() {
+
   return (
-    <div>
-      <GridHolder />
-    </div>
+    <AppContainer />
   );
+
 }
 
 export default App;
