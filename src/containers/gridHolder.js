@@ -5,19 +5,35 @@ import Node from '../components/gridNode'
 class GridHolder extends React.Component {
 
     fillRow() {
-
-    }
-
-    fillCol() {
-        
+        return (
+            <tr> 
+                <td> <Node /></td>
+                <td> <Node /></td>
+                <td> <Node /></td>
+                <td> <Node /></td>
+                <td> <Node /></td>
+                <td> <Node /></td>
+                <td> <Node /></td>
+                <td> <Node /></td>
+                <td> <Node /></td>
+                <td> <Node /></td>
+            </tr>
+        )
     }
 
     render() {
         return (
-            <div>
-                <h1> This is the Grid Holder </h1>
-                <Node />
-            </div>
+            <table>
+                {this.fillRow()}
+                {this.fillRow()}
+                {this.fillRow()}
+                {this.fillRow()}
+                {this.fillRow()}
+                {this.fillRow()}
+                {this.fillRow()}
+                {this.fillRow()}
+                {this.fillRow()}
+            </table>
         )
     }
 }
