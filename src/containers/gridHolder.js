@@ -10,7 +10,7 @@ class GridHolder extends React.Component {
             colNum.map((x) => {
                 return (
                     <td key={`x${x}`}>
-                        <GridNode x={x} y={y} />
+                        <GridNode x={x} y={y} selection={this.props.selection}/>
                     </td>
                 )
             })
