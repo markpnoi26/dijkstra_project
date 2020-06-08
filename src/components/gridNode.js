@@ -8,30 +8,27 @@ class GridNode extends React.Component {
             x: this.props.x,
             y: this.props.y,
             wall: false,
-            found: false,
-            from: null
         }
     }
 
+    // visual representation of wall, start, end
     setColor = () => {
         if (this.state.x === this.props.start[0] && this.state.y === this.props.start[1]) {
             return "green"
         } else if (this.state.x === this.props.end[0] && this.state.y === this.props.end[1]) {
-            return "red"
+            return "blue"
         } else if (this.state.wall) {
-            return "black"
+            return "grey"
         }
     }
 
     handleClick = () => {
-        
-        console.log(`This box was clicked x=${this.state.x}, y=${this.state.y}`, this.state.wall)
+    
         if (this.props.selection === "start") {
             this.props.updateStart([this.state.x, this.state.y])
         } else if (this.props.selection === "end") {
             this.props.updateEnd([this.state.x, this.state.y])
-        }
-        
+        } 
     }
 
     // the props is passed from parent, but activated on mouseDown/mouseUp event => handled by parent.
@@ -45,17 +42,21 @@ class GridNode extends React.Component {
 
     render() {
         const nodeStyle = {
-            height: "100%",
-            width: "100%",
-            top: "0px",
-            left: "0px",
-            border: "1px solid black",
+            height: "15px",
+            width: "15px",
+            display: "table-cell",
+            border: "0.5px solid grey",
             backgroundColor: this.setColor()
         }
+        
+
+        // several states are controlled by parent element like the handleMouseEvent (mouse up & mouse down)
+        // onMouseLeave is placed so the painting starts at the node that was clicked.
         return (
             <div 
                 style={nodeStyle} 
                 onClick={this.handleClick} 
+                onMouseLeave={this.handleMouseOver} 
                 onMouseOver={this.handleMouseOver} 
                 onMouseDown={this.props.handleMouseEvent} 
                 onMouseUp={this.props.handleMouseEvent}> 
