@@ -7,8 +7,6 @@ class GridNode extends React.Component {
         this.state = {
             x: this.props.x,
             y: this.props.y,
-            start: false,
-            end: false,
             wall: false,
             found: false,
             from: null
@@ -16,32 +14,26 @@ class GridNode extends React.Component {
     }
 
     setColor = () => {
-        if (this.state.wall) return "black"
-        if (this.state.start) return "green"
-        if (this.state.end) return "red"
+        if (this.state.wall) {
+            return "black"
+        } else if (this.state.x === this.props.start[0] && this.state.y === this.props.start[1]) {
+            return "green"
+        } else if (this.state.x === this.props.end[0] && this.state.y === this.props.end[1]) {
+            return "red"
+        }
     }
 
     onClickHandler = () => {
-        // set conditional to render different color based on predefined selection: wall, start, end
+        
         console.log(`This box was clicked x=${this.state.x}, y=${this.state.y}`, this.state.wall)
         if (this.props.selection === "wall") {
             this.setState({ 
-                wall: true,
-                start: false,
-                end: false
+                wall: true
             })
         } else if (this.props.selection === "start") {
-            this.setState({
-                wall: false,
-                start: true,
-                end: false
-            })
-        } else {
-            this.setState({
-                wall: false,
-                start: false,
-                end: true
-            })
+            this.props.updateStart([this.state.x, this.state.y])
+        } else if (this.props.selection === "end") {
+            this.props.updateEnd([this.state.x, this.state.y])
         }
         
     }

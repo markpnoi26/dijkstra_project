@@ -8,7 +8,9 @@ class AppContainer extends React.Component {
     constructor() {
         super() 
         this.state = {
-            selection: null
+            selection: null,
+            start: [0,0],
+            end: [9,9]
         }
     }
 
@@ -19,11 +21,29 @@ class AppContainer extends React.Component {
         console.log(selection)
     }
 
+    updateStart = (coordinates) => {
+        this.setState({
+            start: [coordinates[0], coordinates[1]]
+        })
+    }
+
+    updateEnd = (coordinates) => {
+        this.setState({
+            end: [coordinates[0], coordinates[1]]
+        })
+    }
+
     render() {
         return (
             <div>
                 <SelectionHolder updateSelection={this.updateSelection}/>
-                <GridHolder selection={this.state.selection} />
+                <GridHolder 
+                    selection={this.state.selection} 
+                    start={this.state.start} 
+                    end={this.state.end} 
+                    updateStart={this.updateStart} 
+                    updateEnd={this.updateEnd} 
+                />
             </div>
         )
     }
