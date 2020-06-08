@@ -40,9 +40,9 @@ class GridNode extends React.Component {
 
     render() {
         const nodeStyle = {
-            height: "25px",
-            width: "25px",
-            padding: "10px",
+            height: "15px",
+            width: "15px",
+            padding: "1px",
             margin: "0px",
             border: "1px solid black",
             backgroundColor: this.setColor()

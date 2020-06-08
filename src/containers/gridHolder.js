@@ -5,7 +5,7 @@ import GridNode from '../components/gridNode'
 class GridHolder extends React.Component {
 
     fillCol(y) {
-        const colNum = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        const colNum = Array.from(Array(this.props.size).keys())
         return(
             colNum.map((x) => {
                 return (
@@ -26,7 +26,7 @@ class GridHolder extends React.Component {
     }
 
     render() {
-        const rowNum = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        const rowNum = Array.from(Array(this.props.size).keys())
         return(
             <table>
                 <tbody>

@@ -10,7 +10,8 @@ class AppContainer extends React.Component {
         this.state = {
             selection: null,
             start: [0,0],
-            end: [9,9]
+            end: [9,9],
+            size: 20
         }
     }
 
@@ -43,6 +44,7 @@ class AppContainer extends React.Component {
                     end={this.state.end} 
                     updateStart={this.updateStart} 
                     updateEnd={this.updateEnd} 
+                    size={this.state.size}
                 />
             </div>
         )
