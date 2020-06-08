@@ -47,7 +47,7 @@ class GridHolder extends React.Component {
 
     fillRow(y) {
         return(
-            <div className="row-holder" key={`y${y}`} style={{display: "table"}}> 
+            <div className="row-holder" key={`row-y-${y}`} style={{display: "table"}}> 
                {this.fillCol(y)}
             </div>
         )

@@ -54,6 +54,7 @@ class GridNode extends React.Component {
         // onMouseLeave is placed so the painting starts at the node that was clicked.
         return (
             <div 
+                className="node"
                 style={nodeStyle} 
                 onClick={this.handleClick} 
                 onMouseLeave={this.handleMouseOver} 
