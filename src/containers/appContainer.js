@@ -11,7 +11,7 @@ class AppContainer extends React.Component {
             selection: null,
             start: [0,0],
             end: [9,9],
-            size: 20
+            size: 30
         }
     }
 
