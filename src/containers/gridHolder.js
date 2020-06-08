@@ -29,17 +29,17 @@ class GridHolder extends React.Component {
         return(
             colNum.map((x) => {
                 return (
-                    <td key={`x${x}`} style={{padding: "0"}}>
-                        <GridNode 
-                            x={x} y={y} 
-                            selection={this.props.selection} 
-                            start={this.props.start} 
-                            end={this.props.end} 
-                            updateStart={this.props.updateStart} 
-                            updateEnd={this.props.updateEnd} 
-                            isPainting={this.state.isPainting} 
-                            handleMouseEvent={this.handleMouseEvent}/>
-                    </td>
+                    <GridNode 
+                        key={`node-x-${x}-y-${y}`}
+                        x={x} y={y} 
+                        selection={this.props.selection} 
+                        start={this.props.start} 
+                        end={this.props.end} 
+                        updateStart={this.props.updateStart} 
+                        updateEnd={this.props.updateEnd} 
+                        isPainting={this.state.isPainting} 
+                        handleMouseEvent={this.handleMouseEvent}
+                    />
                 )
             })
         )
@@ -47,22 +47,20 @@ class GridHolder extends React.Component {
 
     fillRow(y) {
         return(
-            <tr key={`y${y}`} > 
+            <div className="row-holder" key={`y${y}`} style={{display: "table"}}> 
                {this.fillCol(y)}
-            </tr>
+            </div>
         )
     }
 
     render() {
         const rowNum = Array.from(Array(this.props.size).keys())
         return(
-            <table style={{width: "600px", height: "600px"}}>
-                <tbody>
-                    {rowNum.map((y) => {
-                        return this.fillRow(y)
-                    })}
-                </tbody>
-            </table>
+            <div className="main-holder" style={{width: "600px", height: "600px"}} >
+                {rowNum.map((y) => {
+                    return this.fillRow(y)
+                })}
+            </div>
         )
     }
 }
