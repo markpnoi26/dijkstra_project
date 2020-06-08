@@ -37,7 +37,9 @@ class AppContainer extends React.Component {
     render() {
         return (
             <div>
-                <SelectionHolder updateSelection={this.updateSelection}/>
+                <SelectionHolder 
+                    updateSelection={this.updateSelection}
+                />
                 <GridHolder 
                     selection={this.state.selection} 
                     start={this.state.start} 

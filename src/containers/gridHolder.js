@@ -7,21 +7,31 @@ class GridHolder extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            isPainting: false
+            isBuilding: false,
+            isTearing: false
         }
     }
 
     //this handle the painting of the walls which is passed down to the child element
     handleMouseEvent = (event) => {
-        if (event.type === "mousedown") {
+        if (event.type === "mousedown" && this.props.selection === "wall") {
             this.setState({
-                isPainting: true
+                isBuilding: true
             })
-        } else if (event.type === "mouseup") {
+        } else if (event.type === "mouseup" && this.props.selection === "wall") {
             this.setState({
-                isPainting: false
+                isBuilding: false
             })
-        }
+        } 
+        if (event.type === "mousedown" && this.props.selection === "teardown") {
+            this.setState({
+                isTearing: true
+            })
+        } else if (event.type === "mouseup" && this.props.selection === "teardown") {
+            this.setState({
+                isTearing: false
+            })
+        } 
     }
 
     fillCol(y) {
@@ -37,7 +47,8 @@ class GridHolder extends React.Component {
                         end={this.props.end} 
                         updateStart={this.props.updateStart} 
                         updateEnd={this.props.updateEnd} 
-                        isPainting={this.state.isPainting} 
+                        isBuilding={this.state.isBuilding} 
+                        isTearing={this.state.isTearing}
                         handleMouseEvent={this.handleMouseEvent}
                     />
                 )
