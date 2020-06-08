@@ -9,8 +9,8 @@ class AppContainer extends React.Component {
         super() 
         this.state = {
             selection: null,
-            start: [0,0],
-            end: [9,9],
+            start: [5,14],
+            end: [24,14],
             size: 30
         }
     }
