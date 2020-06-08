@@ -9,7 +9,7 @@ class GridHolder extends React.Component {
         return(
             colNum.map((x) => {
                 return (
-                    <td key={`x${x}`}>
+                    <td key={`x${x}`} style={{padding: "0"}}>
                         <GridNode x={x} y={y} selection={this.props.selection} start={this.props.start} end={this.props.end} updateStart={this.props.updateStart} updateEnd={this.props.updateEnd}/>
                     </td>
                 )
@@ -19,7 +19,7 @@ class GridHolder extends React.Component {
 
     fillRow(y) {
         return(
-            <tr key={`y${y}`}> 
+            <tr key={`y${y}`} > 
                {this.fillCol(y)}
             </tr>
         )
@@ -28,7 +28,7 @@ class GridHolder extends React.Component {
     render() {
         const rowNum = Array.from(Array(this.props.size).keys())
         return(
-            <table>
+            <table style={{width: "600px", height: "600px"}}>
                 <tbody>
                     {rowNum.map((y) => {
                         return this.fillRow(y)
