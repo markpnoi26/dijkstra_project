@@ -45,7 +45,7 @@ class GridNode extends React.Component {
             height: "15px",
             width: "15px",
             display: "table-cell",
-            border: "0.5px solid grey",
+            border: "0.5px dashed grey",
             backgroundColor: this.setColor()
         }
         
