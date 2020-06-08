@@ -23,19 +23,24 @@ class GridNode extends React.Component {
         }
     }
 
-    onClickHandler = () => {
+    handleClick = () => {
         
         console.log(`This box was clicked x=${this.state.x}, y=${this.state.y}`, this.state.wall)
-        if (this.props.selection === "wall") {
-            this.setState({ 
-                wall: true
-            })
-        } else if (this.props.selection === "start") {
+        if (this.props.selection === "start") {
             this.props.updateStart([this.state.x, this.state.y])
         } else if (this.props.selection === "end") {
             this.props.updateEnd([this.state.x, this.state.y])
         }
         
+    }
+
+    // the props is passed from parent, but activated on mouseDown/mouseUp event => handled by parent.
+    handleMouseOver = () => {
+        if (this.props.isPainting) {
+            this.setState({
+                wall: true
+            })
+        }
     }
 
     render() {
@@ -48,7 +53,12 @@ class GridNode extends React.Component {
             backgroundColor: this.setColor()
         }
         return (
-            <div style={nodeStyle} onClick={this.onClickHandler} >
+            <div 
+                style={nodeStyle} 
+                onClick={this.handleClick} 
+                onMouseOver={this.handleMouseOver} 
+                onMouseDown={this.props.handleMouseEvent} 
+                onMouseUp={this.props.handleMouseEvent}> 
             </div>
         )
     }
