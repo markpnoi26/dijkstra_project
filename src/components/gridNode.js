@@ -14,12 +14,12 @@ class GridNode extends React.Component {
     }
 
     setColor = () => {
-        if (this.state.wall) {
-            return "black"
-        } else if (this.state.x === this.props.start[0] && this.state.y === this.props.start[1]) {
+        if (this.state.x === this.props.start[0] && this.state.y === this.props.start[1]) {
             return "green"
         } else if (this.state.x === this.props.end[0] && this.state.y === this.props.end[1]) {
             return "red"
+        } else if (this.state.wall) {
+            return "black"
         }
     }
 
@@ -40,10 +40,10 @@ class GridNode extends React.Component {
 
     render() {
         const nodeStyle = {
-            height: "15px",
-            width: "15px",
-            padding: "1px",
-            margin: "0px",
+            height: "100%",
+            width: "100%",
+            top: "0px",
+            left: "0px",
             border: "1px solid black",
             backgroundColor: this.setColor()
         }
