@@ -1,19 +1,20 @@
 import React from 'react'
 import GridNode from '../components/gridNode'
+import dijkstra from '../algorithms/dijkstra'
 
 
-class GridHolder extends React.Component {
-
+export default class GridHolder extends React.Component {
+ 
     constructor(props) {
         super(props)
         this.state = {
             isBuilding: false,
             isTearing: false,
-            start: [5, 14],
-            end: [24, 14],
+            start: [5, 15],
+            end: [24, 15],
             size: 30,
-            nodesVisited: null,
-            shortestPath: null,
+            nodesVisited: [],
+            shortestPath: [],
             grid: []
         }
     }
@@ -41,16 +42,19 @@ class GridHolder extends React.Component {
     }
 
     addWall = (x,y) => {
-       const grid = [...this.state.grid]
-       grid[x][y] = "*"
-       this.setState({ grid: grid})
+        const grid = updateGridWithWall(this.state.grid, x, y)
+        this.setState({
+            grid
+        })
     }
 
     deleteWall = (x,y) => {
-        const grid = [...this.state.grid]
-        grid[x][y] = 1
-        this.setState({ grid: grid})
+        const grid = updateGridWithoutWall(this.state.grid, x, y)
+        this.setState({
+            grid
+        })
     }
+
 
     // updates the start point & end point
     updateStart = (coordinates) => {
@@ -63,6 +67,10 @@ class GridHolder extends React.Component {
         this.setState({
             end: [coordinates[0], coordinates[1]]
         })
+    }
+
+    performDijkstra = () => {
+        console.log(dijkstra(this.state.grid, this.state.start, this.state.end))
     }
 
     // generates the grid
@@ -113,13 +121,26 @@ class GridHolder extends React.Component {
     render() {
         const rowNum = Array.from(Array(this.state.size).keys())
         return(
-            <div className="main-holder" style={{width: "1000px", height: "1000px"}} >
-                {rowNum.map((y) => {
-                    return this.fillRow(y)
-                })}
-            </div>
+            <>
+                <div className="main-holder" style={{width: "1000px", height: "600px"}} >
+                    {rowNum.map((y) => {
+                        return this.fillRow(y)
+                    })}
+                </div>
+                <button onClick={this.performDijkstra}>Path Find!</button>
+            </>
         )
     }
 }
 
-export default GridHolder
+const updateGridWithWall = (grid, x, y) => {
+    const newGrid = grid.slice()
+    newGrid[x][y] = "*"
+    return newGrid
+}
+
+const updateGridWithoutWall = (grid, x, y) => {
+    const newGrid = grid.slice()
+    newGrid[x][y] = 1
+    return newGrid
+}
