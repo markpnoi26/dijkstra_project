@@ -5,7 +5,6 @@ import SelectionHolder from './selectionHolder'
 
 class AppContainer extends React.Component {
 
-    // maybe move start, end, size, nodes Visited, shortest path down to gridHolder
     constructor() {
         super() 
         this.state = {
@@ -18,7 +17,7 @@ class AppContainer extends React.Component {
             selection: selection
         })
     }
-
+    
     render() {
         return (
             <div>
