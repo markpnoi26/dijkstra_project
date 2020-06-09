@@ -11,7 +11,9 @@ class AppContainer extends React.Component {
             selection: null,
             start: [5,14],
             end: [24,14],
-            size: 30
+            size: 30,
+            nodesVisited: null,
+            shortestPath: null
         }
     }
 
@@ -19,7 +21,6 @@ class AppContainer extends React.Component {
         this.setState({
             selection: selection
         })
-        console.log(selection)
     }
 
     updateStart = (coordinates) => {
