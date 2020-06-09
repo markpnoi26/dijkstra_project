@@ -14,11 +14,11 @@ class GridNode extends React.Component {
     // visual representation of wall, start, end
     setColor = () => {
         if (this.state.x === this.props.start[0] && this.state.y === this.props.start[1]) {
-            return "green"
+            return "seagreen"
         } else if (this.state.x === this.props.end[0] && this.state.y === this.props.end[1]) {
-            return "blue"
+            return "rebeccapurple"
         } else if (this.state.wall) {
-            return "grey"
+            return "darkturquoise"
         }
     }
 
@@ -37,21 +37,23 @@ class GridNode extends React.Component {
             this.setState({
                 wall: true
             })
+            //this.props.addWall(x, y)
         }
 
         if (this.props.isTearing) {
             this.setState({
                 wall: false
             })
+            //this.props.deleteWall(x, y)
         }
     }
 
     render() {
         const nodeStyle = {
-            height: "15px",
-            width: "15px",
+            height: "25px",
+            width: "25px",
             display: "table-cell",
-            border: "0.5px dashed grey",
+            border: "0.5px solid darkturquoise",
             backgroundColor: this.setColor()
         }
         
