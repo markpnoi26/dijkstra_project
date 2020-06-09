@@ -10,7 +10,7 @@ const dijkstra = (board, start, end) => {
 
     // return values
     const shortestPath = []
-    const visitedNodes = []
+    const nodesVisited = []
 
     let deQ;
 
@@ -40,7 +40,7 @@ const dijkstra = (board, start, end) => {
                 backtrackY = prevY
             }
             shortestPath.unshift(start)
-            return [shortestPath,visitedNodes]
+            return [shortestPath, nodesVisited]
         }
 
         if (deQ) {
@@ -54,7 +54,7 @@ const dijkstra = (board, start, end) => {
                 if (dx > 0 && dy > 0 && dx <= xMax && dy <= yMax && board[dx][dy] !== "*") {
                     const newWt = deQ.wt+1
                     if (newWt < distances[dx][dy]) {
-                        visitedNodes.push([curX, curY])
+                        nodesVisited.push([curX, curY])
                         distances[dx][dy] = newWt
                         previousNode[`${dx}-${dy}`] = [curX, curY]
                         queue.enqueue([dx, dy], newWt)
