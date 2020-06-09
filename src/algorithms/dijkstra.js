@@ -1,20 +1,94 @@
 const dijkstra = (board, start, end) => {
-    // board = dimensions of board 30x30 by our standards
-    // start = [x,y]  start
-    // end = [x,y]  end
 
-    /** sample input
-     * 
-     * board = 30 (builds a 30x30 board)
-     * start = [0,6]
-     * end = [0,9]
-     * 
-     */
+    const xMax = board.length-1
+    const yMax = board[0].length-1
+    const distances = new Array(board.length)
+    const previousNode = {}
+    const queue = new PriorityQueue()
+    // just a check
+    let steps = 0
 
-    /** sample output
-     * 
-     * directions = [[x-start,y-start], [x1,y1],... [x-end, y-end]]
-     * steps = 3
-     * 
-     */
+    // return values
+    const shortestPath = []
+    const visitedNodes = []
+
+    let deQ;
+
+    for (let x=0; x<board.length; x++) {
+        distances[x] = new Array(board[0].length).fill(Infinity)
+    }
+    distances[start[0]][start[1]] = 0
+    previousNode[`${start[0]}-${start[1]}`] = "none"
+
+    queue.enqueue(start, 0) 
+
+    while (queue.values.length) {
+        deQ = queue.dequeue()
+        const curX = deQ.node[0]
+        const curY = deQ.node[1]
+        
+        // check if target is reached
+        if (curX === end[0] && curY === end[1]) {
+            
+            shortestPath.push(end)
+            let [backtrackX, backtrackY] = previousNode[`${curX}-${curY}`]
+
+            while (previousNode[`${backtrackX}-${backtrackY}`] !== "none") {
+                shortestPath.unshift([backtrackX, backtrackY])
+                let [prevX, prevY] = previousNode[`${backtrackX}-${backtrackY}`]
+                backtrackX = prevX
+                backtrackY = prevY
+            }
+            shortestPath.unshift(start)
+            return [shortestPath,visitedNodes]
+        }
+
+        if (deQ) {
+            // check all directions, and add to priority queue
+            const directions = [[0,1], [1,0], [0,-1], [-1,0]]
+
+            for (let direction of directions) {
+                let dx = curX + direction[0]
+                let dy = curY + direction[1]
+                // check if its within bounds
+                if (dx > 0 && dy > 0 && dx <= xMax && dy <= yMax && board[dx][dy] !== "*") {
+                    const newWt = deQ.wt+1
+                    if (newWt < distances[dx][dy]) {
+                        visitedNodes.push([curX, curY])
+                        distances[dx][dy] = newWt
+                        previousNode[`${dx}-${dy}`] = [curX, curY]
+                        queue.enqueue([dx, dy], newWt)
+                    }
+                }
+            }
+        }
+
+    }
+
+    console.log("could not find the node!")
+    return[[],[]]
 }
+
+class PriorityQueue {
+    constructor() {
+        this.values = []
+    }
+
+    enqueue = (node, wt) => {
+        this.values.push({node, wt})
+
+    }
+
+    dequeue = () => {
+        return this.values.shift()
+    }
+
+
+    sort = () => {
+        this.values.sort((a, b) => a.wt - b.wt)
+    }
+    
+}
+
+
+export default dijkstra
