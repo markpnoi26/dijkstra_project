@@ -42,13 +42,13 @@ class GridHolder extends React.Component {
 
     addWall = (x,y) => {
        const grid = [...this.state.grid]
-       grid[y][x] = "*"
+       grid[x][y] = "*"
        this.setState({ grid: grid})
     }
 
     deleteWall = (x,y) => {
         const grid = [...this.state.grid]
-        grid[y][x] = 1
+        grid[x][y] = 1
         this.setState({ grid: grid})
     }
 
