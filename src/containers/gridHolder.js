@@ -8,7 +8,12 @@ class GridHolder extends React.Component {
         super(props)
         this.state = {
             isBuilding: false,
-            isTearing: false
+            isTearing: false,
+            start: [5, 14],
+            end: [24, 14],
+            size: 30,
+            nodesVisited: null,
+            shortestPath: null
         }
     }
 
@@ -34,8 +39,22 @@ class GridHolder extends React.Component {
         } 
     }
 
+    // updates the start point & end point
+    updateStart = (coordinates) => {
+        this.setState({
+            start: [coordinates[0], coordinates[1]]
+        })
+    }
+
+    updateEnd = (coordinates) => {
+        this.setState({
+            end: [coordinates[0], coordinates[1]]
+        })
+    }
+
+    // generates the grid
     fillCol(y) {
-        const colNum = Array.from(Array(this.props.size).keys())
+        const colNum = Array.from(Array(this.state.size).keys())
         return(
             colNum.map((x) => {
                 return (
@@ -43,10 +62,10 @@ class GridHolder extends React.Component {
                         key={`node-x-${x}-y-${y}`}
                         x={x} y={y} 
                         selection={this.props.selection} 
-                        start={this.props.start} 
-                        end={this.props.end} 
-                        updateStart={this.props.updateStart} 
-                        updateEnd={this.props.updateEnd} 
+                        start={this.state.start} 
+                        end={this.state.end} 
+                        updateStart={this.updateStart} 
+                        updateEnd={this.updateEnd} 
                         isBuilding={this.state.isBuilding} 
                         isTearing={this.state.isTearing}
                         handleMouseEvent={this.handleMouseEvent}
@@ -65,9 +84,9 @@ class GridHolder extends React.Component {
     }
 
     render() {
-        const rowNum = Array.from(Array(this.props.size).keys())
+        const rowNum = Array.from(Array(this.state.size).keys())
         return(
-            <div className="main-holder" style={{width: "600px", height: "600px"}} >
+            <div className="main-holder" style={{width: "1000px", height: "1000px"}} >
                 {rowNum.map((y) => {
                     return this.fillRow(y)
                 })}
