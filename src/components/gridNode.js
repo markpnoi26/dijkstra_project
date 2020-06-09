@@ -7,18 +7,19 @@ class GridNode extends React.Component {
         this.state = {
             x: this.props.x,
             y: this.props.y,
-            wall: false,
+            backgroundColor: "none"
         }
     }
 
-    // visual representation of wall, start, end
-    setColor = () => {
+    componentDidMount = () => {
         if (this.state.x === this.props.start[0] && this.state.y === this.props.start[1]) {
-            return "seagreen"
+            this.setState({
+                backgroundColor: "seagreen"
+            })
         } else if (this.state.x === this.props.end[0] && this.state.y === this.props.end[1]) {
-            return "rebeccapurple"
-        } else if (this.state.wall) {
-            return "darkturquoise"
+            this.setState({
+                backgroundColor: "rebeccapurple"
+            })
         }
     }
 
@@ -35,14 +36,14 @@ class GridNode extends React.Component {
     handleMouseOver = () => {
         if (this.props.isBuilding) {
             this.setState({
-                wall: true
+                backgroundColor: "darkturquoise"
             })
             this.props.addWall(this.state.x, this.state.y)
         }
 
         if (this.props.isTearing) {
             this.setState({
-                wall: false
+                backgroundColor: "none"
             })
             this.props.deleteWall(this.state.x, this.state.y)
         }
@@ -54,10 +55,8 @@ class GridNode extends React.Component {
             width: "25px",
             display: "table-cell",
             border: "0.5px solid darkturquoise",
-            backgroundColor: this.setColor()
+            backgroundColor: this.state.backgroundColor
         }
-        
-
         // several states are controlled by parent element like the handleMouseEvent (mouse up & mouse down)
         // onMouseLeave is placed so the painting starts at the node that was clicked.
         return (
