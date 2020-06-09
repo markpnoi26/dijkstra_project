@@ -7,19 +7,20 @@ class GridNode extends React.Component {
         this.state = {
             x: this.props.x,
             y: this.props.y,
-            backgroundColor: "none"
+            wall: false,
+            path: false
         }
     }
 
-    componentDidMount = () => {
+    setColor = () => {
         if (this.state.x === this.props.start[0] && this.state.y === this.props.start[1]) {
-            this.setState({
-                backgroundColor: "seagreen"
-            })
+            return "seagreen"
         } else if (this.state.x === this.props.end[0] && this.state.y === this.props.end[1]) {
-            this.setState({
-                backgroundColor: "rebeccapurple"
-            })
+            return "rebeccapurple"
+        } else if (this.state.wall) {
+            return "darkturquoise"
+        } else if (this.state.path) {
+            return "yellow"
         }
     }
 
@@ -36,18 +37,19 @@ class GridNode extends React.Component {
     handleMouseOver = () => {
         if (this.props.isBuilding) {
             this.setState({
-                backgroundColor: "darkturquoise"
+                wall: true
             })
             this.props.addWall(this.state.x, this.state.y)
         }
 
         if (this.props.isTearing) {
             this.setState({
-                backgroundColor: "none"
+                wall: false
             })
             this.props.deleteWall(this.state.x, this.state.y)
         }
     }
+
 
     render() {
         const nodeStyle = {
@@ -55,13 +57,14 @@ class GridNode extends React.Component {
             width: "25px",
             display: "table-cell",
             border: "0.5px solid darkturquoise",
-            backgroundColor: this.state.backgroundColor
+            backgroundColor: this.setColor()
         }
         // several states are controlled by parent element like the handleMouseEvent (mouse up & mouse down)
         // onMouseLeave is placed so the painting starts at the node that was clicked.
         return (
             <div 
                 className="node"
+                id={`node-x-${this.state.x}-y-${this.state.y}`}
                 style={nodeStyle} 
                 onClick={this.handleClick} 
                 onMouseLeave={this.handleMouseOver} 
