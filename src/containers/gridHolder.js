@@ -13,8 +13,6 @@ export default class GridHolder extends React.Component {
             start: [5, 15],
             end: [24, 15],
             size: 30,
-            nodesVisited: [],
-            shortestPath: [],
             grid: []
         }
     }
@@ -55,6 +53,15 @@ export default class GridHolder extends React.Component {
         })
     }
 
+    drawShortestPath = () => {
+        const [path, visited] = dijkstra(this.state.grid, this.state.start, this.state.end)
+        for (let i = 0; i < path.length; i++) {
+            setTimeout(() => {
+                const node = path[i];
+                document.getElementById(`node-x-${node[0]}-y-${node[1]}`).style.backgroundColor = "orange"
+            }, 50 * i)
+        }
+    }
 
     // updates the start point & end point
     updateStart = (coordinates) => {
@@ -67,10 +74,6 @@ export default class GridHolder extends React.Component {
         this.setState({
             end: [coordinates[0], coordinates[1]]
         })
-    }
-
-    performDijkstra = () => {
-        console.log(dijkstra(this.state.grid, this.state.start, this.state.end))
     }
 
     // generates the grid
@@ -122,12 +125,12 @@ export default class GridHolder extends React.Component {
         const rowNum = Array.from(Array(this.state.size).keys())
         return(
             <>
-                <div className="main-holder" style={{width: "1000px", height: "600px"}} >
+                <div className="main-holder" style={{width: "1000px", height: "800px"}} >
                     {rowNum.map((y) => {
                         return this.fillRow(y)
                     })}
                 </div>
-                <button onClick={this.performDijkstra}>Path Find!</button>
+                <button onClick={this.drawShortestPath}> Path Find! </button>
             </>
         )
     }
