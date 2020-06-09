@@ -13,7 +13,8 @@ class GridHolder extends React.Component {
             end: [24, 14],
             size: 30,
             nodesVisited: null,
-            shortestPath: null
+            shortestPath: null,
+            grid: []
         }
     }
 
@@ -37,6 +38,14 @@ class GridHolder extends React.Component {
                 isTearing: false
             })
         } 
+    }
+
+    addWall = (x,y) => {
+       grid = [...this.state.grid]
+    }
+
+    deleteWall = (x,y) => {
+        // update grid
     }
 
     // updates the start point & end point
@@ -68,6 +77,8 @@ class GridHolder extends React.Component {
                         updateEnd={this.updateEnd} 
                         isBuilding={this.state.isBuilding} 
                         isTearing={this.state.isTearing}
+                        addWall={this.addWall}
+                        deleteWall={this.deleteWall}
                         handleMouseEvent={this.handleMouseEvent}
                     />
                 )
@@ -81,6 +92,18 @@ class GridHolder extends React.Component {
                {this.fillCol(y)}
             </div>
         )
+    }
+
+    componentDidMount = () => {
+        // generate grid
+        const generatedGrid = new Array(this.state.size)
+        for (let row = 0; row < generatedGrid.length; row++) {
+            generatedGrid[row] = new Array(this.state.size).fill(1)
+        }
+
+        this.setState({
+            grid: generatedGrid
+        })
     }
 
     render() {

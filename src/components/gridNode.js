@@ -37,14 +37,14 @@ class GridNode extends React.Component {
             this.setState({
                 wall: true
             })
-            //this.props.addWall(x, y)
+            this.props.addWall(this.state.x, this.state.y)
         }
 
         if (this.props.isTearing) {
             this.setState({
                 wall: false
             })
-            //this.props.deleteWall(x, y)
+            this.props.deleteWall(this.state.x, this.state.y)
         }
     }
 
