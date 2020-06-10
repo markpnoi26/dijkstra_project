@@ -11,8 +11,8 @@ export default class GridHolder extends React.Component {
             isBuilding: false,
             isTearing: false,
             isDrawing: false,
-            start: [5, 15],
-            end: [24, 15],
+            start: [15, 5],
+            end: [15, 24],
             size: 30,
             grid: []
         }
@@ -62,7 +62,7 @@ export default class GridHolder extends React.Component {
             for (let i = 0; i < path.length; i++) {
                 setTimeout(() => {
                     const node = path[i];
-                    document.getElementById(`node-x-${node[0]}-y-${node[1]}`).style.backgroundColor = "orange"
+                    document.getElementById(`node-row-${node[0]}-col-${node[1]}`).style.backgroundColor = "orange"
                 }, 50 * i)
             }
         }, visitedNodesLen * 5 + 500)
@@ -70,66 +70,66 @@ export default class GridHolder extends React.Component {
         for (let i = 1; i < visitedNodesLen; i++) {
             setTimeout(() => {
                 const node = visited[i];
-                document.getElementById(`node-x-${node[0]}-y-${node[1]}`).style.backgroundColor = "cornflowerblue"
+                document.getElementById(`node-row-${node[0]}-col-${node[1]}`).style.backgroundColor = "cornflowerblue"
             }, 5 * i)
         }
     }
 
     // updates the start point & end point
-    updateStart = (coordinates) => {
+    updateStart = (row, col) => {
         const grid = this.state.grid
-        const [startX, startY] = this.state.start
-        grid[startY][startX].start = false
-        grid[coordinates[1]][coordinates[0]].start = true
+        const [startRow, startCol] = this.state.start
+        grid[startRow][startCol].start = false
+        grid[row][col].start = true
         this.setState({
-            start: [coordinates[0], coordinates[1]],
+            start: [row, col],
             grid: grid
         })
     }
 
-    updateEnd = (coordinates) => {
+    updateEnd = (row, col) => {
         this.setState({
-            end: [coordinates[0], coordinates[1]]
+            end: [row, col]
         })
     }
 
     // generates the grid
     generateGrid = () => {
         const generatedGrid = new Array(this.state.size)
-        const [startX, startY] = this.state.start
-        const [endX, endY] = this.state.end
+        const [startRow, startCol] = this.state.start
+        const [endRow, endCol] = this.state.end
         
-        for (let x = 0; x < generatedGrid.length; x++) {
-            generatedGrid[x] = new Array(this.state.size)
-            for (let y = 0; y < generatedGrid[x].length; y++) {
-                generatedGrid[x][y] = {wall: false, start: false, end: false, visited: false, path: false}
+        for (let row = 0; row < generatedGrid.length; row++) {
+            generatedGrid[row] = new Array(this.state.size)
+            for (let col = 0; col < generatedGrid[row].length; col++) {
+                generatedGrid[row][col] = {wall: false, start: false, end: false, visited: false, path: false}
             }
         }
 
         // it must me the reverse because of how frontend is generated
-        generatedGrid[startY][startX]["start"] = true
-        generatedGrid[endY][endX]["end"] = true
+        generatedGrid[startRow][startCol]["start"] = true
+        generatedGrid[endRow][endCol]["end"] = true
         return generatedGrid
     }
 
     //updating the wall
-    updateGridWithWall = (grid, x, y) => {
+    updateGridWithWall = (grid, row, col) => {
         const newGrid = grid.slice()
-        const [startX, startY] = this.state.start
-        const [endX, endY] = this.state.end
-        if (x === startX && y ===startY) return newGrid
-        if (x === endX && y ===endY) return newGrid
-        newGrid[x][y].wall = true
+        const [startRow, startCol] = this.state.start
+        const [endRow, endCol] = this.state.end
+        if (row === startRow && col === startCol) return newGrid
+        if (row === endRow && col === endCol) return newGrid
+        newGrid[row][col].wall = true
         return newGrid
     }
     
-    updateGridWithoutWall = (grid, x, y) => {
+    updateGridWithoutWall = (grid, row, col) => {
         const newGrid = grid.slice()
-        const [startX, startY] = this.state.start
-        const [endX, endY] = this.state.end
-        if (x === startX && y ===startY) return newGrid
-        if (x === endX && y ===endY) return newGrid
-        newGrid[x][y].wall = false
+        const [startRow, startCol] = this.state.start
+        const [endRow, endCol] = this.state.end
+        if (row === startRow && col ===startCol) return newGrid
+        if (row === endRow && col === endCol) return newGrid
+        newGrid[row][col].wall = false
         return newGrid
     }
 
@@ -137,15 +137,16 @@ export default class GridHolder extends React.Component {
     fillCol(rowIdx) {
 
         return(
-            this.state.grid[rowIdx].map((col, colIdx) => {
+            this.state.grid[rowIdx].map((node, colIdx) => {
                 return (
                     <GridNode 
-                        key={`node-x-${colIdx}-y-${rowIdx}`}
-                        col={colIdx} row={rowIdx} 
+                        key={`node-row-${rowIdx}-col-${colIdx}`}
+                        col={colIdx} 
+                        row={rowIdx} 
                         selection={this.props.selection} 
-                        start={col.start} 
-                        end={col.end}
-                        wall={col.wall}
+                        start={node.start} 
+                        end={node.end}
+                        wall={node.wall}
                         updateStart={this.updateStart} 
                         updateEnd={this.updateEnd} 
                         isBuilding={this.state.isBuilding} 
@@ -161,7 +162,7 @@ export default class GridHolder extends React.Component {
 
     fillRow(rowIdx) {
         return(
-            <div className="row-holder" key={`row-y-${rowIdx}`} style={{display: "table"}}> 
+            <div className="row-holder" key={`row-${rowIdx}`} style={{display: "table"}}> 
                {this.fillCol(rowIdx)}
             </div>
         )
