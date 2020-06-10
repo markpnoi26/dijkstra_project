@@ -70,7 +70,7 @@ export default class GridHolder extends React.Component {
         for (let i = 1; i < visitedNodesLen; i++) {
             setTimeout(() => {
                 const node = visited[i];
-                document.getElementById(`node-x-${node[0]}-y-${node[1]}`).style.backgroundColor = "blue"
+                document.getElementById(`node-x-${node[0]}-y-${node[1]}`).style.backgroundColor = "cornflowerblue"
             }, 5 * i)
         }
     }
