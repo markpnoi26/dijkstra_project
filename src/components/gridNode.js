@@ -7,8 +7,7 @@ class GridNode extends React.Component {
         this.state = {
             x: this.props.x,
             y: this.props.y,
-            wall: false,
-            path: false
+            wall: false
         }
     }
 
@@ -19,9 +18,7 @@ class GridNode extends React.Component {
             return "rebeccapurple"
         } else if (this.state.wall) {
             return "darkturquoise"
-        } else if (this.state.path) {
-            return "yellow"
-        }
+        } 
     }
 
     handleClick = () => {
