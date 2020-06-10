@@ -6,8 +6,7 @@ class GridNode extends React.Component {
         super(props)
         this.state = {
             col: this.props.col,
-            row: this.props.row,
-            wall: false
+            row: this.props.row
         }
     }
 
@@ -37,16 +36,10 @@ class GridNode extends React.Component {
     // the props is passed from parent, but activated on mouseDown/mouseUp event => handled by parent.
     handleMouseOver = () => {
         if (this.props.isBuilding) {
-            this.setState({
-                wall: true
-            })
             this.props.addWall(this.state.row, this.state.col)
         }
 
         if (this.props.isTearing) {
-            this.setState({
-                wall: false
-            })
             this.props.deleteWall(this.state.row, this.state.col)
         }
     }
