@@ -1,12 +1,10 @@
 const dijkstra = (board, start, end) => {
 
-    const xMax = board.length-1
-    const yMax = board[0].length-1
+    const yMax = board[0].length
+    const xMax = board.length
     const distances = new Array(board.length)
     const previousNode = {}
     const queue = new PriorityQueue()
-    // just a check
-    let steps = 0
 
     // return values
     const shortestPath = []
@@ -46,15 +44,15 @@ const dijkstra = (board, start, end) => {
         if (deQ) {
             // check all directions, and add to priority queue
             const directions = [[0,1], [1,0], [0,-1], [-1,0]]
-
+            nodesVisited.push([curX, curY])
+            
             for (let direction of directions) {
                 let dx = curX + direction[0]
                 let dy = curY + direction[1]
                 // check if its within bounds
-                if (dx > 0 && dy > 0 && dx <= xMax && dy <= yMax && board[dx][dy] !== "*") {
+                if (dx >= 0 && dy >= 0 && dx < xMax && dy < yMax && board[dx][dy] !== "*") {
                     const newWt = deQ.wt+1
                     if (newWt < distances[dx][dy]) {
-                        nodesVisited.push([curX, curY])
                         distances[dx][dy] = newWt
                         previousNode[`${dx}-${dy}`] = [curX, curY]
                         queue.enqueue([dx, dy], newWt)
