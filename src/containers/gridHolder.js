@@ -141,7 +141,7 @@ export default class GridHolder extends React.Component {
                 return (
                     <GridNode 
                         key={`node-x-${colIdx}-y-${rowIdx}`}
-                        x={colIdx} y={rowIdx} 
+                        col={colIdx} row={rowIdx} 
                         selection={this.props.selection} 
                         start={col.start} 
                         end={col.end}
