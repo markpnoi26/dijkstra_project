@@ -50,7 +50,7 @@ const dijkstra = (board, start, end) => {
                 let dx = curX + direction[0]
                 let dy = curY + direction[1]
                 // check if its within bounds
-                if (dx >= 0 && dy >= 0 && dx < xMax && dy < yMax && board[dx][dy] !== "*") {
+                if (dx >= 0 && dy >= 0 && dx < xMax && dy < yMax && !board[dx][dy].wall) {
                     const newWt = deQ.wt+1
                     if (newWt < distances[dx][dy]) {
                         distances[dx][dy] = newWt
