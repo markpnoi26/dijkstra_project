@@ -18,7 +18,11 @@ class GridNode extends React.Component {
             return "rebeccapurple"
         } else if (this.props.wall) {
             return "darkturquoise"
-        } 
+        } else if (this.props.visited) {
+            return "cornflowerblue"
+        } else if (this.props.path) {
+            return "orange"
+        }
     }
 
     handleClick = () => {
