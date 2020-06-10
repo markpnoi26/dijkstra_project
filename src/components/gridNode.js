@@ -5,18 +5,18 @@ class GridNode extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            x: this.props.x,
-            y: this.props.y,
+            col: this.props.col,
+            row: this.props.row,
             wall: false
         }
     }
 
     setColor = () => {
-        if (this.state.x === this.props.start[0] && this.state.y === this.props.start[1]) {
+        if (this.props.start) {
             return "seagreen"
-        } else if (this.state.x === this.props.end[0] && this.state.y === this.props.end[1]) {
+        } else if (this.props.end) {
             return "rebeccapurple"
-        } else if (this.state.wall) {
+        } else if (this.props.wall) {
             return "darkturquoise"
         } 
     }
@@ -24,9 +24,9 @@ class GridNode extends React.Component {
     handleClick = () => {
     
         if (this.props.selection === "start") {
-            this.props.updateStart([this.state.x, this.state.y])
+            this.props.updateStart([this.state.row, this.state.col])
         } else if (this.props.selection === "end") {
-            this.props.updateEnd([this.state.x, this.state.y])
+            this.props.updateEnd([this.state.row, this.state.col])
         } 
     }
 
@@ -36,14 +36,14 @@ class GridNode extends React.Component {
             this.setState({
                 wall: true
             })
-            this.props.addWall(this.state.x, this.state.y)
+            this.props.addWall(this.state.row, this.state.col)
         }
 
         if (this.props.isTearing) {
             this.setState({
                 wall: false
             })
-            this.props.deleteWall(this.state.x, this.state.y)
+            this.props.deleteWall(this.state.row, this.state.col)
         }
     }
 
@@ -61,7 +61,7 @@ class GridNode extends React.Component {
         return (
             <div 
                 className="node"
-                id={`node-x-${this.state.x}-y-${this.state.y}`}
+                id={`node-x-${this.state.col}-y-${this.state.row}`}
                 style={nodeStyle} 
                 onClick={this.handleClick} 
                 onMouseLeave={this.handleMouseOver} 
