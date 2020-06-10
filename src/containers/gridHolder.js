@@ -11,9 +11,9 @@ export default class GridHolder extends React.Component {
             isBuilding: false,
             isTearing: false,
             isDrawing: false,
-            start: [15, 5],
-            end: [15, 24],
-            size: 30,
+            start: [5, 5],
+            end: [8, 5],
+            size: 15,
             originalGrid: [],
             modifiedGrid: []
         }
@@ -61,7 +61,7 @@ export default class GridHolder extends React.Component {
         const visitedNodesLen = visited.length
         setTimeout(() => {
             const grid = this.state.modifiedGrid
-            for (let i = 1; i < path.length-1; i++) {
+            for (let i = 1; i < path.length; i++) {
                 setTimeout(() => {
                     const node = path[i];
                     grid[node[0]][node[1]].visited = false
@@ -95,8 +95,13 @@ export default class GridHolder extends React.Component {
     }
 
     updateEnd = (row, col) => {
+        const grid = this.state.modifiedGrid
+        const [endRow, endCol] = this.state.end
+        grid[endRow][endCol].end = false
+        grid[row][col].end = true
         this.setState({
-            end: [row, col]
+            end: [row, col],
+            modifiedGrid: grid
         })
     }
 
@@ -143,7 +148,9 @@ export default class GridHolder extends React.Component {
     // reset the board
 
     resetBoard = () => {
-        const originalGrid = this.state.originalGrid
+        const originalGrid = this.generateGrid()
+        this.updateStart(5,5)
+        this.updateEnd(8,5)
         this.setState ({
             modifiedGrid: originalGrid
         })
