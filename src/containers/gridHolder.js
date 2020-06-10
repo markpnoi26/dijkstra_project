@@ -41,14 +41,14 @@ export default class GridHolder extends React.Component {
     }
 
     addWall = (x,y) => {
-        const grid = updateGridWithWall(this.state.grid, x, y)
+        const grid = this.updateGridWithWall(this.state.grid, x, y)
         this.setState({
             grid
         })
     }
 
     deleteWall = (x,y) => {
-        const grid = updateGridWithoutWall(this.state.grid, x, y)
+        const grid = this.updateGridWithoutWall(this.state.grid, x, y)
         this.setState({
             grid
         })
@@ -77,8 +77,13 @@ export default class GridHolder extends React.Component {
 
     // updates the start point & end point
     updateStart = (coordinates) => {
+        const grid = this.state.grid
+        const [startX, startY] = this.state.start
+        grid[startY][startX].start = false
+        grid[coordinates[1]][coordinates[0]].start = true
         this.setState({
-            start: [coordinates[0], coordinates[1]]
+            start: [coordinates[0], coordinates[1]],
+            grid: grid
         })
     }
 
@@ -89,17 +94,58 @@ export default class GridHolder extends React.Component {
     }
 
     // generates the grid
-    fillCol(y) {
-        const colNum = Array.from(Array(this.state.size).keys())
+    generateGrid = () => {
+        const generatedGrid = new Array(this.state.size)
+        const [startX, startY] = this.state.start
+        const [endX, endY] = this.state.end
+        
+        for (let x = 0; x < generatedGrid.length; x++) {
+            generatedGrid[x] = new Array(this.state.size)
+            for (let y = 0; y < generatedGrid[x].length; y++) {
+                generatedGrid[x][y] = {wall: false, start: false, end: false, visited: false, path: false}
+            }
+        }
+
+        // it must me the reverse because of how frontend is generated
+        generatedGrid[startY][startX]["start"] = true
+        generatedGrid[endY][endX]["end"] = true
+        return generatedGrid
+    }
+
+    //updating the wall
+    updateGridWithWall = (grid, x, y) => {
+        const newGrid = grid.slice()
+        const [startX, startY] = this.state.start
+        const [endX, endY] = this.state.end
+        if (x === startX && y ===startY) return newGrid
+        if (x === endX && y ===endY) return newGrid
+        newGrid[x][y].wall = true
+        return newGrid
+    }
+    
+    updateGridWithoutWall = (grid, x, y) => {
+        const newGrid = grid.slice()
+        const [startX, startY] = this.state.start
+        const [endX, endY] = this.state.end
+        if (x === startX && y ===startY) return newGrid
+        if (x === endX && y ===endY) return newGrid
+        newGrid[x][y].wall = false
+        return newGrid
+    }
+
+    // create frontend grid with special Nodes
+    fillCol(rowIdx) {
+
         return(
-            colNum.map((x) => {
+            this.state.grid[rowIdx].map((col, colIdx) => {
                 return (
                     <GridNode 
-                        key={`node-x-${x}-y-${y}`}
-                        x={x} y={y} 
+                        key={`node-x-${colIdx}-y-${rowIdx}`}
+                        x={colIdx} y={rowIdx} 
                         selection={this.props.selection} 
-                        start={this.state.start} 
-                        end={this.state.end} 
+                        start={col.start} 
+                        end={col.end}
+                        wall={col.wall}
                         updateStart={this.updateStart} 
                         updateEnd={this.updateEnd} 
                         isBuilding={this.state.isBuilding} 
@@ -113,33 +159,28 @@ export default class GridHolder extends React.Component {
         )
     }
 
-    fillRow(y) {
+    fillRow(rowIdx) {
         return(
-            <div className="row-holder" key={`row-y-${y}`} style={{display: "table"}}> 
-               {this.fillCol(y)}
+            <div className="row-holder" key={`row-y-${rowIdx}`} style={{display: "table"}}> 
+               {this.fillCol(rowIdx)}
             </div>
         )
     }
 
     componentDidMount = () => {
         // generate grid
-        const generatedGrid = new Array(this.state.size)
-        for (let row = 0; row < generatedGrid.length; row++) {
-            generatedGrid[row] = new Array(this.state.size).fill(1)
-        }
-
+        const generatedGrid = this.generateGrid()
         this.setState({
             grid: generatedGrid
         })
     }
 
     render() {
-        const rowNum = Array.from(Array(this.state.size).keys())
         return(
-            <>
+            <> 
                 <div className="main-holder" style={{width: "1000px", height: "800px"}} >
-                    {rowNum.map((y) => {
-                        return this.fillRow(y)
+                    {this.state.grid.map((row, rowIdx) => {
+                        return this.fillRow(rowIdx)
                     })}
                 </div>
                 <button onClick={this.drawDijkstra}> Visualize Path Finding!</button>
@@ -148,14 +189,5 @@ export default class GridHolder extends React.Component {
     }
 }
 
-const updateGridWithWall = (grid, x, y) => {
-    const newGrid = grid.slice()
-    newGrid[x][y] = "*"
-    return newGrid
-}
 
-const updateGridWithoutWall = (grid, x, y) => {
-    const newGrid = grid.slice()
-    newGrid[x][y] = 1
-    return newGrid
-}
+
