@@ -24,9 +24,9 @@ class GridNode extends React.Component {
     handleClick = () => {
     
         if (this.props.selection === "start") {
-            this.props.updateStart([this.state.row, this.state.col])
+            this.props.updateStart(this.state.row, this.state.col)
         } else if (this.props.selection === "end") {
-            this.props.updateEnd([this.state.row, this.state.col])
+            this.props.updateEnd(this.state.row, this.state.col)
         } 
     }
 
@@ -61,7 +61,7 @@ class GridNode extends React.Component {
         return (
             <div 
                 className="node"
-                id={`node-x-${this.state.col}-y-${this.state.row}`}
+                id={`node-row-${this.state.row}-col-${this.state.col}`}
                 style={nodeStyle} 
                 onClick={this.handleClick} 
                 onMouseLeave={this.handleMouseOver} 
