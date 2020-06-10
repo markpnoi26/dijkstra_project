@@ -56,10 +56,10 @@ export default class GridHolder extends React.Component {
 
     drawVisitedPath = () => {
         const visited = dijkstra(this.state.grid, this.state.start, this.state.end)[1]
-        for (let i = 0; i < visited.length; i++) {
+        for (let i = 1; i < visited.length; i++) {
             setTimeout(() => {
                 const node = visited[i];
-                document.getElementById(`node-x-${node[0]}-y-${node[1]}`).style.backgroundColor = "grey"
+                document.getElementById(`node-x-${node[0]}-y-${node[1]}`).style.backgroundColor = "#6495ED"
             }, 5 * i)
         }
     }
