@@ -10,6 +10,7 @@ export default class GridHolder extends React.Component {
         this.state = {
             isBuilding: false,
             isTearing: false,
+            isDrawing: false,
             start: [5, 15],
             end: [24, 15],
             size: 30,
@@ -53,8 +54,18 @@ export default class GridHolder extends React.Component {
         })
     }
 
+    drawVisitedPath = () => {
+        const visited = dijkstra(this.state.grid, this.state.start, this.state.end)[1]
+        for (let i = 0; i < visited.length; i++) {
+            setTimeout(() => {
+                const node = visited[i];
+                document.getElementById(`node-x-${node[0]}-y-${node[1]}`).style.backgroundColor = "grey"
+            }, 5 * i)
+        }
+    }
+
     drawShortestPath = () => {
-        const [path, visited] = dijkstra(this.state.grid, this.state.start, this.state.end)
+        const path = dijkstra(this.state.grid, this.state.start, this.state.end)[0]
         for (let i = 0; i < path.length; i++) {
             setTimeout(() => {
                 const node = path[i];
@@ -130,7 +141,8 @@ export default class GridHolder extends React.Component {
                         return this.fillRow(y)
                     })}
                 </div>
-                <button onClick={this.drawShortestPath}> Path Find! </button>
+                <button onClick={this.drawVisitedPath}> Visualize Path Finding </button>
+                <button onClick={this.drawShortestPath}> Visualize Shortest Path </button>
             </>
         )
     }
