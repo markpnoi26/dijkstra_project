@@ -14,7 +14,8 @@ export default class GridHolder extends React.Component {
             start: [15, 5],
             end: [15, 24],
             size: 30,
-            grid: []
+            originalGrid: [],
+            modifiedGrid: []
         }
     }
 
@@ -41,14 +42,14 @@ export default class GridHolder extends React.Component {
     }
 
     addWall = (x,y) => {
-        const grid = this.updateGridWithWall(this.state.grid, x, y)
+        const grid = this.updateGridWithWall(this.state.modifiedGrid, x, y)
         this.setState({
             grid
         })
     }
 
     deleteWall = (x,y) => {
-        const grid = this.updateGridWithoutWall(this.state.grid, x, y)
+        const grid = this.updateGridWithoutWall(this.state.modifiedGrid, x, y)
         this.setState({
             grid
         })
@@ -56,34 +57,40 @@ export default class GridHolder extends React.Component {
 
     drawDijkstra = () => {
         // perform algorithm visualization
-        const [path, visited] = dijkstra(this.state.grid, this.state.start, this.state.end)
+        const [path, visited] = dijkstra(this.state.modifiedGrid, this.state.start, this.state.end)
         const visitedNodesLen = visited.length
         setTimeout(() => {
-            for (let i = 0; i < path.length; i++) {
+            const grid = this.state.modifiedGrid
+            for (let i = 1; i < path.length-1; i++) {
                 setTimeout(() => {
                     const node = path[i];
-                    document.getElementById(`node-row-${node[0]}-col-${node[1]}`).style.backgroundColor = "orange"
-                }, 50 * i)
+                    grid[node[0]][node[1]].visited = false
+                    grid[node[0]][node[1]].path = true
+                    this.setState({ modifiedGrid: grid })
+                }, 80 * i)
             }
         }, visitedNodesLen * 5 + 500)
 
-        for (let i = 1; i < visitedNodesLen; i++) {
+
+        const grid = this.state.modifiedGrid
+        for (let i = 1; i < visitedNodesLen-1; i++) {
             setTimeout(() => {
                 const node = visited[i];
-                document.getElementById(`node-row-${node[0]}-col-${node[1]}`).style.backgroundColor = "cornflowerblue"
+                grid[node[0]][node[1]].visited = true
+                this.setState({ modifiedGrid: grid })
             }, 5 * i)
         }
     }
 
     // updates the start point & end point
     updateStart = (row, col) => {
-        const grid = this.state.grid
+        const grid = this.state.modifiedGrid
         const [startRow, startCol] = this.state.start
         grid[startRow][startCol].start = false
         grid[row][col].start = true
         this.setState({
             start: [row, col],
-            grid: grid
+            modifiedGrid: grid
         })
     }
 
@@ -133,11 +140,20 @@ export default class GridHolder extends React.Component {
         return newGrid
     }
 
+    // reset the board
+
+    resetBoard = () => {
+        const originalGrid = this.state.originalGrid
+        this.setState ({
+            modifiedGrid: originalGrid
+        })
+    }
+
     // create frontend grid with special Nodes
     fillCol(rowIdx) {
 
         return(
-            this.state.grid[rowIdx].map((node, colIdx) => {
+            this.state.modifiedGrid[rowIdx].map((node, colIdx) => {
                 return (
                     <GridNode 
                         key={`node-row-${rowIdx}-col-${colIdx}`}
@@ -147,6 +163,8 @@ export default class GridHolder extends React.Component {
                         start={node.start} 
                         end={node.end}
                         wall={node.wall}
+                        visited={node.visited}
+                        path={node.path}
                         updateStart={this.updateStart} 
                         updateEnd={this.updateEnd} 
                         isBuilding={this.state.isBuilding} 
@@ -172,7 +190,8 @@ export default class GridHolder extends React.Component {
         // generate grid
         const generatedGrid = this.generateGrid()
         this.setState({
-            grid: generatedGrid
+            modifiedGrid: generatedGrid,
+            originalGrid: generatedGrid
         })
     }
 
@@ -180,11 +199,12 @@ export default class GridHolder extends React.Component {
         return(
             <> 
                 <div className="main-holder" style={{width: "1000px", height: "800px"}} >
-                    {this.state.grid.map((row, rowIdx) => {
+                    {this.state.modifiedGrid.map((row, rowIdx) => {
                         return this.fillRow(rowIdx)
                     })}
                 </div>
                 <button onClick={this.drawDijkstra}> Visualize Path Finding!</button>
+                <button onClick={this.resetBoard}>Reset Board</button>
             </>
         )
     }
