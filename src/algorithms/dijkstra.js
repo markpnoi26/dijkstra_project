@@ -63,8 +63,8 @@ const dijkstra = (board, start, end) => {
 
     }
 
-    console.log("could not find the node!")
-    return[[],[]]
+    console.log("No path to end node found. Check to see you have created no walls around the end point.")
+    return[[],nodesVisited]
 }
 
 class PriorityQueue {
