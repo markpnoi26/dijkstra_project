@@ -54,23 +54,24 @@ export default class GridHolder extends React.Component {
         })
     }
 
-    drawVisitedPath = () => {
-        const visited = dijkstra(this.state.grid, this.state.start, this.state.end)[1]
-        for (let i = 1; i < visited.length; i++) {
+    drawDijkstra = () => {
+        // perform algorithm visualization
+        const [path, visited] = dijkstra(this.state.grid, this.state.start, this.state.end)
+        const visitedNodesLen = visited.length
+        setTimeout(() => {
+            for (let i = 0; i < path.length; i++) {
+                setTimeout(() => {
+                    const node = path[i];
+                    document.getElementById(`node-x-${node[0]}-y-${node[1]}`).style.backgroundColor = "orange"
+                }, 50 * i)
+            }
+        }, visitedNodesLen * 5 + 500)
+
+        for (let i = 1; i < visitedNodesLen; i++) {
             setTimeout(() => {
                 const node = visited[i];
-                document.getElementById(`node-x-${node[0]}-y-${node[1]}`).style.backgroundColor = "#6495ED"
+                document.getElementById(`node-x-${node[0]}-y-${node[1]}`).style.backgroundColor = "blue"
             }, 5 * i)
-        }
-    }
-
-    drawShortestPath = () => {
-        const path = dijkstra(this.state.grid, this.state.start, this.state.end)[0]
-        for (let i = 0; i < path.length; i++) {
-            setTimeout(() => {
-                const node = path[i];
-                document.getElementById(`node-x-${node[0]}-y-${node[1]}`).style.backgroundColor = "orange"
-            }, 50 * i)
         }
     }
 
@@ -141,8 +142,7 @@ export default class GridHolder extends React.Component {
                         return this.fillRow(y)
                     })}
                 </div>
-                <button onClick={this.drawVisitedPath}> Visualize Path Finding </button>
-                <button onClick={this.drawShortestPath}> Visualize Shortest Path </button>
+                <button onClick={this.drawDijkstra}> Visualize Path Finding!</button>
             </>
         )
     }
