@@ -11,6 +11,8 @@ export default class GridHolder extends React.Component {
             isBuilding: false,
             isTearing: false,
             isCurrentlyAnimating: false,
+            originalStart: [5, 5],
+            originalEnd: [8, 5],
             start: [5, 5],
             end: [8, 5],
             size: 30,
@@ -44,14 +46,14 @@ export default class GridHolder extends React.Component {
     addWall = (row, col) => {
         const grid = this.updateGridWithWall(this.state.modifiedGrid, row, col)
         this.setState({
-            grid
+            modifiedGrid: grid
         })
     }
 
     deleteWall = (row, col) => {
         const grid = this.updateGridWithoutWall(this.state.modifiedGrid, row, col)
         this.setState({
-            grid
+            modifiedGrid: grid
         })
     }
 
@@ -162,12 +164,8 @@ export default class GridHolder extends React.Component {
     // reset the board
 
     resetBoard = () => {
-        const originalGrid = this.generateGrid()
-        this.updateStart(5,5)
-        this.updateEnd(8,5)
-        this.setState ({
-            modifiedGrid: originalGrid
-        })
+        console.log("Feature not functional yet")
+        // currently a work in progress
     }
 
     // create frontend grid with special Nodes
@@ -210,9 +208,17 @@ export default class GridHolder extends React.Component {
     componentDidMount = () => {
         // generate grid
         const generatedGrid = this.generateGrid()
+        const originalGrid = []
+        
+        // copy the generated grid
+        for (let row=0; row<this.state.size; row++) {
+            originalGrid[row] = generatedGrid[row].slice()
+        }
+
+        console.log(generatedGrid === originalGrid)
         this.setState({
             modifiedGrid: generatedGrid,
-            originalGrid: generatedGrid
+            originalGrid: originalGrid
         })
     }
 
