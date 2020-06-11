@@ -1,6 +1,6 @@
 .node-visited {
     animation-name: visitedAnimation;
-    animation-duration: 1.2s;
+    animation-duration: 0.25s;
     animation-timing-function: ease-out;
     animation-delay: 0;
     animation-direction: alternate;
@@ -27,13 +27,13 @@
   
     100% {
         transform: scale(1);
-        background-color: rgba(10, 190, 218, 0.75);
+        background-color: rgba(3, 0, 156, 0.75);
     }
   }
   
 .node-shortest-path {
     animation-name: shortestPath;
-    animation-duration: 2s;
+    animation-duration: 1s;
     animation-timing-function: ease-out;
     animation-delay: 0;
     animation-direction: alternate;
