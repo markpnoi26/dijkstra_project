@@ -131,18 +131,6 @@ export default class GridHolder extends React.Component {
         }
     }
 
-    // generates the grid
-    generateGrid = () => {
-        const generatedGrid = new Array(this.state.size)
-        for (let row = 0; row < generatedGrid.length; row++) {
-            generatedGrid[row] = new Array(this.state.size)
-            for (let col = 0; col < generatedGrid[row].length; col++) {
-                generatedGrid[row][col] = {wall: false, start: false, end: false, visited: false, path: false}
-            }
-        }
-        return generatedGrid
-    }
-
     // reset the board
     resetBoard = () => {
         const newGrid = this.generateGrid() 
@@ -154,9 +142,20 @@ export default class GridHolder extends React.Component {
         })
     }
 
+    // generates the grid that will be used to create the frontend grid
+    generateGrid = () => {
+        const generatedGrid = new Array(this.state.size)
+        for (let row = 0; row < generatedGrid.length; row++) {
+            generatedGrid[row] = new Array(this.state.size)
+            for (let col = 0; col < generatedGrid[row].length; col++) {
+                generatedGrid[row][col] = {wall: false, start: false, end: false, visited: false, path: false}
+            }
+        }
+        return generatedGrid
+    }
+
     // create frontend grid with special Nodes
     fillCol(rowIdx) {
-
         return(
             this.state.grid[rowIdx].map((node, colIdx) => {
                 return (
@@ -191,8 +190,9 @@ export default class GridHolder extends React.Component {
         )
     }
 
+    // life cycle method to generate and mount the newly created grid.
     componentDidMount = () => {
-        // generate grid
+        // Mount the created grid
         const generatedGrid = this.generateGrid()
         this.setState({
             grid: generatedGrid
