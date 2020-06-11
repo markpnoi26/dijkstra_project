@@ -11,19 +11,6 @@ class GridNode extends React.Component {
         }
     }
 
-    setColor = () => {
-        if (this.props.start) {
-            return "seagreen"
-        } else if (this.props.end) {
-            return "rebeccapurple"
-        } 
-        // } else if (this.props.visited) {
-        //     return "cornflowerblue"
-        // } else if (this.props.path) {
-        //     return "orange"
-        // }
-    }
-
     setClass = () => {
 
         if (this.props.start) return "node-is-start"
@@ -77,8 +64,7 @@ class GridNode extends React.Component {
             height: "25px",
             width: "25px",
             display: "table-cell",
-            border: "0.5px solid darkturquoise",
-            backgroundColor: this.setColor()
+            border: "0.5px dotted grey"
         }
         // several states are controlled by parent element like the handleMouseEvent (mouse up & mouse down)
         // onMouseLeave is placed so the painting starts at the node that was clicked.
@@ -91,7 +77,7 @@ class GridNode extends React.Component {
                 onMouseLeave={this.handleMouseOver} 
                 onMouseOver={this.handleMouseOver} 
                 onMouseDown={this.props.handleMouseEvent} 
-                onMouseUp={this.props.handleMouseEvent}> 
+                onMouseUp={this.props.handleMouseEvent}> {this.props.start? "S": this.props.end? "E": ""}
             </div>
         )
     }
