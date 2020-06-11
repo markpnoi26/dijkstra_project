@@ -10,6 +10,7 @@ export default class GridHolder extends React.Component {
         this.state = {
             isBuilding: false,
             isTearing: false,
+            isCurrentlyAnimating: false,
             start: [5, 5],
             end: [8, 5],
             size: 30,
@@ -40,45 +41,39 @@ export default class GridHolder extends React.Component {
         } 
     }
 
-    addWall = (x,y) => {
-        const grid = this.updateGridWithWall(this.state.modifiedGrid, x, y)
+    addWall = (row, col) => {
+        const grid = this.updateGridWithWall(this.state.modifiedGrid, row, col)
         this.setState({
             grid
         })
     }
 
-    deleteWall = (x,y) => {
-        const grid = this.updateGridWithoutWall(this.state.modifiedGrid, x, y)
+    deleteWall = (row, col) => {
+        const grid = this.updateGridWithoutWall(this.state.modifiedGrid, row, col)
         this.setState({
             grid
         })
     }
 
-    drawDijkstra = () => {
-        // perform algorithm visualization
-        const [path, visited] = dijkstra(this.state.modifiedGrid, this.state.start, this.state.end)
-        const visitedNodesLen = visited.length
-        setTimeout(() => {
-            const grid = this.state.modifiedGrid
-            for (let i = 0; i < path.length; i++) {
-                setTimeout(() => {
-                    const node = path[i];
-                    grid[node[0]][node[1]].visited = false
-                    grid[node[0]][node[1]].path = true
-                    this.setState({ modifiedGrid: grid })
-                }, 50 * i)
-            }
-        }, visitedNodesLen * 39 + 500)
-
-
-        const grid = this.state.modifiedGrid
-        for (let i = 0; i < visitedNodesLen; i++) {
-            setTimeout(() => {
-                const node = visited[i];
-                grid[node[0]][node[1]].visited = true
-                this.setState({ modifiedGrid: grid })
-            }, 39 * i)
-        }
+    //updating the wall
+    updateGridWithWall = (grid, row, col) => {
+        const newGrid = grid.slice()
+        const [startRow, startCol] = this.state.start
+        const [endRow, endCol] = this.state.end
+        if (row === startRow && col === startCol) return newGrid
+        if (row === endRow && col === endCol) return newGrid
+        newGrid[row][col].wall = true
+        return newGrid
+    }
+    
+    updateGridWithoutWall = (grid, row, col) => {
+        const newGrid = grid.slice()
+        const [startRow, startCol] = this.state.start
+        const [endRow, endCol] = this.state.end
+        if (row === startRow && col ===startCol) return newGrid
+        if (row === endRow && col === endCol) return newGrid
+        newGrid[row][col].wall = false
+        return newGrid
     }
 
     // updates the start point & end point
@@ -104,6 +99,47 @@ export default class GridHolder extends React.Component {
         })
     }
 
+    // perform algorithm visualization
+    drawDijkstra = () => {
+        // declare constants first
+        const [path, visited] = dijkstra(this.state.modifiedGrid, this.state.start, this.state.end)
+        const pathLen = path.length
+        const visitedNodesLen = visited.length
+        // disable buttons and drawing
+        this.setState({
+            isCurrentlyAnimating: !this.state.isCurrentlyAnimating
+        })
+
+        setTimeout(() => {
+            this.setState({
+                isCurrentlyAnimating: !this.state.isCurrentlyAnimating
+            })
+        }, (this.props.animationSpeed * pathLen) + (this.props.animationSpeed * visitedNodesLen) + 500)
+        //
+
+        setTimeout(() => {
+            const grid = this.state.modifiedGrid
+            for (let i = 0; i < path.length; i++) {
+                setTimeout(() => {
+                    const node = path[i];
+                    grid[node[0]][node[1]].visited = false
+                    grid[node[0]][node[1]].path = true
+                    this.setState({ modifiedGrid: grid })
+                }, this.props.animationSpeed * i)
+            }
+        }, visitedNodesLen * this.props.animationSpeed + 500)
+
+
+        const grid = this.state.modifiedGrid
+        for (let i = 0; i < visitedNodesLen; i++) {
+            setTimeout(() => {
+                const node = visited[i];
+                grid[node[0]][node[1]].visited = true
+                this.setState({ modifiedGrid: grid })
+            }, this.props.animationSpeed * i)
+        }
+    }
+
     // generates the grid
     generateGrid = () => {
         const generatedGrid = new Array(this.state.size)
@@ -121,27 +157,6 @@ export default class GridHolder extends React.Component {
         generatedGrid[startRow][startCol]["start"] = true
         generatedGrid[endRow][endCol]["end"] = true
         return generatedGrid
-    }
-
-    //updating the wall
-    updateGridWithWall = (grid, row, col) => {
-        const newGrid = grid.slice()
-        const [startRow, startCol] = this.state.start
-        const [endRow, endCol] = this.state.end
-        if (row === startRow && col === startCol) return newGrid
-        if (row === endRow && col === endCol) return newGrid
-        newGrid[row][col].wall = true
-        return newGrid
-    }
-    
-    updateGridWithoutWall = (grid, row, col) => {
-        const newGrid = grid.slice()
-        const [startRow, startCol] = this.state.start
-        const [endRow, endCol] = this.state.end
-        if (row === startRow && col ===startCol) return newGrid
-        if (row === endRow && col === endCol) return newGrid
-        newGrid[row][col].wall = false
-        return newGrid
     }
 
     // reset the board
@@ -209,8 +224,8 @@ export default class GridHolder extends React.Component {
                         return this.fillRow(rowIdx)
                     })}
                 </div>
-                <button onClick={this.drawDijkstra}> Visualize Path Finding!</button>
-                <button onClick={this.resetBoard}>Reset Board</button>
+                <button onClick={this.drawDijkstra} disabled={this.state.isCurrentlyAnimating}> Visualize Path Finding!</button>
+                <button onClick={this.resetBoard} disabled={this.state.isCurrentlyAnimating}>Reset Board</button>
             </>
         )
     }
