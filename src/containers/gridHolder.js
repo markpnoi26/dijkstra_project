@@ -13,9 +13,9 @@ export default class GridHolder extends React.Component {
             isCurrentlyAnimating: false,
             originalStart: [5, 5],
             originalEnd: [8, 5],
-            start: [5, 5],
-            end: [8, 5],
-            size: 30,
+            start: [],
+            end: [],
+            size: 20,
             originalGrid: [],
             modifiedGrid: []
         }
@@ -72,7 +72,9 @@ export default class GridHolder extends React.Component {
     updateStart = (row, col) => {
         const grid = this.state.modifiedGrid
         const [startRow, startCol] = this.state.start
-        grid[startRow][startCol].start = false
+        if (startRow && startCol) {
+            grid[startRow][startCol].start = false
+        }
         grid[row][col].start = true
         this.setState({
             start: [row, col],
@@ -83,7 +85,10 @@ export default class GridHolder extends React.Component {
     updateEnd = (row, col) => {
         const grid = this.state.modifiedGrid
         const [endRow, endCol] = this.state.end
-        grid[endRow][endCol].end = false
+
+        if (endRow && endCol) {
+            grid[endRow][endCol].end = false
+        }
         grid[row][col].end = true
         this.setState({
             end: [row, col],
@@ -93,22 +98,22 @@ export default class GridHolder extends React.Component {
 
     // perform algorithm visualization
     drawDijkstra = () => {
+        // if the input is not valid, the code will not execute.
+        if (!this.state.start.length || !this.state.end.length) return alert("Please pick a start point and an end point.")
         // declare constants first
         const [path, visited] = dijkstra(this.state.modifiedGrid, this.state.start, this.state.end)
         const pathLen = path.length
         const visitedNodesLen = visited.length
-        // disable buttons and drawing
-        this.setState({
-            isCurrentlyAnimating: !this.state.isCurrentlyAnimating
-        })
 
+        // disable buttons while animating for a set amount of time.
+        this.setState({isCurrentlyAnimating: !this.state.isCurrentlyAnimating})
         setTimeout(() => {
             this.setState({
                 isCurrentlyAnimating: !this.state.isCurrentlyAnimating
             })
         }, (this.props.animationSpeed * pathLen) + (this.props.animationSpeed * visitedNodesLen) + 500)
-        //
 
+        //animate visited nodes first followed by path (set on a timer after visited nodes are done animating)
         setTimeout(() => {
             const grid = this.state.modifiedGrid
             for (let i = 0; i < path.length; i++) {
@@ -135,25 +140,23 @@ export default class GridHolder extends React.Component {
     // generates the grid
     generateGrid = () => {
         const generatedGrid = new Array(this.state.size)
-        const [startRow, startCol] = this.state.start
-        const [endRow, endCol] = this.state.end
-        
         for (let row = 0; row < generatedGrid.length; row++) {
             generatedGrid[row] = new Array(this.state.size)
             for (let col = 0; col < generatedGrid[row].length; col++) {
                 generatedGrid[row][col] = {wall: false, start: false, end: false, visited: false, path: false}
             }
         }
-        generatedGrid[startRow][startCol]["start"] = true
-        generatedGrid[endRow][endCol]["end"] = true
         return generatedGrid
     }
 
     // reset the board
-
     resetBoard = () => {
-        console.log("Feature not functional yet")
-        // currently a work in progress
+        const newGrid = this.generateGrid() 
+        this.setState({
+            modifiedGrid: newGrid,
+            start: [],
+            end: []
+        })
     }
 
     // create frontend grid with special Nodes
@@ -196,17 +199,8 @@ export default class GridHolder extends React.Component {
     componentDidMount = () => {
         // generate grid
         const generatedGrid = this.generateGrid()
-        const originalGrid = []
-        
-        // copy the generated grid
-        for (let row=0; row<this.state.size; row++) {
-            originalGrid[row] = generatedGrid[row].slice()
-        }
-
-        console.log(generatedGrid === originalGrid)
         this.setState({
-            modifiedGrid: generatedGrid,
-            originalGrid: originalGrid
+            modifiedGrid: generatedGrid
         })
     }
 
