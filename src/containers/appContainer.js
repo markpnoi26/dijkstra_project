@@ -9,6 +9,7 @@ class AppContainer extends React.Component {
         super() 
         this.state = {
             selection: null,
+            animationSpeed: 50,
             isCurrentlyAnimating: false
         }
     }
@@ -16,6 +17,18 @@ class AppContainer extends React.Component {
     updateSelection = (selection) => {
         this.setState({
             selection: selection
+        })
+    }
+
+    updateCurrentlyAnimating = () => {
+        this.setState({
+            isCurrentlyAnimating: !this.state.isCurrentlyAnimating
+        })
+    }
+
+    updateAnimationSpeed = (newSpeed) => {
+        this.setState({
+            animationSpeed: newSpeed
         })
     }
     
