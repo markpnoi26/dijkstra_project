@@ -9,20 +9,13 @@ class AppContainer extends React.Component {
         super() 
         this.state = {
             selection: null,
-            animationSpeed: 50,
-            isCurrentlyAnimating: false
+            animationSpeed: 39
         }
     }
 
     updateSelection = (selection) => {
         this.setState({
             selection: selection
-        })
-    }
-
-    updateCurrentlyAnimating = () => {
-        this.setState({
-            isCurrentlyAnimating: !this.state.isCurrentlyAnimating
         })
     }
 
@@ -37,9 +30,11 @@ class AppContainer extends React.Component {
             <div>
                 <SelectionHolder 
                     updateSelection={this.updateSelection}
+                    updateAnimationSpeed={this.updateAnimationSpeed}
                 />
                 <GridHolder 
                     selection={this.state.selection} 
+                    animationSpeed={this.state.animationSpeed}
                 />
             </div>
         )
