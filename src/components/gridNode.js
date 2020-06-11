@@ -1,5 +1,7 @@
 import React from 'react'
-import '../componentCSS/gridNode.css'
+import '../component-styles/gridNode.css'
+import startImg from '../component-styles/start.png'
+import endImg from '../component-styles/end-flag.png'
 
 class GridNode extends React.Component {
 
@@ -18,6 +20,26 @@ class GridNode extends React.Component {
         if (this.props.wall) return "node-is-wall"
         if (this.props.path) return "node-shortest-path"
         if (this.props.visited) return "node-visited"
+
+    }
+
+    setImage = () => {
+        const imageStyle = {
+            width: "100%",
+            display: "block",
+            marginLeft: "auto",
+            marginRight: "auto"
+        }
+
+        if (this.props.start) {
+            return (
+                <img src={startImg} style={imageStyle}/>
+            )
+        } else if (this.props.end) {
+            return (
+                <img src={endImg} style={imageStyle}/>
+            )
+        }
 
     }
 
@@ -64,7 +86,7 @@ class GridNode extends React.Component {
             height: "25px",
             width: "25px",
             display: "table-cell",
-            border: "0.5px dotted grey"
+            border: "0.5px dotted gainsboro"
         }
         // several states are controlled by parent element like the handleMouseEvent (mouse up & mouse down)
         // onMouseLeave is placed so the painting starts at the node that was clicked.
@@ -77,7 +99,8 @@ class GridNode extends React.Component {
                 onMouseEnter={this.handleMouseOver} 
                 onMouseOver={this.handleMouseOver} 
                 onMouseDown={this.props.handleMouseEvent} 
-                onMouseUp={this.props.handleMouseEvent}> {this.props.start? "S": this.props.end? "E": ""}
+                onMouseUp={this.props.handleMouseEvent}>
+                    {this.setImage()}
             </div>
         )
     }
