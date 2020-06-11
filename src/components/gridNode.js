@@ -1,4 +1,5 @@
 import React from 'react'
+import '../componentCSS/gridNode.css'
 
 class GridNode extends React.Component {
 
@@ -15,13 +16,22 @@ class GridNode extends React.Component {
             return "seagreen"
         } else if (this.props.end) {
             return "rebeccapurple"
-        } else if (this.props.wall) {
-            return "darkturquoise"
-        } else if (this.props.visited) {
-            return "cornflowerblue"
-        } else if (this.props.path) {
-            return "orange"
-        }
+        } 
+        // } else if (this.props.visited) {
+        //     return "cornflowerblue"
+        // } else if (this.props.path) {
+        //     return "orange"
+        // }
+    }
+
+    setClass = () => {
+
+        if (this.props.start) return "node-is-start"
+        if (this.props.end) return "node-is-end"
+        if (this.props.wall) return "node-is-wall"
+        if (this.props.path) return "node-shortest-path"
+        if (this.props.visited) return "node-visited"
+
     }
 
     handleClick = () => {
@@ -74,7 +84,7 @@ class GridNode extends React.Component {
         // onMouseLeave is placed so the painting starts at the node that was clicked.
         return (
             <div 
-                className="node"
+                className={this.setClass()}
                 id={`node-row-${this.state.row}-col-${this.state.col}`}
                 style={nodeStyle} 
                 onClick={this.handleClick} 
