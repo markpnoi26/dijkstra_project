@@ -144,8 +144,6 @@ export default class GridHolder extends React.Component {
                 generatedGrid[row][col] = {wall: false, start: false, end: false, visited: false, path: false}
             }
         }
-
-        // it must me the reverse because of how frontend is generated
         generatedGrid[startRow][startCol]["start"] = true
         generatedGrid[endRow][endCol]["end"] = true
         return generatedGrid
