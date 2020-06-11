@@ -33,11 +33,11 @@ class GridNode extends React.Component {
 
         if (this.props.start) {
             return (
-                <img src={startImg} style={imageStyle}/>
+                <img src={startImg} style={imageStyle} alt="start"/>
             )
         } else if (this.props.end) {
             return (
-                <img src={endImg} style={imageStyle}/>
+                <img src={endImg} style={imageStyle} alt="end"/>
             )
         }
 
