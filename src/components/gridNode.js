@@ -42,7 +42,7 @@ class GridNode extends React.Component {
     }
     
     // adding lifecyle methods for testing
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate(nextProps) {
         if (this.props.wall !== nextProps.wall) {
             return true
         } else if (this.props.start !== nextProps.start) {
