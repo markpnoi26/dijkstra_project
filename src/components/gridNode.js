@@ -74,7 +74,7 @@ class GridNode extends React.Component {
                 id={`node-row-${this.state.row}-col-${this.state.col}`}
                 style={nodeStyle} 
                 onClick={this.handleClick} 
-                onMouseLeave={this.handleMouseOver} 
+                onMouseEnter={this.handleMouseOver} 
                 onMouseOver={this.handleMouseOver} 
                 onMouseDown={this.props.handleMouseEvent} 
                 onMouseUp={this.props.handleMouseEvent}> {this.props.start? "S": this.props.end? "E": ""}
