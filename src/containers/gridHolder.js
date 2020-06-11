@@ -31,8 +31,7 @@ export default class GridHolder extends React.Component {
             this.setState({
                 isBuilding: false
             })
-        } 
-        if (event.type === "mousedown" && this.props.selection === "teardown") {
+        } else if (event.type === "mousedown" && this.props.selection === "teardown") {
             this.setState({
                 isTearing: true
             })
@@ -43,39 +42,30 @@ export default class GridHolder extends React.Component {
         } 
     }
 
+    // updates the wall 
+
     addWall = (row, col) => {
-        const grid = this.updateGridWithWall(this.state.modifiedGrid, row, col)
+        const grid = this.state.modifiedGrid.slice()
+        const [startRow, startCol] = this.state.start
+        const [endRow, endCol] = this.state.end
+        if (row === startRow && col === startCol) return 
+        if (row === endRow && col === endCol) return 
+        grid[row][col].wall = true
         this.setState({
             modifiedGrid: grid
         })
     }
 
     deleteWall = (row, col) => {
-        const grid = this.updateGridWithoutWall(this.state.modifiedGrid, row, col)
+        const grid = this.state.modifiedGrid.slice()
+        const [startRow, startCol] = this.state.start
+        const [endRow, endCol] = this.state.end
+        if (row === startRow && col === startCol) return 
+        if (row === endRow && col === endCol) return 
+        grid[row][col].wall = false
         this.setState({
             modifiedGrid: grid
         })
-    }
-
-    //updating the wall
-    updateGridWithWall = (grid, row, col) => {
-        const newGrid = grid.slice()
-        const [startRow, startCol] = this.state.start
-        const [endRow, endCol] = this.state.end
-        if (row === startRow && col === startCol) return newGrid
-        if (row === endRow && col === endCol) return newGrid
-        newGrid[row][col].wall = true
-        return newGrid
-    }
-    
-    updateGridWithoutWall = (grid, row, col) => {
-        const newGrid = grid.slice()
-        const [startRow, startCol] = this.state.start
-        const [endRow, endCol] = this.state.end
-        if (row === startRow && col ===startCol) return newGrid
-        if (row === endRow && col === endCol) return newGrid
-        newGrid[row][col].wall = false
-        return newGrid
     }
 
     // updates the start point & end point
