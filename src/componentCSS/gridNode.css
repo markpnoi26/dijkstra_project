@@ -1,0 +1,139 @@
+.node-visited {
+    animation-name: visitedAnimation;
+    animation-duration: 1.2s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+}
+  
+@keyframes visitedAnimation {
+    0% {
+        transform: scale(0.5);
+        background-color: rgba(150, 67, 206, 0.75);
+        border-radius: 25%;
+    }
+  
+    50% {
+        background-color: rgba(134, 112, 170, 0.75);
+    }
+  
+    75% {
+        transform: scale(1.2);
+        background-color: rgba(200, 187, 216, 0.75);
+    }
+  
+    100% {
+        transform: scale(1);
+        background-color: rgba(10, 190, 218, 0.75);
+    }
+  }
+  
+.node-shortest-path {
+    animation-name: shortestPath;
+    animation-duration: 2s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+}
+
+@keyframes shortestPath {
+    0% {
+        transform: scale(0.8);
+        background-color: orange;
+    }
+
+    50% {
+        transform: scale(1.4);
+        background-color: orange;
+    }
+
+    100% {
+        transform: scale(1);
+        background-color: orange;
+    }
+}
+
+.node-is-wall {
+    animation-name: nodeIsWall;
+    animation-duration: 0.25s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+}
+
+@keyframes nodeIsWall {
+    0% {
+        transform: scale(1.4);
+        background-color: black;
+    }
+
+    100% {
+        transform: scale(1);
+        background-color: black;
+    }
+}
+
+.node-is-start {
+    animation-name: nodeIsStart;
+    animation-duration: 1.2s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+}
+
+@keyframes nodeIsStart {
+    0% {
+        transform: scale(0.2);
+        background-color: seagreen;
+    }
+
+    50% {
+        transform: scale(1.2);
+        background-color: seagreen;
+    }
+
+    100% {
+        transform: scale(1);
+        background-color: seagreen;
+    }
+}
+
+.node-is-end {
+    animation-name: nodeIsEnd;
+    animation-duration: 1.2s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+}
+
+@keyframes nodeIsEnd {
+    0% {
+        transform: scale(0.2);
+        background-color: purple;
+    }
+
+    50% {
+        transform: scale(1.2);
+        background-color: purple;
+    }
+
+    100% {
+        transform: scale(1);
+        background-color: purple;
+    }
+}
