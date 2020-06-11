@@ -205,7 +205,7 @@ export default class GridHolder extends React.Component {
     render() {
         return(
             <> 
-                <div className="main-holder" style={{width: "1000px", height: "800px"}} >
+                <div className="main-holder" style={{width: "1000px", height: "850px"}} >
                     {this.state.grid.map((row, rowIdx) => {
                         return this.fillRow(rowIdx)
                     })}
