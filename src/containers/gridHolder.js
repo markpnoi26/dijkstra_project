@@ -13,7 +13,7 @@ export default class GridHolder extends React.Component {
             isDrawing: false,
             start: [5, 5],
             end: [8, 5],
-            size: 15,
+            size: 30,
             originalGrid: [],
             modifiedGrid: []
         }
@@ -61,24 +61,24 @@ export default class GridHolder extends React.Component {
         const visitedNodesLen = visited.length
         setTimeout(() => {
             const grid = this.state.modifiedGrid
-            for (let i = 1; i < path.length; i++) {
+            for (let i = 0; i < path.length; i++) {
                 setTimeout(() => {
                     const node = path[i];
                     grid[node[0]][node[1]].visited = false
                     grid[node[0]][node[1]].path = true
                     this.setState({ modifiedGrid: grid })
-                }, 80 * i)
+                }, 50 * i)
             }
-        }, visitedNodesLen * 5 + 500)
+        }, visitedNodesLen * 39 + 500)
 
 
         const grid = this.state.modifiedGrid
-        for (let i = 1; i < visitedNodesLen-1; i++) {
+        for (let i = 0; i < visitedNodesLen; i++) {
             setTimeout(() => {
                 const node = visited[i];
                 grid[node[0]][node[1]].visited = true
                 this.setState({ modifiedGrid: grid })
-            }, 5 * i)
+            }, 39 * i)
         }
     }
 
