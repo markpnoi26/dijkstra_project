@@ -8,7 +8,8 @@ class AppContainer extends React.Component {
     constructor() {
         super() 
         this.state = {
-            selection: null
+            selection: null,
+            isCurrentlyAnimating: false
         }
     }
 

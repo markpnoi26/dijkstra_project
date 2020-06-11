@@ -10,7 +10,6 @@ export default class GridHolder extends React.Component {
         this.state = {
             isBuilding: false,
             isTearing: false,
-            isDrawing: false,
             start: [5, 5],
             end: [8, 5],
             size: 30,
