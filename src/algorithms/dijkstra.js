@@ -1,10 +1,15 @@
-const dijkstra = (board, start, end) => {
+const dijkstra = (board, start, end, mode="rook") => {
 
     const colMax = board[0].length
     const rowMax = board.length
     const distances = new Array(board.length)
     const previousNode = {}
     const queue = new PriorityQueue()
+    const moves = {
+        queen: [[0,1], [1,0], [0,-1], [-1,0],[1,1], [1,-1], [-1,-1], [-1,1]],
+        bishop: [[1,1], [1,-1], [-1,-1], [-1,1]],
+        rook: [[0,1], [1,0], [0,-1], [-1,0]]
+    }
 
     // return values
     const shortestPath = []
@@ -43,7 +48,7 @@ const dijkstra = (board, start, end) => {
 
         if (deQ) {
             // check all directions, and add to priority queue
-            const directions = [[0,1], [1,0], [0,-1], [-1,0],[1,1], [1,-1], [-1,-1], [-1,1]]
+            const directions = moves[mode]
             nodesVisited.push([curRow, curCol])
             
             for (let direction of directions) {
@@ -51,11 +56,11 @@ const dijkstra = (board, start, end) => {
                 let dCol = curCol + direction[1]
                 // check if its within bounds
                 if (dRow >= 0 && dCol >= 0 && dRow < rowMax && dCol < colMax && !board[dRow][dCol].wall) {
-                    const newWt = deQ.wt+1
-                    if (newWt < distances[dRow][dCol]) {
-                        distances[dRow][dCol] = newWt
+                    const newWeight = deQ.weight + board[dRow][dCol].weight
+                    if (newWeight < distances[dRow][dCol]) {
+                        distances[dRow][dCol] = newWeight
                         previousNode[`${dRow}-${dCol}`] = [curRow, curCol]
-                        queue.enqueue([dRow, dCol], newWt)
+                        queue.enqueue([dRow, dCol], newWeight)
                     }
                 }
             }
@@ -72,9 +77,9 @@ class PriorityQueue {
         this.values = []
     }
 
-    enqueue = (node, wt) => {
-        this.values.push({node, wt})
-
+    enqueue = (node, weight) => {
+        this.values.push({node, weight})
+        this.sort()
     }
 
     dequeue = () => {
@@ -83,7 +88,7 @@ class PriorityQueue {
 
 
     sort = () => {
-        this.values.sort((a, b) => a.wt - b.wt)
+        this.values.sort((a, b) => a.weight - b.weight)
     }
     
 }
