@@ -138,16 +138,16 @@
 @keyframes nodeIsEnd {
     0% {
         transform: scale(0.2);
-        background-color: rgb(255, 0, 255);
+        background-color: rgb(0, 255, 110);
     }
 
     50% {
         transform: scale(1.2);
-        background-color: rgb(255, 0, 255);
+        background-color: rgb(0, 255, 110);
     }
 
     100% {
         transform: scale(1);
-        background-color: rgb(255, 0, 255);
+        background-color: rgb(0, 255, 110);
     }
 }

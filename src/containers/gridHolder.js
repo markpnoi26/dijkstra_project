@@ -1,7 +1,7 @@
 import React from 'react'
 import GridNode from '../components/gridNode'
-import dijkstraHorizontal from '../algorithms/dijkstraHorizontal'
-import dijkstraDiagonal from '../algorithms/dijkstraDiagonal'
+// import dijkstraHorizontal from '../algorithms/dijkstraHorizontal'
+// import dijkstraDiagonal from '../algorithms/dijkstraDiagonal'
 import dijkstraCombined from '../algorithms/dijkstraCombined'
 
 
