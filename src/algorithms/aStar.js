@@ -26,7 +26,11 @@ const aStar = (board, start, end, mode="rook") => {
         totalCost[row] = new Array(board[0].length).fill(Infinity)
         heuristicVal[row] = new Array(board[0].length)
         for (let col=0; col<board[0].length; col++) {
-            heuristicVal[row][col] = Math.sqrt((row-end[0])**2 + (col-end[1])**2)
+            if (mode === "bishop" || mode === "queen") {
+                heuristicVal[row][col] = Math.sqrt((row-end[0])**2 + (col-end[1])**2)
+            } else {
+                heuristicVal[row][col] = Math.abs(row-end[0]) + Math.abs(col-end[1])
+            }
         }
     }
     distancesVal[start[0]][start[1]] = 0
@@ -74,13 +78,15 @@ const aStar = (board, start, end, mode="rook") => {
                     // g = distance from start to current
                     // h = distance from current to end
 
-                    const newWeight = deQ.weight + board[dRow][dCol].weight
-                    const cost = newWeight + heuristicVal[dRow][dCol]
-                    if (cost < totalCost[dRow][dCol] && newWeight < distancesVal[dRow][dCol]) {
-                        distancesVal[dRow][dCol] = newWeight
+                    const distanceFromStart = deQ.weight + board[dRow][dCol].weight
+                    const cost = distanceFromStart + heuristicVal[dRow][dCol]
+                    
+                    // calculate the lowest cost and add into 
+                    if (cost < totalCost[dRow][dCol] && distanceFromStart < distancesVal[dRow][dCol]) {
+                        distancesVal[dRow][dCol] = distanceFromStart
                         totalCost[dRow][dCol] = cost
                         previousNode[`${dRow}-${dCol}`] = [curRow, curCol]
-                        queue.enqueue([dRow, dCol], newWeight, cost)
+                        queue.enqueue([dRow, dCol], distanceFromStart, cost)
                     }
                 }
             }
