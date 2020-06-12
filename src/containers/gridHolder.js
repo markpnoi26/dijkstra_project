@@ -14,6 +14,8 @@ export default class GridHolder extends React.Component {
             isBuilding: false,
             isTearing: false,
             isCurrentlyAnimating: false,
+            visitedNodes: [],
+            pathNodes: [],
             originalStart: [15, 5],
             originalEnd: [15, 24],
             start: [15, 5],
@@ -100,6 +102,8 @@ export default class GridHolder extends React.Component {
         this.setState({
             start: [row, col],
             grid: grid
+        }, () => {
+            this.resetVisitedPath()
         })
     }
 
@@ -111,6 +115,8 @@ export default class GridHolder extends React.Component {
         this.setState({
             end: [row, col],
             grid: grid
+        }, () => {
+            this.resetVisitedPath()
         })
     }
 
@@ -119,11 +125,16 @@ export default class GridHolder extends React.Component {
         // if the input is not valid, the code will not execute.
         if (!this.state.start.length || !this.state.end.length) return alert("Please pick a start point and an end point.")
         // declare constants first
+        this.resetVisitedPath()
 
         const [path, visited] = this.state.algorithm !== "dijkstra"? 
             aStar(this.state.grid, this.state.start, this.state.end, this.state.mode): 
             dijkstra(this.state.grid, this.state.start, this.state.end, this.state.mode)
 
+        this.setState({
+            visitedNodes: visited,
+            pathNodes: path
+        })
         const pathLen = path.length
         const visitedNodesLen = visited.length
 
@@ -159,7 +170,7 @@ export default class GridHolder extends React.Component {
         }
     }
 
-    // reset the board
+    // reset the certain conditions
     resetBoard = () => {
         const newGrid = this.generateGrid() 
         this.setState({
@@ -170,6 +181,34 @@ export default class GridHolder extends React.Component {
         })
     }
 
+    resetVisitedPath = () => {
+        // const visitedNodes = this.state.visitedNodes.slice()
+        const grid = this.state.grid.slice()
+
+        for (let row = 0; row < grid.length; row++) {
+            for (let col =0 ; col< grid[row].length; col++) {
+                const curNode = grid[row][col]
+                curNode.visited = false
+                curNode.path = false
+            }   
+        }
+        this.setState({ grid: grid })
+    }
+
+
+    resetWalls = () => {
+        const grid = this.state.grid.slice()
+
+        for (let row = 0; row < grid.length; row++) {
+            for (let col =0 ; col< grid[row].length; col++) {
+                const curNode = grid[row][col]
+                curNode.visited = false
+                curNode.path = false
+                curNode.wall = false
+            }   
+        }
+        this.setState({ grid: grid })
+    }
     // generates the grid that will be used to create the frontend grid
     generateGrid = () => {
         const generatedGrid = new Array(this.state.size)
@@ -249,8 +288,8 @@ export default class GridHolder extends React.Component {
                 </select>
                 <button onClick={this.drawVisualization} disabled={this.state.isCurrentlyAnimating}> Visualize Path Finding</button>
                 <button onClick={this.resetBoard} disabled={this.state.isCurrentlyAnimating}>Reset Board</button>
-                <button onClick={this.resetBoard} disabled={this.state.isCurrentlyAnimating}>Reset Walls</button>
-                <button onClick={this.resetBoard} disabled={this.state.isCurrentlyAnimating}>Reset Visited/Path</button>
+                <button onClick={this.resetWalls} disabled={this.state.isCurrentlyAnimating}>Reset Walls</button>
+                <button onClick={this.resetVisitedPath} disabled={this.state.isCurrentlyAnimating}>Reset Visited/Path</button>
             </>
         )
     }
