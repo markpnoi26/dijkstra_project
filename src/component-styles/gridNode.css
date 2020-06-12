@@ -42,6 +42,7 @@
     100% {
         transform: scale(1);
         background-color: rgba(2, 76, 236, 0.548);
+        border-radius: 10%;
     }
   }
   
@@ -66,11 +67,13 @@
     50% {
         transform: scale(1.2);
         background-color: orange;
+        border-radius: 100%;
     }
 
     100% {
         transform: scale(1);
         background-color: orange;
+        border-radius: 35%;
     }
 }
 
@@ -87,7 +90,7 @@
 
 @keyframes nodeIsWall {
     0% {
-        transform: scale(1.0);
+        transform: scale(1.2);
         background-color: black;
         border-radius: 100%;
     }
@@ -95,6 +98,7 @@
     100% {
         transform: scale(1);
         background-color: black;
+        border-radius: 10%;
     }
 }
 
@@ -124,6 +128,7 @@
     100% {
         transform: scale(1);
         background-color: rgb(0, 255, 110);
+        border-radius: 100%;
     }
 }
 
@@ -141,17 +146,18 @@
 @keyframes nodeIsEnd {
     0% {
         transform: scale(0.2);
-        background-color: rgb(0, 255, 110);
+        background-color: rgb(255, 81, 0);
         border-radius: 100%;
     }
 
     50% {
         transform: scale(1.2);
-        background-color: rgb(0, 255, 110);
+        background-color: rgb(255, 81, 0);
     }
 
     100% {
         transform: scale(1);
-        background-color: rgb(0, 255, 110);
+        background-color: rgb(255, 81, 0);
+        border-radius: 100%;
     }
 }
