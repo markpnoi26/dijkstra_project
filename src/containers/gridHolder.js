@@ -1,6 +1,8 @@
 import React from 'react'
 import GridNode from '../components/gridNode'
-import dijkstra from '../algorithms/dijkstra'
+import dijkstraHorizontal from '../algorithms/dijkstraHorizontal'
+import dijkstraDiagonal from '../algorithms/dijkstraDiagonal'
+import dijkstraCombined from '../algorithms/dijkstraCombined'
 
 
 export default class GridHolder extends React.Component {
@@ -95,7 +97,7 @@ export default class GridHolder extends React.Component {
         // if the input is not valid, the code will not execute.
         if (!this.state.start.length || !this.state.end.length) return alert("Please pick a start point and an end point.")
         // declare constants first
-        const [path, visited] = dijkstra(this.state.grid, this.state.start, this.state.end)
+        const [path, visited] = dijkstraCombined(this.state.grid, this.state.start, this.state.end)
         const pathLen = path.length
         const visitedNodesLen = visited.length
 

@@ -9,7 +9,7 @@ class AppContainer extends React.Component {
         super() 
         this.state = {
             selection: null,
-            animationSpeed: 65
+            animationSpeed: 15
         }
     }
 
