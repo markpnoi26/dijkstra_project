@@ -168,6 +168,8 @@ export default class GridHolder extends React.Component {
                 this.setState({ grid: grid })
             }, this.props.animationSpeed * i)
         }
+
+        console.log("Relative time it took to find end-node: ", visitedNodesLen * this.props.animationSpeed)
     }
 
     // reset the certain conditions
@@ -277,10 +279,12 @@ export default class GridHolder extends React.Component {
                         return this.fillRow(rowIdx)
                     })}
                 </div>
+                <label> Algorithm: </label>
                 <select value={this.state.algorithm} onChange={this.handleAlgorithmChange} disabled={this.state.isCurrentlyAnimating}> 
                     <option value="dijkstra">Dijkstra Shortest Path</option>
                     <option value="aStar">A*</option>
                 </select>
+                <label> Mode: </label>
                 <select value={this.state.mode} onChange={this.handleModeChange} disabled={this.state.isCurrentlyAnimating}> 
                     <option value="rook">Rook (horizonal/vertical exploration)</option>
                     <option value="bishop">Bishop (diagonal exploration)</option>
