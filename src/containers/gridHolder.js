@@ -1,8 +1,7 @@
 import React from 'react'
 import GridNode from '../components/gridNode'
-import dijkstraHorizontal from '../algorithms/dijkstraHorizontal'
-// import dijkstraDiagonal from '../algorithms/dijkstraDiagonal'
-// import dijkstraCombined from '../algorithms/dijkstraCombined'
+import dijkstra from '../algorithms/dijkstra'
+import aStar from '../algorithms/aStar'
 
 
 export default class GridHolder extends React.Component {
@@ -10,6 +9,8 @@ export default class GridHolder extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            mode: "rook",
+            algorithm: "dijkstra",
             isBuilding: false,
             isTearing: false,
             isCurrentlyAnimating: false,
@@ -42,6 +43,27 @@ export default class GridHolder extends React.Component {
             })
         } 
     }
+
+    // handles how the visualization method behaves
+
+    handleAlgorithmChange = (event) => {
+        this.setState({
+            algorithm: event.target.value
+        }, () => {
+            console.log("current algorithm:", this.state.algorithm)
+        })
+        
+    }
+
+    handleModeChange = (event) => {
+        this.setState({
+            mode: event.target.value
+        }, () => {
+            console.log("current mode:", this.state.mode)
+        })
+    }
+
+
 
     // updates the wall 
 
@@ -93,11 +115,15 @@ export default class GridHolder extends React.Component {
     }
 
     // perform algorithm visualization
-    drawDijkstra = () => {
+    drawVisualization = () => {
         // if the input is not valid, the code will not execute.
         if (!this.state.start.length || !this.state.end.length) return alert("Please pick a start point and an end point.")
         // declare constants first
-        const [path, visited] = dijkstraHorizontal(this.state.grid, this.state.start, this.state.end)
+
+        const [path, visited] = this.state.algorithm !== "dijkstra"? 
+            aStar(this.state.grid, this.state.start, this.state.end, this.state.mode): 
+            dijkstra(this.state.grid, this.state.start, this.state.end, this.state.mode)
+
         const pathLen = path.length
         const visitedNodesLen = visited.length
 
@@ -150,7 +176,7 @@ export default class GridHolder extends React.Component {
         for (let row = 0; row < generatedGrid.length; row++) {
             generatedGrid[row] = new Array(this.state.size)
             for (let col = 0; col < generatedGrid[row].length; col++) {
-                generatedGrid[row][col] = {wall: false, start: false, end: false, visited: false, path: false}
+                generatedGrid[row][col] = {wall: false, start: false, end: false, visited: false, path: false, weight: 1}
             }
         }
         return generatedGrid
@@ -212,8 +238,19 @@ export default class GridHolder extends React.Component {
                         return this.fillRow(rowIdx)
                     })}
                 </div>
-                <button onClick={this.drawDijkstra} disabled={this.state.isCurrentlyAnimating}> Visualize Path Finding!</button>
+                <select value={this.state.algorithm} onChange={this.handleAlgorithmChange} disabled={this.state.isCurrentlyAnimating}> 
+                    <option value="dijkstra">Dijkstra Shortest Path</option>
+                    <option value="aStar">A*</option>
+                </select>
+                <select value={this.state.mode} onChange={this.handleModeChange} disabled={this.state.isCurrentlyAnimating}> 
+                    <option value="rook">Rook (horizonal/vertical exploration)</option>
+                    <option value="bishop">Bishop (diagonal exploration)</option>
+                    <option value="queen">Queen (all directions)</option>
+                </select>
+                <button onClick={this.drawVisualization} disabled={this.state.isCurrentlyAnimating}> Visualize Path Finding</button>
                 <button onClick={this.resetBoard} disabled={this.state.isCurrentlyAnimating}>Reset Board</button>
+                <button onClick={this.resetBoard} disabled={this.state.isCurrentlyAnimating}>Reset Walls</button>
+                <button onClick={this.resetBoard} disabled={this.state.isCurrentlyAnimating}>Reset Visited/Path</button>
             </>
         )
     }
