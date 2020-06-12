@@ -56,11 +56,11 @@ const dijkstra = (board, start, end, mode="rook") => {
                 let dCol = curCol + direction[1]
                 // check if its within bounds
                 if (dRow >= 0 && dCol >= 0 && dRow < rowMax && dCol < colMax && !board[dRow][dCol].wall) {
-                    const newWeight = deQ.weight + board[dRow][dCol].weight
-                    if (newWeight < distances[dRow][dCol]) {
-                        distances[dRow][dCol] = newWeight
+                    const distanceFromStart = deQ.weight + board[dRow][dCol].weight
+                    if (distanceFromStart < distances[dRow][dCol]) {
+                        distances[dRow][dCol] = distanceFromStart
                         previousNode[`${dRow}-${dCol}`] = [curRow, curCol]
-                        queue.enqueue([dRow, dCol], newWeight)
+                        queue.enqueue([dRow, dCol], distanceFromStart)
                     }
                 }
             }
