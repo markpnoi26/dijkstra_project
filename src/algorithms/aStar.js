@@ -26,7 +26,7 @@ const aStar = (board, start, end, mode="rook") => {
         totalCost[row] = new Array(board[0].length).fill(Infinity)
         heuristicVal[row] = new Array(board[0].length)
         for (let col=0; col<board[0].length; col++) {
-            heuristicVal[row][col] = Math.abs(row-end[0]) + Math.abs(col-end[1])
+            heuristicVal[row][col] = Math.sqrt((row-end[0])**2 + (col-end[1])**2)
         }
     }
     distancesVal[start[0]][start[1]] = 0
@@ -75,7 +75,7 @@ const aStar = (board, start, end, mode="rook") => {
                     // h = distance from current to end
 
                     const newWeight = deQ.weight + board[dRow][dCol].weight
-                    const cost = deQ.weight + heuristicVal[dRow][dCol]
+                    const cost = newWeight + heuristicVal[dRow][dCol]
                     if (cost < totalCost[dRow][dCol] && newWeight < distancesVal[dRow][dCol]) {
                         distancesVal[dRow][dCol] = newWeight
                         totalCost[dRow][dCol] = cost
@@ -98,8 +98,12 @@ class PriorityQueue {
     }
 
     enqueue = (node, weight, cost) => {
-        this.values.push({node, weight, cost})
-        this.sort()
+        if (this.values[0] !== undefined && this.values.cost >= cost) {
+            this.values.unshift({node, weight, cost})
+        } else {
+            this.values.unshift({node, weight, cost})
+            this.sort()
+        }
 
     }
 
