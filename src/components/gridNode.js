@@ -82,19 +82,12 @@ class GridNode extends React.Component {
 
 
     render() {
-        const nodeStyle = {
-            height: "25px",
-            width: "25px",
-            display: "table-cell",
-            border: "0.5px dotted gainsboro"
-        }
         // several states are controlled by parent element like the handleMouseEvent (mouse up & mouse down)
         // onMouseLeave is placed so the painting starts at the node that was clicked.
         return (
             <div 
-                className={this.setClass()}
+                className={`node ${this.setClass()}`}
                 id={`node-row-${this.state.row}-col-${this.state.col}`}
-                style={nodeStyle} 
                 onClick={this.handleClick} 
                 onMouseEnter={this.handleMouseOver} 
                 onMouseOver={this.handleMouseOver} 
