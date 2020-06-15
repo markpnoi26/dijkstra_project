@@ -9,8 +9,8 @@ class AppContainer extends React.Component {
         this.state = {
             selection: null,
             animationSpeed: 15,
-            rowSize: 30,
-            colSize: 50 
+            rowSize: 25,
+            colSize: 40 
         }
     }
 
