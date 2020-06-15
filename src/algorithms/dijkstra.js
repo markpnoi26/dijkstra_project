@@ -2,7 +2,7 @@ const dijkstra = (board, start, end, mode="rook") => {
 
     const colMax = board[0].length
     const rowMax = board.length
-    const distances = new Array(board.length)
+    const distancesVal = new Array(board.length)
     const previousNode = {}
     const queue = new PriorityQueue()
     const moves = {
@@ -14,13 +14,14 @@ const dijkstra = (board, start, end, mode="rook") => {
     // return values
     const shortestPath = []
     const nodesVisited = []
+    let totalDistance = 0
 
     let deQ;
 
     for (let row=0; row<board.length; row++) {
-        distances[row] = new Array(board[0].length).fill(Infinity)
+        distancesVal[row] = new Array(board[0].length).fill(Infinity)
     }
-    distances[start[0]][start[1]] = 0
+    distancesVal[start[0]][start[1]] = 0
     previousNode[`${start[0]}-${start[1]}`] = "none"
 
     queue.enqueue(start, 0) 
@@ -34,6 +35,7 @@ const dijkstra = (board, start, end, mode="rook") => {
         if (curRow === end[0] && curCol === end[1]) {
             
             shortestPath.push(end)
+            totalDistance = distancesVal[end[0]][end[1]]
             let [backtrackRow, backtrackCol] = previousNode[`${curRow}-${curCol}`]
 
             while (previousNode[`${backtrackRow}-${backtrackCol}`] !== "none") {
@@ -43,7 +45,7 @@ const dijkstra = (board, start, end, mode="rook") => {
                 backtrackCol = prevCol
             }
             shortestPath.unshift(start)
-            return [shortestPath, nodesVisited]
+            return [shortestPath, nodesVisited, totalDistance]
         }
 
         if (deQ) {
@@ -57,8 +59,8 @@ const dijkstra = (board, start, end, mode="rook") => {
                 // check if its within bounds
                 if (dRow >= 0 && dCol >= 0 && dRow < rowMax && dCol < colMax && !board[dRow][dCol].wall) {
                     const distanceFromStart = deQ.weight + board[dRow][dCol].weight
-                    if (distanceFromStart < distances[dRow][dCol]) {
-                        distances[dRow][dCol] = distanceFromStart
+                    if (distanceFromStart < distancesVal[dRow][dCol]) {
+                        distancesVal[dRow][dCol] = distanceFromStart
                         previousNode[`${dRow}-${dCol}`] = [curRow, curCol]
                         queue.enqueue([dRow, dCol], distanceFromStart)
                     }
