@@ -345,9 +345,9 @@ export default class GridHolder extends React.Component {
 
                 <label> Selection: </label>
                 <select value={this.state.selection} onChange={this.handleSelectionChange} disabled={this.state.isCurrentlyAnimating}> 
-                    <option value="buildWall">Build Walls</option>
-                    <option value="tearWall">Tear Walls Down</option>
-                    <option value="toggleWeight">Toggle Weight</option>
+                    <option value="buildWall">Build Node Walls</option>
+                    <option value="tearWall">Delete Node Walls</option>
+                    <option value="toggleWeight">Toggle Node Resistance</option>
                 </select>
 
                 <label> Algorithm: </label>
