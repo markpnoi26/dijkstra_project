@@ -1,6 +1,5 @@
 import React from 'react'
 import GridHolder from './gridHolder'
-import SelectionHolder from './selectionHolder'
 
 
 class AppContainer extends React.Component {
@@ -9,7 +8,9 @@ class AppContainer extends React.Component {
         super() 
         this.state = {
             selection: null,
-            animationSpeed: 15
+            animationSpeed: 15,
+            rowSize: 30,
+            colSize: 50 
         }
     }
 
@@ -24,17 +25,17 @@ class AppContainer extends React.Component {
             animationSpeed: newSpeed
         })
     }
+
+    
     
     render() {
         return (
             <div>
-                <SelectionHolder 
-                    updateSelection={this.updateSelection}
-                    updateAnimationSpeed={this.updateAnimationSpeed}
-                />
                 <GridHolder 
                     selection={this.state.selection} 
                     animationSpeed={this.state.animationSpeed}
+                    colSize={this.state.colSize}
+                    rowSize={this.state.rowSize}
                 />
             </div>
         )
