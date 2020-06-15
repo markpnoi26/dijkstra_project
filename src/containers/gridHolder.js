@@ -259,9 +259,9 @@ export default class GridHolder extends React.Component {
     }
     // generates the grid that will be used to create the frontend grid
     generateGrid = () => {
-        const generatedGrid = new Array(this.state.rowSize)
+        const generatedGrid = new Array(this.props.rowSize)
         for (let row = 0; row < generatedGrid.length; row++) {
-            generatedGrid[row] = new Array(this.state.colSize)
+            generatedGrid[row] = new Array(this.props.colSize)
             for (let col = 0; col < generatedGrid[row].length; col++) {
                 generatedGrid[row][col] = {wall: false, start: false, end: false, visited: false, path: false, weight: 1}
             }
