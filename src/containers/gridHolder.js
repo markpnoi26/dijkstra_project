@@ -32,6 +32,7 @@ export default class GridHolder extends React.Component {
 
     //this handle the painting of the walls which is passed down to the child element
     handleMouseEvent = (event, row, col) => {
+        if (this.state.isCurrentlyAnimating) return
         if (event.type === "mousedown" && this.state.start[0] === row && this.state.start[1] === col) {
             this.setState({
                 isMovingStart: true
@@ -105,6 +106,7 @@ export default class GridHolder extends React.Component {
     // updates the wall 
 
     addWall = (row, col) => {
+        if (this.state.isCurrentlyAnimating) return
         const grid = this.state.grid.slice()
         const [startRow, startCol] = this.state.start
         const [endRow, endCol] = this.state.end
@@ -117,6 +119,7 @@ export default class GridHolder extends React.Component {
     }
 
     deleteWall = (row, col) => {
+        if (this.state.isCurrentlyAnimating) return
         const grid = this.state.grid.slice()
         const [startRow, startCol] = this.state.start
         const [endRow, endCol] = this.state.end
@@ -130,6 +133,7 @@ export default class GridHolder extends React.Component {
 
     // updates the start point & end point
     updateStart = (row, col) => {
+        if (this.state.isCurrentlyAnimating) return
         const grid = this.state.grid.slice()
         const [startRow, startCol] = this.state.start
         grid[startRow][startCol].start = false
@@ -143,6 +147,7 @@ export default class GridHolder extends React.Component {
     }
 
     updateEnd = (row, col) => {
+        if (this.state.isCurrentlyAnimating) return
         const grid = this.state.grid.slice()
         const [endRow, endCol] = this.state.end
         grid[endRow][endCol].end = false
@@ -174,7 +179,9 @@ export default class GridHolder extends React.Component {
         const visitedNodesLen = visited.length
 
         // disable buttons while animating for a set amount of time.
-        this.setState({isCurrentlyAnimating: !this.state.isCurrentlyAnimating})
+        this.setState({
+            isCurrentlyAnimating: !this.state.isCurrentlyAnimating
+        })
         setTimeout(() => {
             this.setState({
                 isCurrentlyAnimating: !this.state.isCurrentlyAnimating
