@@ -182,7 +182,7 @@ export default class GridHolder extends React.Component {
         // declare constants first
         this.resetVisitedPath()
 
-        const [path, visited] = this.state.algorithm !== "dijkstra"? 
+        const [path, visited, distance] = this.state.algorithm !== "dijkstra"? 
             aStar(this.state.grid, this.state.start, this.state.end, this.state.mode): 
             dijkstra(this.state.grid, this.state.start, this.state.end, this.state.mode)
 
@@ -229,7 +229,7 @@ export default class GridHolder extends React.Component {
         console.log(
             "Relative time it took to find end-node:", 
             visitedNodesLen * this.state.animationSpeed /1000, "seconds.", 
-            "Using", this.state.algorithm, "algorithm, with", this.state.mode, "mode"
+            "Using", this.state.algorithm, "algorithm, on", this.state.mode, "mode,", "with a total distance of", distance
         ) 
     }
 
