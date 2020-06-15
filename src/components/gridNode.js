@@ -17,8 +17,8 @@ class GridNode extends React.Component {
     setClass = () => {
 
         // start class
-        if (this.props.start) return "node-is-start"
-        if (this.props.end) return "node-is-end"
+        if (this.props.start && !this.props.path) return "node-is-start"
+        if (this.props.end && !this.props.path) return "node-is-end"
         if (this.props.wall) return "node-is-wall"
         if (this.props.weight === 3 && !this.props.path && !this.props.visited) return "node-is-heavy-3" 
         if (this.props.weight === 5 && !this.props.path && !this.props.visited) return "node-is-heavy-5" 
