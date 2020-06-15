@@ -3,7 +3,7 @@
     height: 25px;
     width: 25px;
     display: table-cell;
-    border: 0.5px solid rgb(233, 233, 233);
+    border: 0.5px solid rgb(216, 216, 216);
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
@@ -26,22 +26,22 @@
 @keyframes visitedAnimation {
     0% {
         transform: scale(0.5);
-        background-color: rgba(150, 67, 206, 0.75);
+        background-color: rgb(255, 190, 71);
         border-radius: 100%;
     }
   
     50% {
-        background-color: rgba(134, 112, 170, 0.75);
+        background-color: rgb(252, 206, 122);
     }
   
     75% {
         transform: scale(1.2);
-        background-color: rgba(200, 187, 216, 0.75);
+        background-color: rgb(255, 181, 43);
     }
   
     100% {
         transform: scale(1);
-        background-color: rgba(2, 76, 236, 0.548);
+        background-color: rgb(255, 230, 184);
         border-radius: 10%;
     }
   }
@@ -60,20 +60,20 @@
 @keyframes shortestPath {
     0% {
         transform: scale(0.8);
-        background-color: orange;
+        background-color: rgb(255, 148, 47);
         border-radius: 100%;
     }
 
     50% {
         transform: scale(1.2);
-        background-color: orange;
+        background-color: rgb(252, 132, 21);
         border-radius: 100%;
     }
 
     100% {
         transform: scale(1);
-        background-color: orange;
-        border-radius: 35%;
+        background-color: rgb(255, 123, 0);
+        border-radius: 100%;
     }
 }
 
@@ -96,9 +96,9 @@
     }
 
     100% {
-        transform: scale(1);
+        transform: scale(1.0);
         background-color: black;
-        border-radius: 10%;
+        border-radius: 30%;
     }
 }
 
@@ -116,18 +116,18 @@
 @keyframes nodeIsStart {
     0% {
         transform: scale(0.2);
-        background-color: rgb(0, 255, 110);
+        background-color: rgb(255, 81, 0);
         border-radius: 100%;
     }
 
     50% {
         transform: scale(1.2);
-        background-color: rgb(0, 255, 110);
+        background-color: rgb(255, 81, 0);
     }
 
     100% {
         transform: scale(1);
-        background-color: rgb(0, 255, 110);
+        background-color: rgb(255, 81, 0);
         border-radius: 100%;
     }
 }
@@ -160,4 +160,12 @@
         background-color: rgb(255, 81, 0);
         border-radius: 100%;
     }
+}
+
+
+img {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
 }
