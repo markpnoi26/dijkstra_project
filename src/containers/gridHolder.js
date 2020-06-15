@@ -151,6 +151,7 @@ export default class GridHolder extends React.Component {
         const [startRow, startCol] = this.state.start
         modifiedGrid[startRow][startCol].start = false
         modifiedGrid[row][col].start = true
+        modifiedGrid[row][col].wall = false
         this.setState({
             start: [row, col],
             grid: modifiedGrid
@@ -165,6 +166,7 @@ export default class GridHolder extends React.Component {
         const [endRow, endCol] = this.state.end
         modifiedGrid[endRow][endCol].end = false
         modifiedGrid[row][col].end = true
+        modifiedGrid[row][col].wall = false
         this.setState({
             end: [row, col],
             grid: modifiedGrid
