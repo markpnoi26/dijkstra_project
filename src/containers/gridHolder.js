@@ -30,7 +30,7 @@ export default class GridHolder extends React.Component {
         }
     }
 
-    //this handle the painting of the walls which is passed down to the child element
+    //this handle the painting of the walls, tearing walls down, dragging start, dragging end, adding resistance "weight" to nodes
     handleMouseEvent = (event, row, col) => {
         if (this.state.isCurrentlyAnimating) return
         if (event.type === "mousedown" && this.state.start[0] === row && this.state.start[1] === col) {
@@ -72,7 +72,20 @@ export default class GridHolder extends React.Component {
             this.setState({
                 isTearing: false
             })
-        } 
+        } else if (event.type === "mousedown"  && this.state.selection === "toggleWeight") {
+            const modifiedGrid = this.state.grid.slice()
+            let nodeWeight = modifiedGrid[row][col].weight
+
+            if (nodeWeight === 5) {
+                modifiedGrid[row][col].weight = 1
+            } else {
+                modifiedGrid[row][col].weight = nodeWeight + 2
+            }
+
+            this.setState({
+                grid: modifiedGrid
+            })
+        }
     }
 
     // handles how the visualization method behaves
@@ -107,40 +120,40 @@ export default class GridHolder extends React.Component {
 
     addWall = (row, col) => {
         if (this.state.isCurrentlyAnimating) return
-        const grid = this.state.grid.slice()
+        const modifiedGrid = this.state.grid.slice()
         const [startRow, startCol] = this.state.start
         const [endRow, endCol] = this.state.end
         if (row === startRow && col === startCol) return 
         if (row === endRow && col === endCol) return 
-        grid[row][col].wall = true
+        modifiedGrid[row][col].wall = true
         this.setState({
-            grid: grid
+            grid: modifiedGrid
         })
     }
 
     deleteWall = (row, col) => {
         if (this.state.isCurrentlyAnimating) return
-        const grid = this.state.grid.slice()
+        const modifiedGrid = this.state.grid.slice()
         const [startRow, startCol] = this.state.start
         const [endRow, endCol] = this.state.end
         if (row === startRow && col === startCol) return 
         if (row === endRow && col === endCol) return 
-        grid[row][col].wall = false
+        modifiedGrid[row][col].wall = false
         this.setState({
-            grid: grid
+            grid: modifiedGrid
         })
     }
 
     // updates the start point & end point
     updateStart = (row, col) => {
         if (this.state.isCurrentlyAnimating) return
-        const grid = this.state.grid.slice()
+        const modifiedGrid = this.state.grid.slice()
         const [startRow, startCol] = this.state.start
-        grid[startRow][startCol].start = false
-        grid[row][col].start = true
+        modifiedGrid[startRow][startCol].start = false
+        modifiedGrid[row][col].start = true
         this.setState({
             start: [row, col],
-            grid: grid
+            grid: modifiedGrid
         }, () => {
             this.resetVisitedPath()
         })
@@ -148,13 +161,13 @@ export default class GridHolder extends React.Component {
 
     updateEnd = (row, col) => {
         if (this.state.isCurrentlyAnimating) return
-        const grid = this.state.grid.slice()
+        const modifiedGrid = this.state.grid.slice()
         const [endRow, endCol] = this.state.end
-        grid[endRow][endCol].end = false
-        grid[row][col].end = true
+        modifiedGrid[endRow][endCol].end = false
+        modifiedGrid[row][col].end = true
         this.setState({
             end: [row, col],
-            grid: grid
+            grid: modifiedGrid
         }, () => {
             this.resetVisitedPath()
         })
@@ -280,15 +293,18 @@ export default class GridHolder extends React.Component {
                         row={rowIdx} 
                         start={node.start} 
                         end={node.end}
+                        weight={node.weight}
                         wall={node.wall}
                         visited={node.visited}
                         path={node.path}
-                        updateStart={this.updateStart} 
-                        updateEnd={this.updateEnd} 
+
                         isBuilding={this.state.isBuilding} 
                         isTearing={this.state.isTearing}
                         isMovingStart={this.state.isMovingStart}
                         isMovingEnd={this.state.isMovingEnd}
+
+                        updateStart={this.updateStart} 
+                        updateEnd={this.updateEnd} 
                         addWall={this.addWall}
                         deleteWall={this.deleteWall}
                         handleMouseEvent={this.handleMouseEvent}
@@ -329,6 +345,7 @@ export default class GridHolder extends React.Component {
                 <select value={this.state.selection} onChange={this.handleSelectionChange} disabled={this.state.isCurrentlyAnimating}> 
                     <option value="buildWall">Build Walls</option>
                     <option value="tearWall">Tear Walls Down</option>
+                    <option value="toggleWeight">Toggle Weight</option>
                 </select>
 
                 <label> Algorithm: </label>
