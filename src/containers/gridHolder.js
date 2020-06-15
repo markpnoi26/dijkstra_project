@@ -11,6 +11,9 @@ export default class GridHolder extends React.Component {
         this.state = {
             mode: "rook",
             algorithm: "dijkstra",
+            selection: "buildWall",
+            isMovingStart: false,
+            isMovingEnd: false,
             isBuilding: false,
             isTearing: false,
             isCurrentlyAnimating: false,
@@ -20,26 +23,51 @@ export default class GridHolder extends React.Component {
             originalEnd: [15, 24],
             start: [15, 5],
             end: [15, 24],
-            size: 30,
+            animationSpeed: 15,
+            rowSize: 30,
+            colSize: 50,
             grid: []
         }
     }
 
     //this handle the painting of the walls which is passed down to the child element
-    handleMouseEvent = (event) => {
-        if (event.type === "mousedown" && this.props.selection === "wall") {
+    handleMouseEvent = (event, row, col) => {
+        if (event.type === "mousedown" && this.state.start[0] === row && this.state.start[1] === col) {
             this.setState({
-                isBuilding: true
+                isMovingStart: true
             })
-        } else if (event.type === "mouseup" && this.props.selection === "wall") {
+        } else if (event.type === "mouseup" && this.state.isMovingStart) {
+            this.setState({
+                isMovingStart: false
+            })
+        } else if (event.type === "mousedown" && this.state.end[0] === row && this.state.end[1] === col) {
+            this.setState({
+                isMovingEnd: true
+            })
+        } else if (event.type === "mouseup" && this.state.isMovingEnd) {
+            this.setState({
+                isMovingEnd: false
+            })
+        } else if (event.type === "mousedown" && this.state.selection === "buildWall" && !this.state.isMovingStart && !this.state.isMovingEnd) {
+            // console.log(row, col)
+            const modifiedGrid = this.state.grid.slice()
+            modifiedGrid[row][col].wall = true
+            this.setState({
+                isBuilding: true,
+                grid : modifiedGrid
+            })
+        } else if (event.type === "mouseup" && this.state.selection === "buildWall") {
             this.setState({
                 isBuilding: false
             })
-        } else if (event.type === "mousedown" && this.props.selection === "teardown") {
+        } else if (event.type === "mousedown" && this.state.selection === "tearWall" && !this.state.isMovingStart && !this.state.isMovingEnd) {
+            const modifiedGrid = this.state.grid.slice()
+            modifiedGrid[row][col].wall = false
             this.setState({
-                isTearing: true
+                isTearing: true,
+                grid: modifiedGrid
             })
-        } else if (event.type === "mouseup" && this.props.selection === "teardown") {
+        } else if (event.type === "mouseup" && this.state.selection === "tearWall") {
             this.setState({
                 isTearing: false
             })
@@ -65,7 +93,14 @@ export default class GridHolder extends React.Component {
         })
     }
 
-
+    // handles selection changes
+    handleSelectionChange = (event) => {
+        this.setState({
+            selection: event.target.value
+        }, () => {
+            console.log("current selection:", this.state.selection)
+        })
+    }
 
     // updates the wall 
 
@@ -144,7 +179,7 @@ export default class GridHolder extends React.Component {
             this.setState({
                 isCurrentlyAnimating: !this.state.isCurrentlyAnimating
             })
-        }, (this.props.animationSpeed * pathLen) + (this.props.animationSpeed * visitedNodesLen) + 500)
+        }, (this.state.animationSpeed * pathLen) + (this.state.animationSpeed * visitedNodesLen) + 500)
 
         //animate visited nodes first followed by path (set on a timer after visited nodes are done animating)
         setTimeout(() => {
@@ -155,9 +190,9 @@ export default class GridHolder extends React.Component {
                     grid[node[0]][node[1]].visited = false
                     grid[node[0]][node[1]].path = true
                     this.setState({ grid: grid })
-                }, this.props.animationSpeed * i)
+                }, this.state.animationSpeed * i)
             }
-        }, visitedNodesLen * this.props.animationSpeed + 500)
+        }, visitedNodesLen * this.state.animationSpeed + 500)
 
 
         const grid = this.state.grid
@@ -166,10 +201,14 @@ export default class GridHolder extends React.Component {
                 const node = visited[i];
                 grid[node[0]][node[1]].visited = true
                 this.setState({ grid: grid })
-            }, this.props.animationSpeed * i)
+            }, this.state.animationSpeed * i)
         }
 
-        console.log("Relative time it took to find end-node: ", visitedNodesLen * this.props.animationSpeed)
+        console.log(
+            "Relative time it took to find end-node:", 
+            visitedNodesLen * this.state.animationSpeed /1000, "seconds.", 
+            "Using", this.state.algorithm, "algorithm, with", this.state.mode, "mode"
+        ) 
     }
 
     // reset the certain conditions
@@ -213,9 +252,9 @@ export default class GridHolder extends React.Component {
     }
     // generates the grid that will be used to create the frontend grid
     generateGrid = () => {
-        const generatedGrid = new Array(this.state.size)
+        const generatedGrid = new Array(this.state.rowSize)
         for (let row = 0; row < generatedGrid.length; row++) {
-            generatedGrid[row] = new Array(this.state.size)
+            generatedGrid[row] = new Array(this.state.colSize)
             for (let col = 0; col < generatedGrid[row].length; col++) {
                 generatedGrid[row][col] = {wall: false, start: false, end: false, visited: false, path: false, weight: 1}
             }
@@ -232,7 +271,6 @@ export default class GridHolder extends React.Component {
                         key={`node-row-${rowIdx}-col-${colIdx}`}
                         col={colIdx} 
                         row={rowIdx} 
-                        selection={this.props.selection} 
                         start={node.start} 
                         end={node.end}
                         wall={node.wall}
@@ -242,6 +280,8 @@ export default class GridHolder extends React.Component {
                         updateEnd={this.updateEnd} 
                         isBuilding={this.state.isBuilding} 
                         isTearing={this.state.isTearing}
+                        isMovingStart={this.state.isMovingStart}
+                        isMovingEnd={this.state.isMovingEnd}
                         addWall={this.addWall}
                         deleteWall={this.deleteWall}
                         handleMouseEvent={this.handleMouseEvent}
@@ -274,11 +314,16 @@ export default class GridHolder extends React.Component {
     render() {
         return(
             <> 
-                <div className="main-holder" style={{width: "1000px", height: "850px"}} >
-                    {this.state.grid.map((row, rowIdx) => {
-                        return this.fillRow(rowIdx)
-                    })}
-                </div>
+                <button onClick={this.resetBoard} disabled={this.state.isCurrentlyAnimating}>Reset Board</button>
+                <button onClick={this.resetWalls} disabled={this.state.isCurrentlyAnimating}>Reset Walls</button>
+                <button onClick={this.resetVisitedPath} disabled={this.state.isCurrentlyAnimating}>Reset Visited/Path</button>
+
+                <label> Selection: </label>
+                <select value={this.state.selection} onChange={this.handleSelectionChange} disabled={this.state.isCurrentlyAnimating}> 
+                    <option value="buildWall">Build Walls</option>
+                    <option value="tearWall">Tear Walls Down</option>
+                </select>
+
                 <label> Algorithm: </label>
                 <select value={this.state.algorithm} onChange={this.handleAlgorithmChange} disabled={this.state.isCurrentlyAnimating}> 
                     <option value="dijkstra">Dijkstra Shortest Path</option>
@@ -290,10 +335,13 @@ export default class GridHolder extends React.Component {
                     <option value="bishop">Bishop (diagonal exploration)</option>
                     <option value="queen">Queen (all directions)</option>
                 </select>
+
                 <button onClick={this.drawVisualization} disabled={this.state.isCurrentlyAnimating}> Visualize Path Finding</button>
-                <button onClick={this.resetBoard} disabled={this.state.isCurrentlyAnimating}>Reset Board</button>
-                <button onClick={this.resetWalls} disabled={this.state.isCurrentlyAnimating}>Reset Walls</button>
-                <button onClick={this.resetVisitedPath} disabled={this.state.isCurrentlyAnimating}>Reset Visited/Path</button>
+                <div className="main-holder" style={{width: "10000px", height: "1000px"}} >
+                    {this.state.grid.map((row, rowIdx) => {
+                        return this.fillRow(rowIdx)
+                    })}
+                </div>
             </>
         )
     }
