@@ -54,6 +54,15 @@ class GridNode extends React.Component {
 
     // the props is passed from parent, but activated on mouseDown/mouseUp event => handled by parent.
     handleMouseOver = () => {
+
+        if (this.props.isMovingStart) {
+            this.props.updateStart(this.state.row, this.state.col)
+        }
+
+        if (this.props.isMovingEnd) {
+            this.props.updateEnd(this.state.row, this.state.col)
+        }
+
         if (this.props.isBuilding) {
             this.props.addWall(this.state.row, this.state.col)
         }
@@ -91,7 +100,7 @@ class GridNode extends React.Component {
                 onClick={this.handleClick} 
                 onMouseEnter={this.handleMouseOver} 
                 onMouseOver={this.handleMouseOver} 
-                onMouseDown={this.props.handleMouseEvent} 
+                onMouseDown={(event) => this.props.handleMouseEvent(event, this.state.row, this.state.col)} 
                 onMouseUp={this.props.handleMouseEvent}>
                     {this.setImage()}
             </div>
