@@ -18,6 +18,7 @@ const aStar = (board, start, end, mode="rook") => {
     // return values
     const shortestPath = []
     const nodesVisited = []
+    let totalDistance = 0
 
     let deQ;
 
@@ -58,7 +59,8 @@ const aStar = (board, start, end, mode="rook") => {
                 backtrackCol = prevCol
             }
             shortestPath.unshift(start)
-            return [shortestPath, nodesVisited]
+            totalDistance = distancesVal[end[0]][end[1]]
+            return [shortestPath, nodesVisited, totalDistance]
         }
 
         if (deQ) {
