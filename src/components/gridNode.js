@@ -2,6 +2,7 @@ import React from 'react'
 import '../component-styles/gridNode.css'
 import startImg from '../component-styles/start.png'
 import endImg from '../component-styles/end-flag.png'
+import resistanceImg from '../component-styles/resistance.png'
 
 class GridNode extends React.Component {
 
@@ -15,11 +16,20 @@ class GridNode extends React.Component {
 
     setClass = () => {
 
+        // start class
         if (this.props.start) return "node-is-start"
         if (this.props.end) return "node-is-end"
         if (this.props.wall) return "node-is-wall"
-        if (this.props.path) return "node-shortest-path"
-        if (this.props.visited) return "node-visited"
+        if (this.props.weight === 3 && !this.props.path && !this.props.visited) return "node-is-heavy-3" 
+        if (this.props.weight === 5 && !this.props.path && !this.props.visited) return "node-is-heavy-5" 
+
+        // visualization class
+        if (this.props.weight === 1 && this.props.path) return "node-shortest-path"
+        if (this.props.weight === 3 && this.props.path) return "node-is-heavy-3-shortest-path" 
+        if (this.props.weight === 5 && this.props.path) return "node-is-heavy-5-shortest-path" 
+        if (this.props.weight > 1 && this.props.visited) return "node-is-heavy-visited" 
+        if (this.props.weight === 1 && this.props.visited) return "node-visited"
+        else return ""
 
     }
 
@@ -39,17 +49,12 @@ class GridNode extends React.Component {
             return (
                 <img src={endImg} style={imageStyle} alt="end"/>
             )
+        } else if (this.props.weight > 1) {
+            return (
+                <img src={resistanceImg} style={imageStyle} alt="heavy"/>
+            )
         }
 
-    }
-
-    handleClick = () => {
-    
-        if (this.props.selection === "start") {
-            this.props.updateStart(this.state.row, this.state.col)
-        } else if (this.props.selection === "end") {
-            this.props.updateEnd(this.state.row, this.state.col)
-        } 
     }
 
     // the props is passed from parent, but activated on mouseDown/mouseUp event => handled by parent.
@@ -84,6 +89,8 @@ class GridNode extends React.Component {
             return true
         } else if (this.props.visited !== nextProps.visited) {
             return true
+        } else if (this.props.weight !== nextProps.weight) {
+            return true
         } else {
             return false;
         }
@@ -97,7 +104,6 @@ class GridNode extends React.Component {
             <div 
                 className={`node ${this.setClass()}`}
                 id={`node-row-${this.state.row}-col-${this.state.col}`}
-                onClick={this.handleClick} 
                 onMouseEnter={this.handleMouseOver} 
                 onMouseOver={this.handleMouseOver} 
                 onMouseDown={(event) => this.props.handleMouseEvent(event, this.state.row, this.state.col)} 
