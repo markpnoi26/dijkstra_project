@@ -149,9 +149,9 @@ export default class GridHolder extends React.Component {
         if (this.state.isCurrentlyAnimating) return
         const modifiedGrid = this.state.grid.slice()
         const [startRow, startCol] = this.state.start
+        if (modifiedGrid[row][col].wall) return
         modifiedGrid[startRow][startCol].start = false
         modifiedGrid[row][col].start = true
-        modifiedGrid[row][col].wall = false
         this.setState({
             start: [row, col],
             grid: modifiedGrid
@@ -164,9 +164,9 @@ export default class GridHolder extends React.Component {
         if (this.state.isCurrentlyAnimating) return
         const modifiedGrid = this.state.grid.slice()
         const [endRow, endCol] = this.state.end
+        if (modifiedGrid[row][col].wall) return
         modifiedGrid[endRow][endCol].end = false
         modifiedGrid[row][col].end = true
-        modifiedGrid[row][col].wall = false
         this.setState({
             end: [row, col],
             grid: modifiedGrid
