@@ -14,7 +14,6 @@ const dijkstra = (board, start, end, mode="rook") => {
     // return values
     const shortestPath = []
     const nodesVisited = []
-    let totalDistance = 0
 
     let deQ;
 
@@ -35,7 +34,6 @@ const dijkstra = (board, start, end, mode="rook") => {
         if (curRow === end[0] && curCol === end[1]) {
             
             shortestPath.push(end)
-            totalDistance = distancesVal[end[0]][end[1]]
             let [backtrackRow, backtrackCol] = previousNode[`${curRow}-${curCol}`]
 
             while (previousNode[`${backtrackRow}-${backtrackCol}`] !== "none") {
@@ -45,7 +43,7 @@ const dijkstra = (board, start, end, mode="rook") => {
                 backtrackCol = prevCol
             }
             shortestPath.unshift(start)
-            return [shortestPath, nodesVisited, totalDistance]
+            return [shortestPath, nodesVisited, distancesVal[end[0]][end[1]]]
         }
 
         if (deQ) {
