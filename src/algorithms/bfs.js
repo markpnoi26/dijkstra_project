@@ -67,7 +67,6 @@ const bfs = (board, start, end, mode="rook") => {
 
     }
 
-    console.log("No path to end node found. Check to see you have created no walls around the end point.")
     return[[], nodesVisited]
 }
 
