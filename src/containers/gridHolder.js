@@ -4,6 +4,7 @@ import dijkstra from '../algorithms/dijkstra'
 import aStar from '../algorithms/aStar'
 import bfs from '../algorithms/bfs'
 import dfs from '../algorithms/dfs'
+import recursiveBacktrackerMaze from '../algorithms/recursiveBacktrackerMaze'
 
 
 export default class GridHolder extends React.Component {
@@ -26,8 +27,6 @@ export default class GridHolder extends React.Component {
             start: [15, 5],
             end: [15, 24],
             animationSpeed: 15,
-            rowSize: 30,
-            colSize: 50,
             grid: []
         }
     }
@@ -177,6 +176,22 @@ export default class GridHolder extends React.Component {
         })
     }
 
+    // select which algorithm to run
+    runSelectedAlgorithm = () => {
+        switch (this.state.algorithm) {
+            case "dijkstra":
+                return dijkstra(this.state.grid, this.state.start, this.state.end, this.state.mode);
+            case "aStar":
+                return aStar(this.state.grid, this.state.start, this.state.end, this.state.mode);
+            case "bfs":
+                return bfs(this.state.grid, this.state.start, this.state.end, this.state.mode);
+            case "dfs":
+                return dfs(this.state.grid, this.state.start, this.state.end, this.state.mode);
+            default:
+                return bfs(this.state.grid, this.state.start, this.state.end, this.state.mode)
+        }
+    }
+
     // perform algorithm visualization
     drawVisualization = () => {
         // if the input is not valid, the code will not execute.
@@ -184,20 +199,7 @@ export default class GridHolder extends React.Component {
         // declare constants first
         this.resetVisitedPath()
 
-        const runSelectedAlgorithm = () => {
-            switch(this.state.algorithm) {
-                case "dijkstra":
-                    return dijkstra(this.state.grid, this.state.start, this.state.end, this.state.mode);
-                case "aStar":
-                    return aStar(this.state.grid, this.state.start, this.state.end, this.state.mode);
-                case "bfs":
-                    return bfs(this.state.grid, this.state.start, this.state.end, this.state.mode);
-                case "dfs":
-                    return dfs(this.state.grid, this.state.start, this.state.end, this.state.mode);
-            }
-        }
-
-        const [path, visited, distance] = runSelectedAlgorithm()
+        const [path, visited, distance] = this.runSelectedAlgorithm()
 
         this.setState({
             visitedNodes: visited,
@@ -249,6 +251,29 @@ export default class GridHolder extends React.Component {
             console.log("No path to end node found. Check to see you have created no walls around the end point.")
         }
         
+    }
+    // draw Maze
+
+    drawMaze = () => {
+        const modifiedGrid = this.state.grid.slice()
+        const visitedNodes = recursiveBacktrackerMaze(this.state.grid)
+        const visitedNodesLen = visitedNodes.length
+        for (let row = 0; row < modifiedGrid.length; row ++) {
+            for (let col = 0; col < modifiedGrid[0].length; col ++) {
+                const node = modifiedGrid[row][col]
+                if (!node.start && !node.end) {
+                    node.wall = true
+                }
+            }
+        }
+
+        for (let i = 0; i < visitedNodesLen; i++) {
+            setTimeout(() => {
+                const node = visitedNodes[i];
+                modifiedGrid[node[0]][node[1]].wall = false
+                this.setState({ grid: modifiedGrid })
+            }, this.state.animationSpeed * i)
+        }
     }
 
     // reset the certain conditions
@@ -383,6 +408,7 @@ export default class GridHolder extends React.Component {
                 </select>
 
                 <button onClick={this.drawVisualization} disabled={this.state.isCurrentlyAnimating}> Visualize Path Finding</button>
+                <button onClick={this.drawMaze} disabled={this.state.isCurrentlyAnimating}> Create Random Maze</button>
                 <div className="main-holder" style={{width: "10000px", height: "1000px"}} >
                     {this.state.grid.map((row, rowIdx) => {
                         return this.fillRow(rowIdx)
