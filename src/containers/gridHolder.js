@@ -255,7 +255,6 @@ export default class GridHolder extends React.Component {
     // draw Maze
 
     drawMaze = () => {
-        this.resetBoard()
 
         const modifiedGrid = this.state.grid.slice()
         const [visitedNodes, startAndEndNodes] = recursiveBacktrackerMaze(this.state.grid)
@@ -264,15 +263,12 @@ export default class GridHolder extends React.Component {
         for (let row = 0; row < modifiedGrid.length; row ++) {
             for (let col = 0; col < modifiedGrid[0].length; col ++) {
                 const node = modifiedGrid[row][col]
-                if (!node.start && !node.end) {
-                    node.wall = true
-                } else if (node.start) {
-                    node.start = false
-                    node.wall = true
-                } else if (node.end) {
-                    node.end = false
-                    node.wall = true
-                }
+                node.start = false
+                node.end = false
+                node.wall = true
+                node.weight = 1
+                node.path = false
+                node.visited = false
             }
         }
 
