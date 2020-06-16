@@ -22,10 +22,10 @@ export default class GridHolder extends React.Component {
             isCurrentlyAnimating: false,
             visitedNodes: [],
             pathNodes: [],
-            originalStart: [15, 5],
-            originalEnd: [15, 24],
-            start: [15, 5],
-            end: [15, 24],
+            originalStart: [17, 5],
+            originalEnd: [17, 56],
+            start: [17, 5],
+            end: [17, 56],
             animationSpeed: 15,
             grid: []
         }
