@@ -2,6 +2,8 @@ import React from 'react'
 import GridNode from '../components/gridNode'
 import dijkstra from '../algorithms/dijkstra'
 import aStar from '../algorithms/aStar'
+import bfs from '../algorithms/bfs'
+import dfs from '../algorithms/dfs'
 
 
 export default class GridHolder extends React.Component {
@@ -182,9 +184,20 @@ export default class GridHolder extends React.Component {
         // declare constants first
         this.resetVisitedPath()
 
-        const [path, visited, distance] = this.state.algorithm !== "dijkstra"? 
-            aStar(this.state.grid, this.state.start, this.state.end, this.state.mode): 
-            dijkstra(this.state.grid, this.state.start, this.state.end, this.state.mode)
+        const runSelectedAlgorithm = () => {
+            switch(this.state.algorithm) {
+                case "dijkstra":
+                    return dijkstra(this.state.grid, this.state.start, this.state.end, this.state.mode);
+                case "aStar":
+                    return aStar(this.state.grid, this.state.start, this.state.end, this.state.mode);
+                case "bfs":
+                    return bfs(this.state.grid, this.state.start, this.state.end, this.state.mode);
+                case "dfs":
+                    return dfs(this.state.grid, this.state.start, this.state.end, this.state.mode);
+            }
+        }
+
+        const [path, visited, distance] = runSelectedAlgorithm()
 
         this.setState({
             visitedNodes: visited,
@@ -352,6 +365,7 @@ export default class GridHolder extends React.Component {
 
                 <label> Algorithm: </label>
                 <select value={this.state.algorithm} onChange={this.handleAlgorithmChange} disabled={this.state.isCurrentlyAnimating}> 
+                    <option value="bfs">BFS</option>
                     <option value="dijkstra">Dijkstra Shortest Path</option>
                     <option value="aStar">A*</option>
                 </select>

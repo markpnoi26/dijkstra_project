@@ -1,7 +1,7 @@
 const bfs = (board, start, end, mode="rook") => {
     const colMax = board[0].length
     const rowMax = board.length
-    const distances = new Array(board.length)
+    const distancesVal = new Array(board.length)
     const previousNode = {}
     const queue = new Queue()
     const moves = {
@@ -17,9 +17,9 @@ const bfs = (board, start, end, mode="rook") => {
     let deQ;
 
     for (let row=0; row<board.length; row++) {
-        distances[row] = new Array(board[0].length).fill(Infinity)
+        distancesVal[row] = new Array(board[0].length).fill(Infinity)
     }
-    distances[start[0]][start[1]] = 0
+    distancesVal[start[0]][start[1]] = 0
     previousNode[`${start[0]}-${start[1]}`] = "none"
 
     queue.enqueue(start, 0) 
@@ -42,7 +42,7 @@ const bfs = (board, start, end, mode="rook") => {
                 backtrackCol = prevCol
             }
             shortestPath.unshift(start)
-            return [shortestPath, nodesVisited]
+            return [shortestPath, nodesVisited, distancesVal[end[0]][end[1]]]
         }
 
         if (deQ) {
@@ -56,8 +56,8 @@ const bfs = (board, start, end, mode="rook") => {
                 // check if its within bounds
                 if (dRow >= 0 && dCol >= 0 && dRow < rowMax && dCol < colMax && !board[dRow][dCol].wall) {
                     const distanceFromStart = deQ.weight + board[dRow][dCol].weight
-                    if (distanceFromStart < distances[dRow][dCol]) {
-                        distances[dRow][dCol] = distanceFromStart
+                    if (distancesVal[dRow][dCol] === Infinity) {
+                        distancesVal[dRow][dCol] = distanceFromStart
                         previousNode[`${dRow}-${dCol}`] = [curRow, curCol]
                         queue.enqueue([dRow, dCol], distanceFromStart)
                     }
@@ -88,6 +88,6 @@ class Queue {
 }
 
 
-export default dijkstra
+export default bfs
 
 
