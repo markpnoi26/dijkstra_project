@@ -23,9 +23,9 @@ export default class GridHolder extends React.Component {
             visitedNodes: [],
             pathNodes: [],
             originalStart: [17, 5],
-            originalEnd: [17, 56],
+            originalEnd: [17, 55],
             start: [17, 5],
-            end: [17, 56],
+            end: [17, 55],
             animationSpeed: 15,
             grid: []
         }
