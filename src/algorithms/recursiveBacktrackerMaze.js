@@ -42,8 +42,8 @@ const recursiveBacktrack = (board, start=[1, 1]) => {
 
     }
 
-    console.log(nodesVisited)
-    return nodesVisited
+    const startAndEndNodes = randomStartAndEnd(nodesVisited)
+    return [nodesVisited, startAndEndNodes]
 }
 
 const shuffleDirections = (directions) => {
@@ -62,12 +62,17 @@ const shuffleDirections = (directions) => {
 
 }
 
-const getRandomStart = (nodesVisited) => {
+const randomStartAndEnd = (nodesVisited) => {
+    const nodesLength = nodesVisited.length
+    let startNode = nodesVisited[Math.floor(Math.random()*nodesLength)]
+    let endNode = nodesVisited[Math.floor(Math.random()*nodesLength)]
+
+    while (startNode === endNode) {
+        endNode = nodesVisited[Math.floor(Math.random() * nodesLength)]
+    }
+    
+    return [startNode, endNode]
 } 
-
-const getRandomEnd = (nodesVisited) => {
-
-}
 
 class Stack {
     constructor() {
