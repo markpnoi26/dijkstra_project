@@ -102,13 +102,8 @@ class PriorityQueue {
     }
 
     enqueue = (node, weight, cost) => {
-        if (this.values[0] !== undefined && this.values.cost >= cost) {
-            this.values.unshift({node, weight, cost})
-        } else {
-            this.values.unshift({node, weight, cost})
-            this.sort()
-        }
-
+        this.values.unshift({node, weight, cost})
+        this.sort()
     }
 
     dequeue = () => {
