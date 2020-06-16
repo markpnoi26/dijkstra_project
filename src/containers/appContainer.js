@@ -8,8 +8,8 @@ class AppContainer extends React.Component {
         super() 
         this.state = {
             animationSpeed: 15,
-            rowSize: 25,
-            colSize: 41 
+            rowSize: 35,
+            colSize: 61 
         }
     }
 
