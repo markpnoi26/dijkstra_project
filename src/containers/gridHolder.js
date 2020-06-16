@@ -196,15 +196,14 @@ export default class GridHolder extends React.Component {
     drawVisualization = () => {
         // if the input is not valid, the code will not execute.
         if (!this.state.start.length || !this.state.end.length) return alert("Please pick a start point and an end point.")
-        // declare constants first
         this.resetVisitedPath()
-
         const [path, visited, distance] = this.runSelectedAlgorithm()
-
         this.setState({
             visitedNodes: visited,
             pathNodes: path
         })
+        
+        // declare constants first
         const pathLen = path.length
         const visitedNodesLen = visited.length
 
@@ -252,13 +251,25 @@ export default class GridHolder extends React.Component {
         }
         
     }
-    // draw Maze
 
+    // draw Maze
     drawMaze = () => {
 
+        // declare constants
         const modifiedGrid = this.state.grid.slice()
         const [visitedNodes, startAndEndNodes] = recursiveBacktrackerMaze(this.state.grid)
         const visitedNodesLen = visitedNodes.length
+
+        // disable buttons while animating for a set amount of time.
+        this.setState({
+            isCurrentlyAnimating: !this.state.isCurrentlyAnimating
+        })
+        setTimeout(() => {
+            this.setState({
+                isCurrentlyAnimating: !this.state.isCurrentlyAnimating
+            })
+        }, (this.state.animationSpeed * visitedNodesLen) + 500)
+
 
         for (let row = 0; row < modifiedGrid.length; row ++) {
             for (let col = 0; col < modifiedGrid[0].length; col ++) {
