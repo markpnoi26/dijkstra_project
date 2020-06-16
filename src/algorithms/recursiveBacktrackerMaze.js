@@ -23,7 +23,7 @@ const recursiveBacktrack = (board, start=[1, 1]) => {
             const directions = shuffleDirections([[0, 2], [2, 0], [-2, 0], [0, -2]])
             const curRow = deQ.node[0]
             const curCol = deQ.node[1]
-
+            if (deQ.from.length) nodesVisited.push([(curRow + deQ.from[0]) / 2, (curCol + deQ.from[1]) / 2])
             nodesVisited.push([curRow, curCol])
 
             for (let direction of directions) {
@@ -34,7 +34,6 @@ const recursiveBacktrack = (board, start=[1, 1]) => {
                     visited[dRow][dCol] = true
                     // console.log((curRow + dRow) / 2)
                     // console.log(curCol + dCol) / 2)
-                    nodesVisited.push([(curRow+dRow)/2, (curCol+dCol)/2])
                     queue.enqueue([dRow, dCol], [curRow, curCol])
                 }
             }
