@@ -1,48 +1,39 @@
-const recursiveBacktrack = (board, start=[1, 1]) => {
+const recursiveBacktrack = (board) => {
     const colMax = board[0].length
     const rowMax = board.length
     const visited = new Array(board.length)
-    const queue = new Stack()
 
     // return values
-    const nodesVisited = []
-
-    let deQ;
+    let nodesVisited = []
 
     for (let row = 0; row < board.length; row++) {
         visited[row] = new Array(board[0].length).fill(false)
     }
-    visited[start[0]][start[1]] = true
 
-    queue.enqueue(start, [])
+    const dfsRecursive = (row, col) => {
+        const directions = shuffleDirections([[0, 2], [2, 0], [-2, 0], [0, -2]])
+        visited[row][col] = true
+        nodesVisited.push([row, col])
 
-    while (queue.values.length) {
-        deQ = queue.dequeue()
-        if (deQ) {
-            // check all directions, and add to priority queue
-            const directions = shuffleDirections([[0, 2], [2, 0], [-2, 0], [0, -2]])
-            const curRow = deQ.node[0]
-            const curCol = deQ.node[1]
-            if (deQ.from.length) nodesVisited.push([(curRow + deQ.from[0]) / 2, (curCol + deQ.from[1]) / 2])
-            nodesVisited.push([curRow, curCol])
-
-            for (let direction of directions) {
-                let dRow = curRow + direction[0]
-                let dCol = curCol + direction[1]
-                // check if its within bounds
-                if (dRow >= 0 && dCol >= 0 && dRow < rowMax && dCol < colMax && !visited[dRow][dCol]) {
-                    visited[dRow][dCol] = true
-                    // console.log((curRow + dRow) / 2)
-                    // console.log(curCol + dCol) / 2)
-                    queue.enqueue([dRow, dCol], [curRow, curCol])
-                }
-            }
+        for (let direction of directions) {
+            let dRow = row + direction[0]
+            let dCol = col + direction[1]
+            // check if its within bounds
+            if (dRow >= 0 && dCol >= 0 && dRow < rowMax && dCol < colMax && !visited[dRow][dCol]) {
+                visited[row][col] = true
+                const midRow = (row + dRow) / 2
+                const midCol = (col + dCol) / 2
+                nodesVisited.push([midRow, midCol])
+                dfsRecursive(dRow, dCol)
+            } 
         }
-
     }
-
+    
+    dfsRecursive(1, 1)
     const startAndEndNodes = randomStartAndEnd(nodesVisited)
     return [nodesVisited, startAndEndNodes]
+
+
 }
 
 const shuffleDirections = (directions) => {
@@ -73,20 +64,5 @@ const randomStartAndEnd = (nodesVisited) => {
     return [startNode, endNode]
 } 
 
-class Stack {
-    constructor() {
-        this.values = []
-    }
-
-    enqueue = (node, from) => {
-        this.values.push({ node, from })
-    }
-
-    dequeue = () => {
-        return this.values.pop()
-    }
-
-
-}
 
 export default recursiveBacktrack
