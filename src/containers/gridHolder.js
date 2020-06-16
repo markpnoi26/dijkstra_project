@@ -239,11 +239,16 @@ export default class GridHolder extends React.Component {
             }, this.state.animationSpeed * i)
         }
 
-        console.log(
-            "Relative time it took to find end-node:", 
-            visitedNodesLen * this.state.animationSpeed /1000, "seconds.", 
-            "Using", this.state.algorithm, "algorithm, on", this.state.mode, "mode,", "with a total distance of", distance
-        ) 
+        if (distance !== undefined) {
+            console.log(
+                "Relative time it took to find end-node:", 
+                visitedNodesLen * this.state.animationSpeed /1000, "seconds.", 
+                "Using", this.state.algorithm, "algorithm, on", this.state.mode, "mode,", "with a total distance of", distance
+            ) 
+        } else {
+            console.log("No path to end node found. Check to see you have created no walls around the end point.")
+        }
+        
     }
 
     // reset the certain conditions
@@ -365,6 +370,7 @@ export default class GridHolder extends React.Component {
 
                 <label> Algorithm: </label>
                 <select value={this.state.algorithm} onChange={this.handleAlgorithmChange} disabled={this.state.isCurrentlyAnimating}> 
+                    <option value="dfs">DFS</option>
                     <option value="bfs">BFS</option>
                     <option value="dijkstra">Dijkstra Shortest Path</option>
                     <option value="aStar">A*</option>
