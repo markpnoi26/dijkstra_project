@@ -255,13 +255,22 @@ export default class GridHolder extends React.Component {
     // draw Maze
 
     drawMaze = () => {
+        this.resetBoard()
+
         const modifiedGrid = this.state.grid.slice()
-        const visitedNodes = recursiveBacktrackerMaze(this.state.grid)
+        const [visitedNodes, startAndEndNodes] = recursiveBacktrackerMaze(this.state.grid)
         const visitedNodesLen = visitedNodes.length
+
         for (let row = 0; row < modifiedGrid.length; row ++) {
             for (let col = 0; col < modifiedGrid[0].length; col ++) {
                 const node = modifiedGrid[row][col]
                 if (!node.start && !node.end) {
+                    node.wall = true
+                } else if (node.start) {
+                    node.start = false
+                    node.wall = true
+                } else if (node.end) {
+                    node.end = false
                     node.wall = true
                 }
             }
@@ -274,6 +283,12 @@ export default class GridHolder extends React.Component {
                 this.setState({ grid: modifiedGrid })
             }, this.state.animationSpeed * i)
         }
+
+        setTimeout(() => {
+            const [start, end] = startAndEndNodes
+            this.updateStart(start[0], start[1])
+            this.updateEnd(end[0], end[1])
+        }, (this.state.animationSpeed * visitedNodesLen) + 500)
     }
 
     // reset the certain conditions
