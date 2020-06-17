@@ -1,4 +1,5 @@
 import React from 'react'
+import '../component-styles/navBar.css'
 
 
 export default class NavBar extends React.Component {
@@ -11,7 +12,7 @@ export default class NavBar extends React.Component {
 
     render () {
         return(
-            <div>
+            <div className="nav-bar">
                 <div>
                     <label> Selection: </label>
                     <select value={this.props.currentSelection} onChange={this.props.handleSelectionChange} disabled={this.props.isCurrentlyAnimating}> 
