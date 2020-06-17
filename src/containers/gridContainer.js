@@ -403,7 +403,7 @@ export default class GridContainer extends React.Component {
             <> 
                 <NavBar 
                     resetBoard={this.resetBoard}
-                    resetWall={this.resetWalls}
+                    resetWalls={this.resetWalls}
                     resetVisitedPath={this.resetVisitedPath}
                     drawVisualization={this.drawVisualization}
                     drawMaze={this.drawMaze}
