@@ -1,5 +1,6 @@
 import React from 'react'
 import Node from '../components/gridNode'
+import '../component-styles/legend.css'
 
 export default class LegendContainer extends React.Component {
     constructor(props) {
@@ -11,19 +12,118 @@ export default class LegendContainer extends React.Component {
 
     render () {
         return(
-            <div>
+            <div className="legend-wrapper">
                 <h1> Legend </h1>
-                Start Node: <Node start={true} />
-                End Node: <Node end={true}/>
-                Visited Node: <Node  weight={1} visited={true} start={false} end={false}/>
-                Shortest Path Node: <Node  weight={1} path={true}/>
-                Shortest Resisted Node (3): <Node weight={3} path={true}/>
-                Shortest Resisted Node (5): <Node weight={5} path={true}/>
-                Wall: <Node wall={true}/>
-                Node with Resistance (3) <Node weight={3}/>
-                Node with Resistance (5) <Node weight={5}/>
-                Open Node/Unvisited Node <Node />
+                <div className="legend-row">
+                    <div className="legend-column">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Start Node:
+                                    </td>
+                                    <td>
+                                        <Node start={true} />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        End Node:
+                                    </td>
+                                    <td>
+                                        <Node end={true}/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Node with Resistance(3):
+                                    </td>
+                                    <td>
+                                        <Node weight={3}/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Node with Resistance(5):
+                                    </td>
+                                    <td>
+                                        <Node weight={5}/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
+                    <div className="legend-column">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Wall Node: 
+                                    </td>
+                                    <td>
+                                        <Node wall={true}/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Visited Node: 
+                                    </td>
+                                    <td>
+                                        <Node  weight={1} visited={true} start={false} end={false}/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Visited Node w/ Resistance:
+                                    </td>
+                                    <td>
+                                        <Node  weight={3} visited={true} start={false} end={false}/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Open/Unvisited Node:
+                                    </td>
+                                    <td>
+                                        <Node />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div className="legend-column">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Shortest Path:
+                                    </td>
+                                    <td>
+                                        <Node weight={1} path={true}/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Shortest Path Resisted (3):
+                                    </td>
+                                    <td>
+                                        <Node weight={3} path={true}/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Shortest Path Resisted (5):
+                                    </td>
+                                    <td>
+                                        <Node weight={5} path={true}/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         )
     }
