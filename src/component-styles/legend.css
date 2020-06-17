@@ -1,0 +1,15 @@
+.legend-wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    pointer-events: none;
+}
+
+.legend-row {
+    display: flex;
+}
+  
+.legend-column {
+    flex: 100%;
+    align-items: center;
+}
