@@ -7,6 +7,8 @@ import bfs from '../algorithms/bfs'
 import dfs from '../algorithms/dfs'
 import recursiveBacktrackerMaze from '../algorithms/recursiveBacktrackerMaze'
 
+import '../component-styles/gridContainer.css'
+
 
 export default class GridContainer extends React.Component {
  
@@ -378,7 +380,7 @@ export default class GridContainer extends React.Component {
 
     fillRow(rowIdx) {
         return(
-            <div className="row-holder" key={`row-${rowIdx}`} style={{display: "table"}}> 
+            <div className="row-container" key={`row-${rowIdx}`} style={{display: "table"}}> 
                {this.fillCol(rowIdx)}
             </div>
         )
@@ -415,7 +417,7 @@ export default class GridContainer extends React.Component {
                     currentMode={this.state.mode}
                 />
 
-                <div className="main-holder" style={{width: "10000px", height: "700px"}} >
+                <div className="grid-container" >
                     {this.state.grid.map((row, rowIdx) => {
                         return this.fillRow(rowIdx)
                     })}
