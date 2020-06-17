@@ -76,25 +76,6 @@ class GridNode extends React.Component {
             this.props.deleteWall(this.state.row, this.state.col)
         }
     }
-    
-    // adding lifecyle methods for testing
-    shouldComponentUpdate(nextProps) {
-        if (this.props.wall !== nextProps.wall) {
-            return true
-        } else if (this.props.start !== nextProps.start) {
-            return true
-        } else if (this.props.end !== nextProps.end) {
-            return true
-        } else if (this.props.path !== nextProps.path) {
-            return true
-        } else if (this.props.visited !== nextProps.visited) {
-            return true
-        } else if (this.props.weight !== nextProps.weight) {
-            return true
-        } else {
-            return false;
-        }
-    }
 
 
     render() {
