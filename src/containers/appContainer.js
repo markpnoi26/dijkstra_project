@@ -1,5 +1,6 @@
 import React from 'react'
-import GridHolder from './gridHolder'
+import GridContainer from './gridContainer'
+import LegendContainer from './legendContainer'
 
 
 class AppContainer extends React.Component {
@@ -24,10 +25,14 @@ class AppContainer extends React.Component {
     render() {
         return (
             <div>
-                <GridHolder 
+                <GridContainer 
                     animationSpeed={this.state.animationSpeed}
                     colSize={this.state.colSize}
                     rowSize={this.state.rowSize}
+                />
+
+                <LegendContainer 
+                
                 />
             </div>
         )
