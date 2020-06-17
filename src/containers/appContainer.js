@@ -1,6 +1,7 @@
 import React from 'react'
 import GridContainer from './gridContainer'
 import LegendContainer from './legendContainer'
+import '../component-styles/app.css'
 
 
 class AppContainer extends React.Component {
@@ -24,7 +25,7 @@ class AppContainer extends React.Component {
     
     render() {
         return (
-            <div>
+            <div className="app-wrapper">
                 <GridContainer 
                     animationSpeed={this.state.animationSpeed}
                     colSize={this.state.colSize}
