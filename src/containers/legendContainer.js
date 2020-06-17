@@ -13,7 +13,7 @@ export default class LegendContainer extends React.Component {
     render () {
         return(
             <div className="legend-wrapper">
-                <h1> Legend </h1>
+                <h3> LEGEND </h3>
                 <div className="legend-row">
                     <div className="legend-column">
                         <table>
