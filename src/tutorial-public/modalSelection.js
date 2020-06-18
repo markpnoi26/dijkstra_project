@@ -7,12 +7,12 @@ const modalSelection = [
     {
         title: "Placing the Start node",
         img: "moveStart",
-        description: "The start node can be dragged into an empty node. Additionally, if the stard node is placed inside a node that has resistance, the start node will have resistance at that node."
+        description: "Drag the green start node anywhere; this will be the beginning node for the path finding algorithms."
     },
     {
         title: "Placing the End node",
         img: "moveEnd",
-        description: "The end node can be dragged into an empty node similar to the start node. The same functionality of the end node will be similar properties to the start node."
+        description: "Drag the red end node anywhere; this will be the final node where the path finding algorithm should eventually go."
     }, 
     {
         title: "Building node walls",
