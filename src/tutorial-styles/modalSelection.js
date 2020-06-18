@@ -53,6 +53,11 @@ const modalSelection = [
         title: "Mode: Queen",
         img: "queenMode",
         description: "Under 'Exploration Mode' selecting queen mode causes the traversal of the nodes to go diagonal, horizontal, and vertical. The mother of all chess pieces, queen mode can 'cut through' corners alowing it to jump walls if the corners are not sealed, and is not limited to only diagonal search patterns, allowing this mode to have the best efficiency getting to the end node."
+    },
+    {
+        title: "Start Path Visualization",
+        img: "startPathFinding",
+        description: "Enjoy!"
     }
 
 ]
