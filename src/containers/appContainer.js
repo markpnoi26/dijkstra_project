@@ -12,7 +12,8 @@ class AppContainer extends React.Component {
         this.state = {
             animationSpeed: 15,
             rowSize: 35,
-            colSize: 61 
+            colSize: 61,
+            isTutorialOpen: true
         }
     }
 
@@ -22,12 +23,20 @@ class AppContainer extends React.Component {
         })
     }
 
-    
+    updateTutorialModal = () => {
+        this.setState({
+            isTutorialOpen: !this.state.isTutorialOpen
+        })
+    }
     
     render() {
         return (
             <div className="app-wrapper">
-                <TutorialContainer />
+                <TutorialContainer 
+                    isTutorialOpen={this.state.isTutorialOpen}
+                    closeModal={this.updateTutorialModal}
+                    openModal={this.updateTutorialModal}
+                />
                 
                 <GridContainer 
                     animationSpeed={this.state.animationSpeed}
@@ -38,6 +47,8 @@ class AppContainer extends React.Component {
                 <LegendContainer 
                 
                 />
+
+                <button className="tutorial-button" onClick={this.updateTutorialModal}> open tutorial </button>
             </div>
         )
     }
