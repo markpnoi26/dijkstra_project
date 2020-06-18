@@ -20,34 +20,34 @@ export default class LegendContainer extends React.Component {
                             <tbody>
                                 <tr>
                                     <td>
-                                        Start Node:
+                                        <Node start={true} />
                                     </td>
                                     <td>
-                                        <Node start={true} />
+                                        Start Node:
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        End Node:
-                                    </td>
                                     <td>
                                         <Node end={true}/>
                                     </td>
+                                    <td>
+                                        End Node:
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        Node with Resistance(3):
-                                    </td>
                                     <td>
                                         <Node weight={3}/>
                                     </td>
+                                     <td>
+                                        Node with Resistance(3):
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Node with Resistance(5):
+                                        <Node weight={5}/>
                                     </td>
                                     <td>
-                                        <Node weight={5}/>
+                                        Node with Resistance(5):
                                     </td>
                                 </tr>
                             </tbody>
@@ -59,34 +59,34 @@ export default class LegendContainer extends React.Component {
                             <tbody>
                                 <tr>
                                     <td>
-                                        Wall Node: 
+                                        <Node wall={true}/>
                                     </td>
                                     <td>
-                                        <Node wall={true}/>
+                                        Wall Node: 
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        Visited Node: 
-                                    </td>
                                     <td>
                                         <Node  weight={1} visited={true} start={false} end={false}/>
                                     </td>
+                                    <td>
+                                        Visited Node: 
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        Visited Node w/ Resistance:
-                                    </td>
                                     <td>
                                         <Node  weight={3} visited={true} start={false} end={false}/>
                                     </td>
+                                    <td>
+                                        Visited Node w/ Resistance:
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Open/Unvisited Node:
+                                        <Node />
                                     </td>
                                     <td>
-                                        <Node />
+                                        Open/Unvisited Node:
                                     </td>
                                 </tr>
                             </tbody>
@@ -98,26 +98,26 @@ export default class LegendContainer extends React.Component {
                             <tbody>
                                 <tr>
                                     <td>
-                                        Shortest Path:
+                                        <Node weight={1} path={true}/>
                                     </td>
                                     <td>
-                                        <Node weight={1} path={true}/>
+                                        Shortest Path:
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        Shortest Path Resisted (3):
-                                    </td>
                                     <td>
                                         <Node weight={3} path={true}/>
                                     </td>
+                                    <td>
+                                        Shortest Path Resisted (3):
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Shortest Path Resisted (5):
+                                        <Node weight={5} path={true}/>
                                     </td>
                                     <td>
-                                        <Node weight={5} path={true}/>
+                                        Shortest Path Resisted (5):
                                     </td>
                                 </tr>
                             </tbody>
