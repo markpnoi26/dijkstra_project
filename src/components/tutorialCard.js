@@ -63,6 +63,7 @@ export default class TutorialCard extends React.Component{
                         style={{
                             height: "400px"
                         }}
+                        className="tutorial"
                     />
                 </div>
                 <div className="tutorial-button-holder">
