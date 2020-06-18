@@ -38,6 +38,12 @@
     color: black;
 }
 
+.button:disabled {
+    background-color: rgb(184, 184, 184); 
+    color: rgb(0, 0, 0)
+}
+
+
 .drop-down {
     background-color: rgb(241, 203, 131);
     border: 0.5px solid black;

@@ -18,11 +18,11 @@
 }
 
 .tutorial-button:hover {
-    background-color: rgb(255, 102, 0); /* Green */
+    background-color: rgb(255, 102, 0); 
     color: black;
 }
 
 .tutorial-button:disabled {
-    background-color: rgb(184, 184, 184); /* Green */
+    background-color: rgb(184, 184, 184); 
     color: rgb(0, 0, 0)
 }
