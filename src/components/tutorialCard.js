@@ -65,19 +65,18 @@ export default class TutorialCard extends React.Component{
                         }}
                     />
                 </div>
-
+                <div className="tutorial-button-holder">
+                    <button className="tutorial-button" onClick={this.props.prevPage} disabled={this.props.current === 0}> &#8592; </button>
+                    <button className="tutorial-button" onClick={this.props.nextPage} disabled={this.props.current === 11}> &#8594; </button>
+                </div>
                 <div className="tutorial-desc-holder">
                     <p>
                         {this.props.description? this.props.description: this.state.defaultDescription}
                     </p>
                 </div>
                 
-                <div className="tutorial-button">
-                    <button onClick={this.props.prevPage} disabled={this.props.current === 0}> &#8592; </button>
-                    <button onClick={this.props.nextPage} disabled={this.props.current === 11}> &#8594; </button>
-                </div>
-                <div><h4>Page {this.props.current+1}/12</h4></div>
-                <button onClick={this.props.closeModal}> close tutorial </button>
+                <div><h4>{this.props.current+1}/12</h4></div>
+                <button className="tutorial-button" onClick={this.props.closeModal}> Close </button>
             </div>
         )
     }
