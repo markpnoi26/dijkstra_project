@@ -1,7 +1,7 @@
 import React from 'react'
 import Modal from 'react-modal'
 import TutorialCard from '../components/tutorialCard'
-import modalSelection from '../tutorial-styles/modalSelection'
+import modalSelection from '../tutorial-public/modalSelection'
 
 export default class TutorialModalContainer extends React.Component {
     constructor(props) {
@@ -53,10 +53,10 @@ export default class TutorialModalContainer extends React.Component {
             },
             content : {
                 position: 'absolute',
-                top: '150',
+                top: '80px',
                 left: '150px',
-                right: '200px',
-                bottom: '200px',
+                right: '150px',
+                bottom: '80px',
                 border: '1px solid #ccc',
                 background: '#fff',
                 overflow: 'auto',
