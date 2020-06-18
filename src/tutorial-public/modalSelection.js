@@ -5,59 +5,59 @@ const modalSelection = [
         description: "This application is designed to show how path finding algorithms behave so you can easily analyze it. Proceed forward to view the tutorial on how to use the application. You may also choose to skip the tutorial and go straight to the path finding action!"
     },
     {
-        title: "Placing the Start node",
+        title: "Moving the Start Node",
         img: "moveStart",
-        description: "Drag the green start node anywhere; this will be the beginning node for the path finding algorithms."
+        description: "Drag the green start node anywhere; this will be the beginning node for the path finding algorithms. You cannot move this node into a wall."
     },
     {
-        title: "Placing the End node",
+        title: "Moving the End Node",
         img: "moveEnd",
-        description: "Drag the red end node anywhere; this will be the final node where the path finding algorithm should eventually go."
+        description: "Drag the red end node anywhere; this will be the final node where the path finding algorithm should eventually go. You cannot move this node into a wall."
     }, 
     {
-        title: "Building node walls",
+        title: "Manipulate Grid: Building Node Walls",
         img: "buildWall",
-        description: "On the top selection under 'Manipulate Grid', select 'Build Node Walls', click and drag to create walls around the grid."
+        description: "Selecting 'Build Node Walls' will allow you to click and drag to create walls around the grid."
     }, 
     {
-        title: "Delete node walls",
+        title: "Manipulate Grid: Delete Node Walls",
         img: "deleteWall",
-        description: "On the top selection under 'Manipulate Grid', select 'Delete Node Walls', click and drag to delete walls around the grid."
+        description: "Selecting 'Delete Node Walls' will allow you to click and drag to delete walls around the grid."
     }, 
     {
-        title: "Toggle node resistance",
+        title: "Manipulate Grid: Toggle Node Resistance",
         img: "toggleResistance",
-        description: "On the top selection under 'Manipulate Grid', select 'Toggle Resistance', click a node repeatedly until the desired resistance is achieved for that node. By default all nodes have a resistance equal to 1, toggling will cycle through 3 and 5 respectively, after that, it resets back to 1."
+        description: "Selecting 'Toggle Resistance', will allow you click a node repeatedly until the desired resistance is achieved. By default all nodes have a resistance equal to 1 and will show as an empty node, clicking will toggle different resistance (3 & 5 respectively), after that, it resets back to 1."
     },
     {
-        title: "Create random maze",
+        title: "Random Maze Generator",
         img: "randomMaze",
-        description: "'Create Random Maze' button uses the recursive backtracking method to generate a random maze. This will also randomly selects where the new start and end nodes will be."
+        description: "'Generate Random Maze' button will trigger a maze generating algorithm that uses the recursive backtracking. The grid will update on how the maze is created starting from node [1,1] (indexed @ 0). Start and End Nodes are randomly selected after the generation of the maze."
     },
     {
-        title: "Algorithms",
+        title: "Algorithms Selection",
         img: "welcome",
-        description: "Under Pathfinding Algorithm, there are 4 selections of different algorithms. DFS (depth first search), BFS (breath first search), Dijkstra's shortest Path, and A*. Each has a unique set of rules on how to traverse the grid. Dijkstra's and A* both guarantee to have the shortest path between start and end nodes. A* is a modification of Dijkstra's algorithm, with a much 'smarter' way of searching for the end node, by using a hueristic value. By default Dijkstra's algorithm uses 0 as the hueristic value for all the nodes. BFS and Dijkstra share a similar pattern of exploration, but differ in priority. Dijkstra and A* will show more valueable in situations where resistance nodes exist. While BFS will treat each node the same, Dijkstra and A* will ALWAYS look for the path of least resistance (e.g. shortest path)."
+        description: "There are 4 selections of different algorithms. DFS (depth first search), BFS (breath first search), Dijkstra's shortest Path, and A*. Each has a unique set of rules on how to traverse the grid. Dijkstra's and A* both guarantee to have the shortest path between start and end nodes. A* is a modification of Dijkstra's algorithm, with a much 'smarter' way of searching for the end node, by using a hueristic value. By default Dijkstra's algorithm uses 0 as the hueristic value for all the nodes. BFS and Dijkstra share a similar pattern of exploration, but differ in priority. Dijkstra and A* will show more valueable in situations where resistance nodes exist. While BFS will treat each node the same, Dijkstra and A* will ALWAYS look for the path of least resistance (e.g. shortest path)."
     },
     {
         title: "Mode: Rook",
         img: "rookMode",
-        description: "Under 'Exploration Mode' selecting rook mode causes the traversal of the nodes to go vertical and horizontal. Similar to the game of chess, rook mode can only traverse towards nodes until they hit a wall, find a turn, or find the end node."
+        description: "Selecting Rook mode causes vertical and horizontal node traversal. Rook mode can only traverse towards nodes until the algorithm hits a wall, finds a turn, or find the end node. (note: in chess, this is how the rook moves.)"
     },
     {
         title: "Mode: Bishop",
         img: "bishopMode",
-        description: "Under 'Exploration Mode' selecting bishop mode causes the traversal of the nodes to go diagonal. Similar to the game of chess, bishop mode can only traverse towards nodes until they hit a wall, find a turn, or find the end node. However, bishop mode can 'cut through' corners alowing it to jump walls if the corners are not sealed. **It is entirely possible for the end node to be undiscoverable if the nodes do not fall within diagonal search parameters."
+        description: "Selecting Bishop mode causes the diagonal node traversal. Bishop mode can only traverse towards nodes until the algorithm hits a corner, finds another free diagonal direction, or find the end node. Bishop mode can move through corners allowing it to jump walls if the corners are not sealed. It is entirely possible for the end node to be undiscoverable if the nodes do not fall within diagonal search parameters. (note: in chess, this is how the bishop moves.) "
     },
     {
         title: "Mode: Queen",
         img: "queenMode",
-        description: "Under 'Exploration Mode' selecting queen mode causes the traversal of the nodes to go diagonal, horizontal, and vertical. The mother of all chess pieces, queen mode can 'cut through' corners alowing it to jump walls if the corners are not sealed, and is not limited to only diagonal search patterns, allowing this mode to have the best efficiency getting to the end node."
+        description: "Selecting Queen mode causes diagonal, horizontal, and vertical node traversals. Queen mode can move through corners allowing it to jump walls if the corners are not sealed, and is not limited to only diagonal search patterns. This is the best mode for finding the most efficient route from Start to End nodes. (note: in chess, this is how the queen moves, making it one of the most versatile pieces.)"
     },
     {
         title: "Start Path Visualization",
         img: "startPathFinding",
-        description: "Enjoy!"
+        description: "Once you have your grid set up, pressing on Start Path Finding will animate the path finding algorithm of your choice. It will first show the visited nodes, then visualize the a path towards the end node if it exists, in the case of Dijkstra and A*, this will be the shortest path of least resistance."
     }
 
 ]
