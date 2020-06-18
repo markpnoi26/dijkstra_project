@@ -2,7 +2,7 @@ const modalSelection = [
     {
         title: "Welcome to Path Visualizer",
         img: "welcome",
-        description: "This application is designed to show how path finding algorithms behave so you can. Proceed forward to view the tutorial on how to use the application. You may also choose to skip the tutorial and go straight to the path finding action!"
+        description: "This application is designed to show how path finding algorithms behave so you can easily analyze it. Proceed forward to view the tutorial on how to use the application. You may also choose to skip the tutorial and go straight to the path finding action!"
     },
     {
         title: "Placing the Start node",
@@ -27,12 +27,12 @@ const modalSelection = [
     {
         title: "Toggle node resistance",
         img: "toggleResistance",
-        description: "On the top selection under 'Manipulate Grid', select 'Toggle Resistance', click repeatedly until the desired resistance is achieved for that node. By default all nodes have a resistance equal to 1, toggling cycles through 3 and 5 respectively, before returning to 1."
+        description: "On the top selection under 'Manipulate Grid', select 'Toggle Resistance', click a node repeatedly until the desired resistance is achieved for that node. By default all nodes have a resistance equal to 1, toggling will cycle through 3 and 5 respectively, after that, it resets back to 1."
     },
     {
         title: "Create random maze",
         img: "randomMaze",
-        description: "Pressing 'Create Random Maze' uses the recursive backtracking method to generate a random maze. This button also randomly selects where the new start and end nodes are."
+        description: "'Create Random Maze' button uses the recursive backtracking method to generate a random maze. This will also randomly selects where the new start and end nodes will be."
     },
     {
         title: "Algorithms",
