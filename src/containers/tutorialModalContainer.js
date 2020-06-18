@@ -7,15 +7,8 @@ export default class TutorialModalContainer extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            isOpen: true,
             current: 0
         }
-    }
-
-    closeModal = () => {
-        this.setState({
-            isOpen: false
-        })
     }
 
     nextPage = () => {
@@ -34,29 +27,22 @@ export default class TutorialModalContainer extends React.Component {
         }
     }
 
-    renderTutorialPage = () => {
-        this.setState({
-            isOpen: true
-        })
-        console.log("clicking render tutorial Page")
-    }
-
     render() {
-        const customStyles = {
+        const modalStyle = {
             overlay: {
                 position: 'fixed',
                 top: 0,
                 left: 0,
                 right: 0,
                 bottom: 0,
-                backgroundColor: 'rgba(255, 255, 255, 0.75)'
+                backgroundColor: 'rgba(179, 179, 179, 0.75)'
             },
             content : {
                 position: 'absolute',
-                top: '80px',
-                left: '150px',
-                right: '150px',
-                bottom: '80px',
+                top: '2.5rem',
+                left: '6rem',
+                right: '6rem',
+                bottom: '2.5rem',
                 border: '1px solid #ccc',
                 background: '#fff',
                 overflow: 'auto',
@@ -69,15 +55,15 @@ export default class TutorialModalContainer extends React.Component {
         return(
             <div>
                 <Modal 
-                isOpen={this.state.isOpen} 
-                style={customStyles}>
+                isOpen={this.props.isTutorialOpen} 
+                style={modalStyle}>
                     <TutorialCard 
                         title={modalSelection[this.state.current].title}
                         img={modalSelection[this.state.current].img}
                         alt={modalSelection[this.state.current].img}
                         description={modalSelection[this.state.current].description}
 
-                        closeModal={this.closeModal}
+                        closeModal={this.props.closeModal}
                         prevPage={this.prevPage}
                         nextPage={this.nextPage}
                         current={this.state.current}
