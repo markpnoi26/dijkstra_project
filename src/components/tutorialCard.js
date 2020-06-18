@@ -71,6 +71,12 @@ export default class TutorialCard extends React.Component{
                         {this.props.description? this.props.description: this.state.defaultDescription}
                     </p>
                 </div>
+                <div><h4>Page {this.props.current+1}/12</h4></div>
+                <div className="tutorial-button">
+                    <button onClick={this.props.prevPage} disabled={this.props.current === 0}> prev </button>
+                    <button onClick={this.props.nextPage} disabled={this.props.current === 11}> next </button>
+                </div>
+                <button onClick={this.props.closeModal}> close tutorial </button>
             </div>
         )
     }

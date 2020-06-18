@@ -76,10 +76,12 @@ export default class TutorialModalContainer extends React.Component {
                         img={modalSelection[this.state.current].img}
                         alt={modalSelection[this.state.current].img}
                         description={modalSelection[this.state.current].description}
+
+                        closeModal={this.closeModal}
+                        prevPage={this.prevPage}
+                        nextPage={this.nextPage}
+                        current={this.state.current}
                     />
-                    <button onClick={this.closeModal}> close tutorial </button>
-                    <button onClick={this.prevPage}> prev </button>
-                    <button onClick={this.nextPage}> next </button>
                 </Modal>
             </div>
         )
