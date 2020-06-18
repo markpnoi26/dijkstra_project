@@ -3,12 +3,6 @@ import Node from '../components/gridNode'
 import '../component-styles/legend.css'
 
 export default class LegendContainer extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-
-        }
-    }
 
     render () {
         return(
