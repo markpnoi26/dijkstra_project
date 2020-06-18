@@ -1,6 +1,6 @@
 const modalSelection = [
     {
-        title: "Welcome to Path Visualizer",
+        title: "Welcome to Path Finding Visualizer",
         img: "welcome",
         description: "This application is designed to show how path finding algorithms behave so you can easily analyze it. Proceed forward to view the tutorial on how to use the application. You may also choose to skip the tutorial and go straight to the path finding action!"
     },
