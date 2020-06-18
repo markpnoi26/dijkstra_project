@@ -40,7 +40,12 @@
 
 .button:disabled {
     background-color: rgb(184, 184, 184); 
-    color: rgb(0, 0, 0)
+    color: rgb(95, 95, 95)
+}
+
+.button-visualize:disabled {
+    background-color: rgb(184, 184, 184); 
+    color: rgb(95, 95, 95)
 }
 
 
@@ -54,6 +59,11 @@
     font-weight: bold;
     border-radius: 5px;
     transition-duration: 0.4s;
+}
+
+.drop-down:disabled {
+    background-color: rgb(184, 184, 184); 
+    color: rgb(95, 95, 95)
 }
 
 .label-name {
