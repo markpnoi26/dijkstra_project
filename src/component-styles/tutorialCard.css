@@ -7,3 +7,7 @@
     width:50vw;
     margin-left: calc((-50vw + 100%)/2);
 }
+
+img {
+    border: 3px solid black;
+}
