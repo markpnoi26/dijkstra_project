@@ -24,7 +24,7 @@ Copy the repo, run ```npm install```, then ```npm run```. You can then access th
 
 ## Roadmap and Future features
 
-The code is written in such a way that adding other algorithms or modes can easily be added. The ability to add "pit stops" or multiple nodes to traverse before arriving at the end node is in the works. Other maze generator algorithms will also be added. Feel free to contact me if you want to add features to this project.
+The code is written in such a way that adding other algorithms or modes can easily be done. The ability to add "pit stops" or multiple nodes to traverse before arriving at the end node is in the works. Other maze generator algorithms will also be added. Feel free to contact me if you want to add features to this project.
 
 ## License
 
