@@ -1,16 +1,16 @@
 import React from 'react'
 import '../component-styles/tutorialCard.css'
-import welcome from '../tutorial-styles/welcome.gif'
-import moveStart from '../tutorial-styles/moveStart.gif'
-import moveEnd from '../tutorial-styles/moveEnd.gif'
-import buildWalls from '../tutorial-styles/buildWalls.gif'
-import deleteWalls from '../tutorial-styles/deleteWalls.gif'
-import toggleResistance from '../tutorial-styles/toggleResistance.gif'
-import rookMode from '../tutorial-styles/rookMode.gif'
-import bishopMode from '../tutorial-styles/bishopMode.gif'
-import queenMode from '../tutorial-styles/queenMode.gif'
-import randomMaze from '../tutorial-styles/randomMaze.gif'
-import startPathFinding from '../tutorial-styles/startPathFinding.gif'
+import welcome from '../tutorial-public/welcome.gif'
+import moveStart from '../tutorial-public/moveStart.gif'
+import moveEnd from '../tutorial-public/moveEnd.gif'
+import buildWalls from '../tutorial-public/buildWalls.gif'
+import deleteWalls from '../tutorial-public/deleteWalls.gif'
+import toggleResistance from '../tutorial-public/toggleResistance.gif'
+import rookMode from '../tutorial-public/rookMode.gif'
+import bishopMode from '../tutorial-public/bishopMode.gif'
+import queenMode from '../tutorial-public/queenMode.gif'
+import randomMaze from '../tutorial-public/randomMaze.gif'
+import startPathFinding from '../tutorial-public/startPathFinding.gif'
 
 export default class TutorialCard extends React.Component{
     constructor(props) {
@@ -71,11 +71,12 @@ export default class TutorialCard extends React.Component{
                         {this.props.description? this.props.description: this.state.defaultDescription}
                     </p>
                 </div>
-                <div><h4>Page {this.props.current+1}/12</h4></div>
+                
                 <div className="tutorial-button">
-                    <button onClick={this.props.prevPage} disabled={this.props.current === 0}> prev </button>
-                    <button onClick={this.props.nextPage} disabled={this.props.current === 11}> next </button>
+                    <button onClick={this.props.prevPage} disabled={this.props.current === 0}> &#8592; </button>
+                    <button onClick={this.props.nextPage} disabled={this.props.current === 11}> &#8594; </button>
                 </div>
+                <div><h4>Page {this.props.current+1}/12</h4></div>
                 <button onClick={this.props.closeModal}> close tutorial </button>
             </div>
         )
