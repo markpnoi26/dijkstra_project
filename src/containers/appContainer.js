@@ -23,21 +23,10 @@ class AppContainer extends React.Component {
     updateAnimationSpeed = (newSpeed) => {
         this.setState({
             animationSpeed: newSpeed
+        }, () => {
+            console.log("the new animation speed is now,", this.state.animationSpeed, "ms")
         })
     }
-
-    updateColSize = (newColSize) => {
-        this.setState({
-            colSize: newColSize
-        })
-    }
-
-    updateRowSize = (newRowSize) => {
-        this.setState({
-            rowSize: newRowSize
-        })
-    }
-
 
     updateTutorialModal = () => {
         this.setState({
@@ -57,7 +46,7 @@ class AppContainer extends React.Component {
             isGridAnimating: !this.state.isGridAnimating
         })
     }
-    
+
     render() {
         return (
             <div className="app-wrapper">
