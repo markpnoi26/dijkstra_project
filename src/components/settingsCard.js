@@ -29,8 +29,8 @@ export default class Settings extends React.Component {
                     value={this.state.animationSpeed} 
                     onChange={this.handleSpeedChange} 
                 >
-                    <option value={20}> Rabbit Mode </option>
-                    <option value={30}> Fast </option>
+                    <option value={10}> Rabbit Mode </option>
+                    <option value={25}> Fast </option>
                     <option value={40}> Medium </option>
                     <option value={65}> Slow </option>
                     <option value={85}> Snail Mode </option>

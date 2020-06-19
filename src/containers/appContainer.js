@@ -11,7 +11,7 @@ class AppContainer extends React.Component {
     constructor() {
         super() 
         this.state = {
-            animationSpeed: 15,
+            animationSpeed: 10,
             rowSize: 35,
             colSize: 61,
             isTutorialOpen: true,
