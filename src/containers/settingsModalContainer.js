@@ -1,6 +1,6 @@
 import React from 'react'
 import Modal from 'react-modal'
-import Settings from '../components/settings'
+import Settings from '../components/settingsCard'
 
 export default class SettingsModalContainer extends React.Component {
 
@@ -16,10 +16,10 @@ export default class SettingsModalContainer extends React.Component {
             },
             content: {
                 position: 'absolute',
-                top: '2.5rem',
-                left: '6rem',
-                right: '6rem',
-                bottom: '2.5rem',
+                top: '25rem',
+                left: '10rem',
+                right: '10rem',
+                bottom: '25rem',
                 border: '1px solid #ccc',
                 background: '#fff',
                 overflow: 'auto',
