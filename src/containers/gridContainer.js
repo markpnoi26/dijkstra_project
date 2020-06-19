@@ -268,7 +268,7 @@ export default class GridContainer extends React.Component {
             this.setState({
                 isCurrentlyAnimating: !this.state.isCurrentlyAnimating
             }, this.props.updateIsGridAnimating())
-        }, (this.props.animationSpeed * visitedNodesLen) + 500)
+        }, (this.props.animationSpeed * visitedNodesLen) + 1500)
 
 
         for (let row = 0; row < modifiedGrid.length; row ++) {
@@ -288,14 +288,14 @@ export default class GridContainer extends React.Component {
                 const node = visitedNodes[i];
                 modifiedGrid[node[0]][node[1]].wall = false
                 this.setState({ grid: modifiedGrid })
-            }, this.props.animationSpeed * i)
+            }, (this.props.animationSpeed * i) + 500)
         }
 
         setTimeout(() => {
             const [start, end] = startAndEndNodes
             this.updateStart(start[0], start[1])
             this.updateEnd(end[0], end[1])
-        }, (this.props.animationSpeed * visitedNodesLen) + 500)
+        }, (this.props.animationSpeed * visitedNodesLen) + 1000)
     }
 
     // reset the certain conditions
