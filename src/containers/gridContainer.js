@@ -212,7 +212,7 @@ export default class GridContainer extends React.Component {
             this.setState({
                 isCurrentlyAnimating: !this.state.isCurrentlyAnimating
             })
-        }, (this.state.animationSpeed * pathLen) + (this.state.animationSpeed * visitedNodesLen) + 500)
+        }, (this.props.animationSpeed * pathLen) + (this.props.animationSpeed * visitedNodesLen) + 500)
 
         //animate visited nodes first followed by path (set on a timer after visited nodes are done animating)
         setTimeout(() => {
@@ -223,9 +223,9 @@ export default class GridContainer extends React.Component {
                     grid[node[0]][node[1]].visited = false
                     grid[node[0]][node[1]].path = true
                     this.setState({ grid: grid })
-                }, this.state.animationSpeed * i)
+                }, this.props.animationSpeed * i)
             }
-        }, visitedNodesLen * this.state.animationSpeed + 500)
+        }, visitedNodesLen * this.props.animationSpeed + 500)
 
 
         const grid = this.state.grid
@@ -234,13 +234,13 @@ export default class GridContainer extends React.Component {
                 const node = visited[i];
                 grid[node[0]][node[1]].visited = true
                 this.setState({ grid: grid })
-            }, this.state.animationSpeed * i)
+            }, this.props.animationSpeed * i)
         }
 
         if (distance !== undefined) {
             console.log(
                 "Relative time it took to find end-node:", 
-                visitedNodesLen * this.state.animationSpeed /1000, "seconds.", 
+                visitedNodesLen * this.props.animationSpeed /1000, "seconds.", 
                 "Using", this.state.algorithm, "algorithm, on", this.state.mode, "mode,", "with a total distance of", distance
             ) 
         } else {
@@ -265,7 +265,7 @@ export default class GridContainer extends React.Component {
             this.setState({
                 isCurrentlyAnimating: !this.state.isCurrentlyAnimating
             })
-        }, (this.state.animationSpeed * visitedNodesLen) + 500)
+        }, (this.props.animationSpeed * visitedNodesLen) + 500)
 
 
         for (let row = 0; row < modifiedGrid.length; row ++) {
@@ -285,14 +285,14 @@ export default class GridContainer extends React.Component {
                 const node = visitedNodes[i];
                 modifiedGrid[node[0]][node[1]].wall = false
                 this.setState({ grid: modifiedGrid })
-            }, this.state.animationSpeed * i)
+            }, this.props.animationSpeed * i)
         }
 
         setTimeout(() => {
             const [start, end] = startAndEndNodes
             this.updateStart(start[0], start[1])
             this.updateEnd(end[0], end[1])
-        }, (this.state.animationSpeed * visitedNodesLen) + 500)
+        }, (this.props.animationSpeed * visitedNodesLen) + 500)
     }
 
     // reset the certain conditions
