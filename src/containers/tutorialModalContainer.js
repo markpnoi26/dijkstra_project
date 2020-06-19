@@ -56,7 +56,10 @@ export default class TutorialModalContainer extends React.Component {
             
                 <Modal 
                     isOpen={this.props.isTutorialOpen} 
-                    style={modalStyle}>
+                    style={modalStyle}
+                    ariaHideApp={false}
+                >
+                    
                     <TutorialCard 
                         title={modalSelection[this.state.current].title}
                         img={modalSelection[this.state.current].img}
