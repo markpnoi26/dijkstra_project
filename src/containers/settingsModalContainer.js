@@ -33,12 +33,15 @@ export default class SettingsModalContainer extends React.Component {
             <Modal
                 isOpen={this.props.isSettingsOpen}
                 style={modalStyle}
+                ariaHideApp={false}
             >
                 <Settings 
-                    currentSpeed={this.props.animationSpeed}
+                    animationSpeed={this.props.animationSpeed}
                     rowSize={this.props.rowSize}
                     colSize={this.props.colSize}
                     closeSettingsModal={this.props.closeSettingsModal}
+
+                    updateAnimationSpeed={this.props.updateAnimationSpeed}
                 />
             </Modal>
         )
