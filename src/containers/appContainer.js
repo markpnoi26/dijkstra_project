@@ -2,6 +2,7 @@ import React from 'react'
 import GridContainer from './gridContainer'
 import LegendContainer from './legendContainer'
 import TutorialContainer from './tutorialModalContainer'
+import SettingsContainer from './settingsModalContainer'
 import '../component-styles/app.css'
 
 
@@ -14,7 +15,8 @@ class AppContainer extends React.Component {
             rowSize: 35,
             colSize: 61,
             isTutorialOpen: true,
-            isSettingsOpen: false
+            isSettingsOpen: false,
+            isGridAnimating: false
         }
     }
 
@@ -24,9 +26,35 @@ class AppContainer extends React.Component {
         })
     }
 
+    updateColSize = (newColSize) => {
+        this.setState({
+            colSize: newColSize
+        })
+    }
+
+    updateRowSize = (newRowSize) => {
+        this.setState({
+            rowSize: newRowSize
+        })
+    }
+
+
     updateTutorialModal = () => {
         this.setState({
             isTutorialOpen: !this.state.isTutorialOpen
+        })
+    }
+
+    updateSettingsModal = () => {
+        this.setState({
+            isSettingsOpen: !this.state.isSettingsOpen
+        })
+    }
+
+
+    updateIsGridAnimating = () => {
+        this.setState({
+            isGridAnimating: !this.state.isGridAnimating
         })
     }
     
@@ -35,21 +63,36 @@ class AppContainer extends React.Component {
             <div className="app-wrapper">
                 <TutorialContainer 
                     isTutorialOpen={this.state.isTutorialOpen}
-                    closeModal={this.updateTutorialModal}
-                    openModal={this.updateTutorialModal}
+                    closeTutorialModal={this.updateTutorialModal}
+                />
+
+                <SettingsContainer
+                    isSettingsOpen={this.state.isSettingsOpen}
+
+                    animationSpeed={this.state.animationSpeed}
+                    colSize={this.state.colSize}
+                    rowSize={this.state.rowSize}
+
+                    closeSettingsModal={this.updateSettingsModal}
+                    updateAnimationSpeed={this.updateAnimationSpeed}
+                    updateRowSize={this.updateRowSize}
+                    updateColSize={this.updateColSize}
                 />
                 
                 <GridContainer 
                     animationSpeed={this.state.animationSpeed}
                     colSize={this.state.colSize}
                     rowSize={this.state.rowSize}
+
+                    updateIsGridAnimating={this.updateIsGridAnimating}
                 />
 
-                <LegendContainer 
-                
-                />
+                <LegendContainer />
 
-                <button className="tutorial-button" onClick={this.updateTutorialModal}> open tutorial </button>
+                <div>
+                    <button className="tutorial-button" onClick={this.updateTutorialModal} disabled={this.isGridAnimating}> Tutorial </button>
+                    <button className="tutorial-button" onClick={this.updateSettingsModal} disabled={this.isGridAnimating}> Settings </button>
+                </div>
             </div>
         )
     }
