@@ -53,23 +53,23 @@ export default class TutorialModalContainer extends React.Component {
             }
         };
         return(
-            <div>
+            
                 <Modal 
-                isOpen={this.props.isTutorialOpen} 
-                style={modalStyle}>
+                    isOpen={this.props.isTutorialOpen} 
+                    style={modalStyle}>
                     <TutorialCard 
                         title={modalSelection[this.state.current].title}
                         img={modalSelection[this.state.current].img}
                         alt={modalSelection[this.state.current].img}
                         description={modalSelection[this.state.current].description}
 
-                        closeModal={this.props.closeModal}
+                        closeModal={this.props.closeTutorialModal}
                         prevPage={this.prevPage}
                         nextPage={this.nextPage}
                         current={this.state.current}
                     />
                 </Modal>
-            </div>
+            
         )
     }
 }
