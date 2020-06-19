@@ -64,8 +64,6 @@ class AppContainer extends React.Component {
 
                     closeSettingsModal={this.updateSettingsModal}
                     updateAnimationSpeed={this.updateAnimationSpeed}
-                    updateRowSize={this.updateRowSize}
-                    updateColSize={this.updateColSize}
                 />
                 
                 <GridContainer 
@@ -80,7 +78,7 @@ class AppContainer extends React.Component {
 
                 <div>
                     <button className="tutorial-button" onClick={this.updateTutorialModal} disabled={this.isGridAnimating}> Tutorial </button>
-                    <button className="tutorial-button" onClick={this.updateSettingsModal} disabled={this.isGridAnimating}> Settings </button>
+                    <button className="tutorial-button" onClick={this.updateSettingsModal} disabled={this.isGridAnimating}> Animation Speed Settings </button>
                 </div>
             </div>
         )
