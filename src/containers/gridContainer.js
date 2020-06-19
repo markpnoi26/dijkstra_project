@@ -295,7 +295,7 @@ export default class GridContainer extends React.Component {
             const [start, end] = startAndEndNodes
             this.updateStart(start[0], start[1])
             this.updateEnd(end[0], end[1])
-        }, this.props.animationSpeed * visitedNodesLen)
+        }, (this.props.animationSpeed * visitedNodesLen) + 500)
     }
 
     // reset the certain conditions
