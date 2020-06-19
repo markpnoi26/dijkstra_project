@@ -1,5 +1,5 @@
 import React from 'react'
-import '../component-styles/tutorialCard.css'
+import '../component-styles/modal.css'
 import welcome from '../tutorial-public/welcome.gif'
 import moveStart from '../tutorial-public/moveStart.gif'
 import moveEnd from '../tutorial-public/moveEnd.gif'
@@ -54,7 +54,7 @@ export default class TutorialCard extends React.Component{
 
     render() {
         return (
-            <div className="tutorial-card">
+            <div className="modal-card">
                 <h1 className="tutorial-header"> {this.props.title? this.props.title:this.state.defaultTitle} </h1>
                 <div className="tutorial-img-holder">
                     <img 
