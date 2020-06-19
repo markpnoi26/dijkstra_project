@@ -205,13 +205,15 @@ export default class GridContainer extends React.Component {
         const visitedNodesLen = visited.length
 
         // disable buttons while animating for a set amount of time.
+        // also disables tutorial and settings button which resides in parent component
+        this.props.updateIsGridAnimating()
         this.setState({
             isCurrentlyAnimating: !this.state.isCurrentlyAnimating
         })
         setTimeout(() => {
             this.setState({
                 isCurrentlyAnimating: !this.state.isCurrentlyAnimating
-            })
+            }, this.props.updateIsGridAnimating())
         }, (this.props.animationSpeed * pathLen) + (this.props.animationSpeed * visitedNodesLen) + 500)
 
         //animate visited nodes first followed by path (set on a timer after visited nodes are done animating)
@@ -257,14 +259,15 @@ export default class GridContainer extends React.Component {
         const [visitedNodes, startAndEndNodes] = recursiveBacktrackerMaze(this.state.grid)
         const visitedNodesLen = visitedNodes.length
 
-        // disable buttons while animating for a set amount of time.
+        // disable buttons while animating for a set amount of time. Includes parent component buttons
+        this.props.updateIsGridAnimating()
         this.setState({
             isCurrentlyAnimating: !this.state.isCurrentlyAnimating
         })
         setTimeout(() => {
             this.setState({
                 isCurrentlyAnimating: !this.state.isCurrentlyAnimating
-            })
+            }, this.props.updateIsGridAnimating())
         }, (this.props.animationSpeed * visitedNodesLen) + 500)
 
 
