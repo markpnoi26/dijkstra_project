@@ -13,7 +13,8 @@ class AppContainer extends React.Component {
             animationSpeed: 15,
             rowSize: 35,
             colSize: 61,
-            isTutorialOpen: true
+            isTutorialOpen: true,
+            isSettingsOpen: false
         }
     }
 
