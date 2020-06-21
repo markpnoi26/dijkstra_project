@@ -16,10 +16,10 @@ export default class SettingsModalContainer extends React.Component {
             },
             content: {
                 position: 'absolute',
-                top: '25rem',
+                top: '15rem',
                 left: '10rem',
                 right: '10rem',
-                bottom: '25rem',
+                bottom: '15rem',
                 border: '1px solid #ccc',
                 background: '#fff',
                 overflow: 'auto',
