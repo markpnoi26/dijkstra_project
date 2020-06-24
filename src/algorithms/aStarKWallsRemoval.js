@@ -3,7 +3,7 @@ const aStarKWallsRemoval = (board, start, end, mode = "rook", wallBreak = 1) => 
     const colMax = board[0].length
     const rowMax = board.length
 
-    // const distancesVal = new Array(board.length)
+    const nodesVisitedTracker = new Array(board.length)
     const heuristicVal = new Array(board.length)
     const totalCost = new Array(board.length)
 
@@ -21,7 +21,7 @@ const aStarKWallsRemoval = (board, start, end, mode = "rook", wallBreak = 1) => 
     const nodesVisited = []
 
     for (let row = 0; row < board.length; row++) {
-        // distancesVal[row] = new Array(board[0].length).fill(Infinity)
+        nodesVisitedTracker[row] = new Array(board[0].length).fill(false)
         totalCost[row] = new Array(board[0].length).fill(Infinity)
         heuristicVal[row] = new Array(board[0].length)
         for (let col = 0; col < board[0].length; col++) {
@@ -66,7 +66,7 @@ const aStarKWallsRemoval = (board, start, end, mode = "rook", wallBreak = 1) => 
         if (deQ) {
             // check all directions, and add to priority queue
             const directions = moves[mode]
-            nodesVisited.push([curRow, curCol])
+            if (!nodesVisitedTracker[curRow][curCol]) nodesVisited.push([curRow, curCol])
 
             for (let direction of directions) {
                 let dRow = curRow + direction[0]
