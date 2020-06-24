@@ -34,7 +34,7 @@ const modalSelection = [
         img: "randomMaze",
         description: "'Generate Random Maze' button will trigger a maze generating algorithm that uses the recursive backtracking. The grid will update on how the maze is created starting from node [1,1] (indexed @ 0). Start and End Nodes are randomly selected after the generation of the maze.",
         links: [
-            ['How recursive backtracking works.', 'https://en.wikipedia.org/wiki/Maze_generation_algorithm']
+            ['How Recursive Backtracking Works', 'https://en.wikipedia.org/wiki/Maze_generation_algorithm']
         ]
     },
     {
@@ -42,7 +42,7 @@ const modalSelection = [
         img: "welcome",
         description: "There are 4 selections of different algorithms. DFS (depth first search), BFS (breath first search), Dijkstra's shortest Path, and A*. Each has a unique set of rules on how to traverse the grid. Dijkstra's and A* both guarantee to have the shortest path between start and end nodes for majority of cases. A* is a modification of Dijkstra's algorithm, with a much 'smarter' way of searching for the end node, by using a hueristic value. By default Dijkstra's algorithm uses 0 as the hueristic value for all the nodes. BFS and Dijkstra share a similar pattern of exploration, but differ in priority. Dijkstra and A* will show more valueable in situations where resistance nodes exist. While BFS will treat each node the same, Dijkstra and A* will ALWAYS attemp to find the shortest possible path. If the shortest path is desired for ALL cases, Dijkstra's shortest path is the universal standard, because there are some very rare cases where A* does not find the shortest path. Links below for more information",
         links: [
-            ["More About A* Algorithms",'https://en.wikipedia.org/wiki/A*_search_algorithm'],
+            ["More about A* Search Algorithm",'https://en.wikipedia.org/wiki/A*_search_algorithm'],
             ["Heuristic Explanations", 'http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html']
         ]
     },

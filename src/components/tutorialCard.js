@@ -75,11 +75,11 @@ export default class TutorialCard extends React.Component{
                         {this.props.description? this.props.description: this.state.defaultDescription}
                     </p>
                 </div>
-                <ul style={{display: this.props.links === undefined? 'none':""}}>
+                <div style={{display: this.props.links === undefined? 'none':"inline-block"}}>
                     {this.props.links !== undefined? this.props.links.map((link, linkIdx) => {
-                        return (<li key={linkIdx}><a href={link[1]}> {link[0]} </a></li>)
+                        return (<div key={linkIdx}><a href={link[1]}> {link[0]} </a></div>)
                     }): <></>}
-                </ul>
+                </div>
                 
                 <div><h4>{this.props.current+1}/12</h4></div>
                 <button className="tutorial-button" onClick={this.props.closeModal}> Close </button>
