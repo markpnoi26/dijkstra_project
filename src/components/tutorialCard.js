@@ -77,7 +77,7 @@ export default class TutorialCard extends React.Component{
                 </div>
                 <div style={{display: this.props.links === undefined? 'none':"inline-block"}}>
                     {this.props.links !== undefined? this.props.links.map((link, linkIdx) => {
-                        return (<div key={linkIdx}><a href={link[1]}> {link[0]} </a></div>)
+                        return (<div key={linkIdx}><a target="_blank" rel="noopener noreferrer" href={link[1]}> {link[0]} </a></div>)
                     }): <></>}
                 </div>
                 
