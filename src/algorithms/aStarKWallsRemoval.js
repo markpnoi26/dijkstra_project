@@ -89,7 +89,7 @@ const aStarKWallsRemoval = (board, start, end, mode = "rook", wallBreak = 1) => 
                     // calculate the lowest cost and add into 
                     if (board[dRow][dCol].wall && curWallBreak > 0) {
                         const dKey = `${dRow}-${dCol}-${curWallBreak-1}`
-                        if (cost < totalCost[dRow][dCol] && (uniquePathDistances[dKey] === undefined || distanceFromStart < uniquePathDistances[dKey])) {
+                        if (uniquePathDistances[dKey] === undefined || distanceFromStart < uniquePathDistances[dKey]) {
                             uniquePathDistances[dKey] = distanceFromStart
                             totalCost[dRow][dCol] = cost
                             previousNode[dKey] = [curRow, curCol, curWallBreak]
@@ -98,7 +98,7 @@ const aStarKWallsRemoval = (board, start, end, mode = "rook", wallBreak = 1) => 
 
                     } else if (!board[dRow][dCol].wall) {
                         const dKey = `${dRow}-${dCol}-${curWallBreak}`
-                        if (cost < totalCost[dRow][dCol] && (uniquePathDistances[dKey] === undefined || distanceFromStart < uniquePathDistances[dKey])) {
+                        if (uniquePathDistances[dKey] === undefined || distanceFromStart < uniquePathDistances[dKey]) {
                             uniquePathDistances[dKey] = distanceFromStart
                             totalCost[dRow][dCol] = cost
                             previousNode[dKey] = [curRow, curCol, curWallBreak]
