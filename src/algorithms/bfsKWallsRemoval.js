@@ -52,7 +52,10 @@ const bfsKWallsRemoval = (board, start, end, mode="rook", wallBreak=1) => {
         if (deQ) {
             // check all directions, and add to priority queue
             const directions = moves[mode]
-            if (nodesVisitedTracker[curRow][curCol])nodesVisited.push([curRow, curCol])
+            if (nodesVisitedTracker[curRow][curCol] === false) {
+                nodesVisitedTracker[curRow][curCol] = true
+                nodesVisited.push([curRow, curCol])
+            } 
             
             for (let direction of directions) {
                 let dRow = curRow + direction[0]
