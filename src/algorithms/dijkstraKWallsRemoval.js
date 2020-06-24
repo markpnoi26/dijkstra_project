@@ -3,7 +3,7 @@ const dijkstraKWallsRemoval = (board, start, end, mode = "rook", wallBreak = 1) 
     const rowMax = board.length
     const uniquePathDistances = {}
     const previousNode = {}
-    const queue = new Queue()
+    const queue = new PriorityQueue()
     const moves = {
         queen: [[0, 1], [1, 0], [0, -1], [-1, 0], [1, 1], [1, -1], [-1, -1], [-1, 1]],
         bishop: [[1, 1], [1, -1], [-1, -1], [-1, 1]],
@@ -79,7 +79,7 @@ const dijkstraKWallsRemoval = (board, start, end, mode = "rook", wallBreak = 1) 
     return [[], nodesVisited]
 }
 
-class Queue {
+class PriorityQueue {
     constructor() {
         this.values = []
     }
