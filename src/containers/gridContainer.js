@@ -19,6 +19,7 @@ export default class GridContainer extends React.Component {
         super(props)
         this.state = {
             mode: "rook",
+            wallsToRemove: 0,
             algorithm: "dijkstra",
             selection: "buildWall",
             isMovingStart: false,
@@ -121,6 +122,15 @@ export default class GridContainer extends React.Component {
         })
     }
 
+    handleWallsToRemoveChange = (event) => {
+        this.setState({
+            wallsToRemove: event.target.value
+        }, () => {
+            console.log("current walls to remove:", this.state.wallsToRemove)
+        })
+    }
+
+
     // updates the wall 
 
     addWall = (row, col) => {
@@ -184,21 +194,15 @@ export default class GridContainer extends React.Component {
     runSelectedAlgorithm = () => {
         switch (this.state.algorithm) {
             case "dijkstra":
-                return dijkstra(this.state.grid, this.state.start, this.state.end, this.state.mode);
+                return dijkstraKWallsRemoval(this.state.grid, this.state.start, this.state.end, this.state.mode, this.state.wallsToRemove);
             case "aStar":
-                return aStar(this.state.grid, this.state.start, this.state.end, this.state.mode);
+                return aStarKWallsRemoval(this.state.grid, this.state.start, this.state.end, this.state.mode, this.state.wallsToRemove);
             case "bfs":
-                return bfs(this.state.grid, this.state.start, this.state.end, this.state.mode);
+                return bfsKWallsRemoval(this.state.grid, this.state.start, this.state.end, this.state.mode, this.state.wallsToRemove);
             case "dfs":
                 return dfs(this.state.grid, this.state.start, this.state.end, this.state.mode);
-            case "bfsKWallsRemoval":
-                return bfsKWallsRemoval(this.state.grid, this.state.start, this.state.end, this.state.mode)
-            case "dijkstraKWallsRemoval":
-                return dijkstraKWallsRemoval(this.state.grid, this.state.start, this.state.end, this.state.mode)
-            case "aStarKWallsRemoval":
-                return aStarKWallsRemoval(this.state.grid, this.state.start, this.state.end, this.state.mode)
             default:
-                return bfs(this.state.grid, this.state.start, this.state.end, this.state.mode)
+                return bfs(this.state.grid, this.state.start, this.state.end, this.state.mode, 0)
         }
     }
 
@@ -422,8 +426,10 @@ export default class GridContainer extends React.Component {
                     handleSelectionChange={this.handleSelectionChange}
                     handleAlgorithmChange={this.handleAlgorithmChange}
                     handleModeChange={this.handleModeChange}
+                    handleWallsToRemoveChange={this.handleWallsToRemoveChange}
 
                     isCurrentlyAnimating={this.state.isCurrentlyAnimating}
+                    currentWallsToRemove={this.state.wallsToRemove}
                     currentSelection={this.state.selection}
                     currentAlgorithm={this.state.algorithm}
                     currentMode={this.state.mode}
