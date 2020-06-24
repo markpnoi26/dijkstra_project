@@ -55,7 +55,7 @@ const bfsKWallsRemoval = (board, start, end, mode="rook", wallBreak=1) => {
                     const distanceFromStart = deQ.weight + board[dRow][dCol].weight
                     if (board[dRow][dCol].wall && curWallBreak > 0) {
                         const dKey = `${dRow}-${dCol}-${curWallBreak-1}`
-                        if (uniquePathDistances[dKey] === undefined || distanceFromStart < uniquePathDistances[dKey]) {
+                        if (uniquePathDistances[dKey] === undefined) {
                             const dKey = `${dRow}-${dCol}-${curWallBreak-1}`
                             uniquePathDistances[dKey] = distanceFromStart
                             previousNode[dKey] = [curRow, curCol, curWallBreak]
@@ -63,7 +63,7 @@ const bfsKWallsRemoval = (board, start, end, mode="rook", wallBreak=1) => {
                         }
                     } else if (!board[dRow][dCol].wall) {
                         const dKey = `${dRow}-${dCol}-${curWallBreak}`
-                        if (uniquePathDistances[dKey] === undefined || distanceFromStart < uniquePathDistances[dKey]) {
+                        if (uniquePathDistances[dKey] === undefined) {
                             const dKey = `${dRow}-${dCol}-${curWallBreak}`
                             uniquePathDistances[dKey] = distanceFromStart
                             previousNode[dKey] = [curRow, curCol, curWallBreak]
