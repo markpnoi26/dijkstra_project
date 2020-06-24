@@ -21,7 +21,8 @@ export default class NavBar extends React.Component {
                         <option value="aStar">A*</option>
                         <option value="dfs">DFS</option>
                         <option value="bfs">BFS</option>
-                        <option value="bfsKWallsRemoval"> BFS (1) Wall Removal</option>
+                        <option value="dijkstraKWallsRemoval"> Dijkstra w/ (1) Wall Removal</option>
+                        <option value="bfsKWallsRemoval"> BFS w/ (1) Wall Removal</option>
                     </select>
                     <label className="label-name"> Mode: </label>
                     <select className="drop-down" value={this.props.currentMode} onChange={this.props.handleModeChange} disabled={this.props.isCurrentlyAnimating}> 
