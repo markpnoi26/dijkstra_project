@@ -32,7 +32,10 @@ const modalSelection = [
     {
         title: "Random Maze Generator",
         img: "randomMaze",
-        description: "'Generate Random Maze' button will trigger a maze generating algorithm that uses the recursive backtracking. The grid will update on how the maze is created starting from node [1,1] (indexed @ 0). Start and End Nodes are randomly selected after the generation of the maze."
+        description: "'Generate Random Maze' button will trigger a maze generating algorithm that uses the recursive backtracking. The grid will update on how the maze is created starting from node [1,1] (indexed @ 0). Start and End Nodes are randomly selected after the generation of the maze.",
+        links: [
+            ['How recursive backtracking works.', 'https://en.wikipedia.org/wiki/Maze_generation_algorithm']
+        ]
     },
     {
         title: "Algorithms Selection",
@@ -46,17 +49,26 @@ const modalSelection = [
     {
         title: "Mode: Rook",
         img: "rookMode",
-        description: "Selecting Rook mode causes vertical and horizontal node traversal. Rook mode can only traverse towards nodes until the algorithm hits a wall, finds a turn, or find the end node. (note: in chess, this is how the rook moves.)"
+        description: "Selecting Rook mode causes vertical and horizontal node traversal. Rook mode can only traverse towards nodes until the algorithm hits a wall, finds a turn, or find the end node. (note: in chess, this is how the rook moves.)",
+        links: [
+            ['Chess Piece (Rook)', "https://en.wikipedia.org/wiki/Rook_(chess)"]
+        ]
     },
     {
         title: "Mode: Bishop",
         img: "bishopMode",
-        description: "Selecting Bishop mode causes the diagonal node traversal. Bishop mode can only traverse towards nodes until the algorithm hits a corner, finds another free diagonal direction, or find the end node. Bishop mode can move through corners allowing it to jump walls if the corners are not sealed. It is entirely possible for the end node to be undiscoverable if the nodes do not fall within diagonal search parameters. (note: in chess, this is how the bishop moves.) "
+        description: "Selecting Bishop mode causes the diagonal node traversal. Bishop mode can only traverse towards nodes until the algorithm hits a corner, finds another free diagonal direction, or find the end node. Bishop mode can move through corners allowing it to jump walls if the corners are not sealed. It is entirely possible for the end node to be undiscoverable if the nodes do not fall within diagonal search parameters. (note: in chess, this is how the bishop moves.) ",
+        links: [
+            ['Chess Piece (Bishop)', "https://en.wikipedia.org/wiki/Bishop_(chess)"]
+        ]
     },
     {
         title: "Mode: Queen",
         img: "queenMode",
-        description: "Selecting Queen mode causes diagonal, horizontal, and vertical node traversals. Queen mode can move through corners allowing it to jump walls if the corners are not sealed, and is not limited to only diagonal search patterns. This is the best mode for finding the most efficient route from Start to End nodes. (note: in chess, this is how the queen moves, making it one of the most versatile pieces.)"
+        description: "Selecting Queen mode causes diagonal, horizontal, and vertical node traversals. Queen mode can move through corners allowing it to jump walls if the corners are not sealed, and is not limited to only diagonal search patterns. This is the best mode for finding the most efficient route from Start to End nodes. (note: in chess, this is how the queen moves, making it one of the most versatile pieces.)",
+        links: [
+            ['Chess Piece (Queen)', "https://en.wikipedia.org/wiki/Queen_(chess)"]
+        ]
     },
     {
         title: "Other Features!",
