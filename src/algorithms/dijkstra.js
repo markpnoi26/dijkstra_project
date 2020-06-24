@@ -15,8 +15,6 @@ const dijkstra = (board, start, end, mode="rook") => {
     const shortestPath = []
     const nodesVisited = []
 
-    let deQ;
-
     for (let row=0; row<board.length; row++) {
         distancesVal[row] = new Array(board[0].length).fill(Infinity)
     }
@@ -26,7 +24,7 @@ const dijkstra = (board, start, end, mode="rook") => {
     queue.enqueue(start, 0) 
 
     while (queue.values.length) {
-        deQ = queue.dequeue()
+        const deQ = queue.dequeue()
         const curRow = deQ.node[0]
         const curCol = deQ.node[1]
         
