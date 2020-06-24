@@ -1,6 +1,9 @@
 const bfsKWallsRemoval = (board, start, end, mode="rook", wallBreak=1) => {
+
     const colMax = board[0].length
     const rowMax = board.length
+
+    const nodesVisitedTracker = new Array(board.length)
     const uniquePathDistances = {}
     const previousNode = {}
     const queue = new Queue()
@@ -14,6 +17,10 @@ const bfsKWallsRemoval = (board, start, end, mode="rook", wallBreak=1) => {
     const shortestPath = []
     const nodesVisited = []
 
+    for (let row = 0; row < board.length; row++) {
+        nodesVisitedTracker[row] = new Array(board[0].length).fill(false)
+    }
+    
     uniquePathDistances[`${start[0]}-${start[1]}-${wallBreak}`] = 0
     previousNode[`${start[0]}-${start[1]}-${wallBreak}`] = "none"
 
@@ -45,7 +52,7 @@ const bfsKWallsRemoval = (board, start, end, mode="rook", wallBreak=1) => {
         if (deQ) {
             // check all directions, and add to priority queue
             const directions = moves[mode]
-            nodesVisited.push([curRow, curCol])
+            if (nodesVisitedTracker[curRow][curCol])nodesVisited.push([curRow, curCol])
             
             for (let direction of directions) {
                 let dRow = curRow + direction[0]
