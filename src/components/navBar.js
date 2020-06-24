@@ -19,11 +19,23 @@ export default class NavBar extends React.Component {
                     <select className="drop-down" value={this.props.currentAlgorithm} onChange={this.props.handleAlgorithmChange} disabled={this.props.isCurrentlyAnimating}> 
                         <option value="dijkstra">Dijkstra Shortest Path</option>
                         <option value="aStar">A*</option>
-                        <option value="dfs">DFS</option>
                         <option value="bfs">BFS</option>
-                        <option value="dijkstraKWallsRemoval"> Dijkstra w/ (1) Wall Removal</option>
-                        <option value="aStarKWallsRemoval"> A* w/ (1) Wall Removal</option>
-                        <option value="bfsKWallsRemoval"> BFS w/ (1) Wall Removal</option>
+                        <option value="dfs">DFS (no wall removal)</option>
+                    </select>
+
+                    <label className="label-name"> Walls To Remove: </label>
+                    <select className="drop-down" value={this.props.currentWallsToRemove} onChange={this.props.handleWallsToRemoveChange} disabled={this.props.isCurrentlyAnimating}>
+                        <option value={0}>0</option>
+                        <option value={1}>1</option>
+                        <option value={2}>2</option>
+                        <option value={3}>3</option>
+                        <option value={4}>4</option>
+                        <option value={5}>5</option>
+                        <option value={6}>6</option>
+                        <option value={7}>7</option>
+                        <option value={8}>8</option>
+                        <option value={9}>9</option>
+                        <option value={10}>10</option>
                     </select>
 
                     
