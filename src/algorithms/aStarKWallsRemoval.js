@@ -5,7 +5,7 @@ const aStarKWallsRemoval = (board, start, end, mode = "rook", wallBreak = 1) => 
 
     const nodesVisitedTracker = new Array(board.length)
     const heuristicVal = new Array(board.length)
-    const totalCost = new Array(board.length)
+    // const totalCost = new Array(board.length)
 
     const uniquePathDistances = {}
     const previousNode = {}
@@ -22,7 +22,7 @@ const aStarKWallsRemoval = (board, start, end, mode = "rook", wallBreak = 1) => 
 
     for (let row = 0; row < board.length; row++) {
         nodesVisitedTracker[row] = new Array(board[0].length).fill(false)
-        totalCost[row] = new Array(board[0].length).fill(Infinity)
+        // totalCost[row] = new Array(board[0].length).fill(Infinity)
         heuristicVal[row] = new Array(board[0].length)
         for (let col = 0; col < board[0].length; col++) {
             if (mode === "bishop" || mode === "queen") {
@@ -91,7 +91,7 @@ const aStarKWallsRemoval = (board, start, end, mode = "rook", wallBreak = 1) => 
                         const dKey = `${dRow}-${dCol}-${curWallBreak-1}`
                         if (uniquePathDistances[dKey] === undefined || distanceFromStart < uniquePathDistances[dKey]) {
                             uniquePathDistances[dKey] = distanceFromStart
-                            totalCost[dRow][dCol] = cost
+                            // totalCost[dRow][dCol] = cost
                             previousNode[dKey] = [curRow, curCol, curWallBreak]
                             queue.enqueue([dRow, dCol], distanceFromStart, cost, curWallBreak-1)
                         }
@@ -100,7 +100,7 @@ const aStarKWallsRemoval = (board, start, end, mode = "rook", wallBreak = 1) => 
                         const dKey = `${dRow}-${dCol}-${curWallBreak}`
                         if (uniquePathDistances[dKey] === undefined || distanceFromStart < uniquePathDistances[dKey]) {
                             uniquePathDistances[dKey] = distanceFromStart
-                            totalCost[dRow][dCol] = cost
+                            // totalCost[dRow][dCol] = cost
                             previousNode[dKey] = [curRow, curCol, curWallBreak]
                             queue.enqueue([dRow, dCol], distanceFromStart, cost, curWallBreak)
                         }
