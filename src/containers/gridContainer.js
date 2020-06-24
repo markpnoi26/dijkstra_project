@@ -5,6 +5,7 @@ import dijkstra from '../algorithms/dijkstra'
 import aStar from '../algorithms/aStar'
 import bfs from '../algorithms/bfs'
 import dfs from '../algorithms/dfs'
+import bfsKWallsRemoval from '../algorithms/bfsKWallsRemoval'
 import recursiveBacktrackerMaze from '../algorithms/recursiveBacktrackerMaze'
 
 import '../component-styles/gridContainer.css'
@@ -188,6 +189,8 @@ export default class GridContainer extends React.Component {
                 return bfs(this.state.grid, this.state.start, this.state.end, this.state.mode);
             case "dfs":
                 return dfs(this.state.grid, this.state.start, this.state.end, this.state.mode);
+            case "bfsKWallsRemoval":
+                return bfsKWallsRemoval(this.state.grid, this.state.start, this.state.end, this.state.mode)
             default:
                 return bfs(this.state.grid, this.state.start, this.state.end, this.state.mode)
         }
