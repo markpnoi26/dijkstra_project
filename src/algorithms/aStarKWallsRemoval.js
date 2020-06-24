@@ -5,7 +5,7 @@ const aStarKWallsRemoval = (board, start, end, mode = "rook", wallBreak = 1) => 
 
     const nodesVisitedTracker = new Array(board.length)
     const heuristicVal = new Array(board.length)
-    // const totalCost = new Array(board.length)
+    // need a new modified heuristicalVal for wall break for more efficiency
 
     const uniquePathDistances = {}
     const previousNode = {}
@@ -22,7 +22,6 @@ const aStarKWallsRemoval = (board, start, end, mode = "rook", wallBreak = 1) => 
 
     for (let row = 0; row < board.length; row++) {
         nodesVisitedTracker[row] = new Array(board[0].length).fill(false)
-        // totalCost[row] = new Array(board[0].length).fill(Infinity)
         heuristicVal[row] = new Array(board[0].length)
         for (let col = 0; col < board[0].length; col++) {
             if (mode === "bishop" || mode === "queen") {
@@ -32,7 +31,6 @@ const aStarKWallsRemoval = (board, start, end, mode = "rook", wallBreak = 1) => 
             }
         }
     }
-    // distancesVal[start[0]][start[1]] = 0
 
     uniquePathDistances[`${start[0]}-${start[1]}-${wallBreak}`] = 0
     previousNode[`${start[0]}-${start[1]}-${wallBreak}`] = "none"
@@ -91,7 +89,6 @@ const aStarKWallsRemoval = (board, start, end, mode = "rook", wallBreak = 1) => 
                         const dKey = `${dRow}-${dCol}-${curWallBreak-1}`
                         if (uniquePathDistances[dKey] === undefined || distanceFromStart < uniquePathDistances[dKey]) {
                             uniquePathDistances[dKey] = distanceFromStart
-                            // totalCost[dRow][dCol] = cost
                             previousNode[dKey] = [curRow, curCol, curWallBreak]
                             queue.enqueue([dRow, dCol], distanceFromStart, cost, curWallBreak-1)
                         }
@@ -100,7 +97,6 @@ const aStarKWallsRemoval = (board, start, end, mode = "rook", wallBreak = 1) => 
                         const dKey = `${dRow}-${dCol}-${curWallBreak}`
                         if (uniquePathDistances[dKey] === undefined || distanceFromStart < uniquePathDistances[dKey]) {
                             uniquePathDistances[dKey] = distanceFromStart
-                            // totalCost[dRow][dCol] = cost
                             previousNode[dKey] = [curRow, curCol, curWallBreak]
                             queue.enqueue([dRow, dCol], distanceFromStart, cost, curWallBreak)
                         }
@@ -129,7 +125,9 @@ class PriorityQueue {
 
 
     sort = () => {
-        this.values.sort((a, b) => a.cost - b.cost)
+        this.values.sort((a, b) => {
+            return a.cost - b.cost || a.wallBreakLeft - b.wallBreakLeft
+        })
     }
 
 }
