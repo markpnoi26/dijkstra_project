@@ -55,9 +55,9 @@ const modalSelection = [
         description: "Selecting Queen mode causes diagonal, horizontal, and vertical node traversals. Queen mode can move through corners allowing it to jump walls if the corners are not sealed, and is not limited to only diagonal search patterns. This is the best mode for finding the most efficient route from Start to End nodes. (note: in chess, this is how the queen moves, making it one of the most versatile pieces.)"
     },
     {
-        title: "Start Path Visualization",
+        title: "Other Features!",
         img: "startPathFinding",
-        description: "Once you have your grid set up, pressing on Start Path Finding will animate the path finding algorithm of your choice. It will first show the visited nodes, then visualize the a path towards the end node if it exists, in the case of Dijkstra and A*, this will be the shortest path of least resistance."
+        description: "Once you have your grid set up, you can also choose if the algorithm has the ability to bypass walls for more efficiency. Pressing on Start Path Finding will animate the path finding algorithm of your choice. It will first show the visited nodes, then visualize a path towards the end node if it exists, in the case of Dijkstra and A*, this will be the shortest path of least resistance and if any walls are subject to removal, the algorithm will account for possible shortcuts to aim for the shortest path."
     }
 
 ]

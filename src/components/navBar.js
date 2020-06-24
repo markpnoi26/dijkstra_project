@@ -23,7 +23,7 @@ export default class NavBar extends React.Component {
                         <option value="dfs">DFS (no wall removal)</option>
                     </select>
 
-                    <label className="label-name"> Walls To Remove: </label>
+                    <label className="label-name"> Walls to Bypass: </label>
                     <select className="drop-down" value={this.props.currentWallsToRemove} onChange={this.props.handleWallsToRemoveChange} disabled={this.props.isCurrentlyAnimating}>
                         <option value={0}>0</option>
                         <option value={1}>1</option>
