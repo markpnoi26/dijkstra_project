@@ -27,10 +27,10 @@ export default class GridContainer extends React.Component {
             isBuilding: false,
             isTearing: false,
             isCurrentlyAnimating: false,
-            originalStart: [17, 5],
-            originalEnd: [17, 55],
-            start: [17, 5],
-            end: [17, 55],
+            originalStart: [Math.floor(this.props.rowSize/2), Math.floor(this.props.colSize/4)],
+            originalEnd: [Math.floor(this.props.rowSize / 2), Math.floor(this.props.colSize / 4)*3],
+            start: [Math.floor(this.props.rowSize / 2), Math.floor(this.props.colSize / 4)],
+            end: [Math.floor(this.props.rowSize / 2), Math.floor(this.props.colSize / 4) * 3],
             animationSpeed: 15,
             grid: []
         }

@@ -61,8 +61,8 @@ class GridNode extends React.Component {
     }
 
     // the props is passed from parent, but activated on mouseDown/mouseUp event => handled by parent.
-    handleMouseOver = () => {
-
+    handleMouseOver = (event) => {
+        event.stopPropagation()
         if (this.props.isMovingStart) {
             this.props.updateStart(this.state.row, this.state.col)
         }
@@ -107,8 +107,8 @@ class GridNode extends React.Component {
             <div 
                 className={`node ${this.setClass()}`}
                 id={`node-row-${this.state.row}-col-${this.state.col}`}
-                onMouseEnter={this.handleMouseOver} 
-                onMouseOver={this.handleMouseOver} 
+                onMouseEnter={(event) => this.handleMouseOver(event)} 
+                onMouseOver={(event) => this.handleMouseOver(event)} 
                 onMouseDown={(event) => this.props.handleMouseEvent(event, this.state.row, this.state.col)} 
                 onMouseUp={this.props.handleMouseEvent}>
                     {this.setImage()}
