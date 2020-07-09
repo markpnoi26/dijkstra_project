@@ -403,6 +403,14 @@ export default class GridContainer extends React.Component {
         )
     }
 
+    setDisableClass = () => {
+        if (this.state.isCurrentlyAnimating) {
+            return "container-is-frozen"
+        } else {
+            return ""
+        }
+    }
+
     // life cycle method to generate and mount the newly created grid.
     componentDidMount = () => {
         // Mount the created grid
@@ -436,7 +444,7 @@ export default class GridContainer extends React.Component {
                     currentMode={this.state.mode}
                 />
 
-                <div className="grid-container" >
+                <div className={`grid-container ${this.setDisableClass()}`} >
                     {this.state.grid.map((row, rowIdx) => {
                         return this.fillRow(rowIdx)
                     })}
