@@ -382,6 +382,7 @@ export default class GridContainer extends React.Component {
                         isTearing={this.state.isTearing}
                         isMovingStart={this.state.isMovingStart}
                         isMovingEnd={this.state.isMovingEnd}
+                        isCurrentlyAnimating={this.state.isCurrentlyAnimating}
 
                         updateStart={this.updateStart} 
                         updateEnd={this.updateEnd} 

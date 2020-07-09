@@ -16,6 +16,7 @@ class GridNode extends React.Component {
 
     setClass = () => {
 
+
         // start class
         if (this.props.start && !this.props.path) return "node-is-start"
         if (this.props.end && !this.props.path) return "node-is-end"
@@ -34,6 +35,10 @@ class GridNode extends React.Component {
         if (this.props.weight === 1 && this.props.visited) return "node-visited"
         else return ""
 
+    }
+
+    setDisableClass = () => {
+        return this.props.currentlyAnimating? "node-is-frozen": ""
     }
 
     setImage = () => {
@@ -105,7 +110,7 @@ class GridNode extends React.Component {
         // onMouseLeave is placed so the painting starts at the node that was clicked.
         return (
             <div 
-                className={`node ${this.setClass()}`}
+                className={`node ${this.setClass()} ${this.setDisableClass()}`}
                 id={`node-row-${this.state.row}-col-${this.state.col}`}
                 onMouseEnter={(event) => this.handleMouseOver(event)} 
                 onMouseOver={(event) => this.handleMouseOver(event)} 
