@@ -248,3 +248,9 @@ img {
     -moz-user-drag: none;
     -o-user-drag: none;
 }
+
+
+.node-is-frozen {
+    pointer-events: none;
+}
+
