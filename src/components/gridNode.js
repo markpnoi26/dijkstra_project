@@ -37,10 +37,6 @@ class GridNode extends React.Component {
 
     }
 
-    setDisableClass = () => {
-        return this.props.isCurrentlyAnimating? "node-is-frozen": ""
-    }
-
     setImage = () => {
         const imageStyle = {
             width: "100%",
@@ -110,7 +106,7 @@ class GridNode extends React.Component {
         // onMouseLeave is placed so the painting starts at the node that was clicked.
         return (
             <div 
-                className={`node ${this.setClass()} ${this.setDisableClass()}`}
+                className={`node ${this.setClass()}`}
                 id={`node-row-${this.state.row}-col-${this.state.col}`}
                 onMouseEnter={(event) => this.handleMouseOver(event)} 
                 onMouseOver={(event) => this.handleMouseOver(event)} 
