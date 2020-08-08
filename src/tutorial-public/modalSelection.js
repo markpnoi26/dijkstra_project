@@ -27,12 +27,12 @@ const modalSelection = [
     {
         title: "Manipulate Grid: Toggle Node Resistance",
         img: "toggleResistance",
-        description: "Selecting 'Toggle Resistance', will allow you click a node repeatedly until the desired resistance is achieved. By default all nodes have a resistance equal to 1 and will show as an empty node, clicking will toggle different resistance (3 & 5 respectively), after that, it resets back to 1."
+        description: "Selecting 'Toggle Resistance', will allow you click a node repeatedly cycling between different node resistance values. By default all nodes have a resistance value of 1 and will show as an empty node, clicking will toggle different resistances (1-default, 3 & 5). Added resistance means that it takes 3x or 5x the effort for certain algorithms to explore the node before moving to the next one, such is the case for Dijkstra's Shortest Path and A* search."
     },
     {
         title: "Random Maze Generator",
         img: "randomMaze",
-        description: "'Generate Random Maze' button will trigger a maze generating algorithm that uses the recursive backtracking. The grid will update on how the maze is created starting from node [1,1] (indexed @ 0). Start and End Nodes are randomly selected after the generation of the maze.",
+        description: "'Generate Random Maze' button will trigger a maze generating algorithm that uses the recursive backtracking pattern. The grid will animate how the maze is created starting from node [1,1] (indexed as [0,0]). Start and End Nodes are then randomly selected after the maze is generated.",
         links: [
             ['How Recursive Backtracking Works', 'https://en.wikipedia.org/wiki/Maze_generation_algorithm']
         ]
@@ -40,7 +40,7 @@ const modalSelection = [
     {
         title: "Algorithms Selection",
         img: "welcome",
-        description: "There are 4 selections of different algorithms. DFS (depth first search), BFS (breath first search), Dijkstra's shortest Path, and A*. Each has a unique set of rules on how to traverse the grid. Dijkstra's and A* both guarantee to have the shortest path between start and end nodes for majority of cases. A* is a modification of Dijkstra's algorithm, with a much 'smarter' way of searching for the end node, by using a hueristic value. By default Dijkstra's algorithm uses 0 as the hueristic value for all the nodes. BFS and Dijkstra share a similar pattern of exploration, but differ in priority. Dijkstra and A* will show more valueable in situations where resistance nodes exist. While BFS will treat each node the same, Dijkstra and A* will ALWAYS attemp to find the shortest possible path. If the shortest path is desired for ALL cases, Dijkstra's shortest path is the universal standard, because there are some very rare cases where A* does not find the shortest path. Links below for more information",
+        description: "There are 4 selections of different algorithms. DFS (depth first search), BFS (breath first search), Dijkstra's shortest path, and A*. Each have a unique set of rules on how to traverse the grid. Dijkstra's and A* both guarantee to have the shortest path between start and end nodes for majority of cases. A* is a modification of Dijkstra's algorithm, and by design has a calculated way of searching for the end node faster by using a hueristic value. By default, Dijkstra's algorithm uses 0 as the hueristic value for all the nodes. BFS and Dijkstra share a similar pattern of exploration, but differ in priority, this is true for mazes that contain resistance nodes. While BFS will treat each node the same, Dijkstra and A* will ALWAYS attempt to find the shortest possible and least resistive path. If the shortest path is desired for all cases, Dijkstra's shortest path is the universal standard, because there are some very rare cases where A* does not find the shortest path. Links below for more information",
         links: [
             ["More about A* Search Algorithm",'https://en.wikipedia.org/wiki/A*_search_algorithm'],
             ["Heuristic Explanations", 'http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html']
